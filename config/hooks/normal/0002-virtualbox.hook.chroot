@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: virtualbox"
+
+umask 022
+
+if [ -x /etc/init.d/virtualbox-guest-utils ]; then
+    update-rc.d virtualbox-guest-utils disable
+fi
+
+exit 0

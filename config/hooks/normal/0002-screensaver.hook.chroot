@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+echo "I: screensaver"
+
+umask 022
+
+if dpkg -s xscreensaver | grep '^Status:.*[^-]installed$'; then
+
+    if [ -d /etc/X11/Xsession.d ]; then
+	cat > /etc/X11/Xsession.d/10x11-xscreensaver << EOF
+if [ -x /usr/bin/xscreensaver ]; then
+    /usr/bin/xscreensaver -no-splash &
+fi
+EOF
+	chmod a+r /etc/X11/Xsession.d/10x11-xscreensaver
+    fi
+
+    if [ -w /etc/X11/app-defaults/XScreenSaver-gl ]; then
+	sed -i 's/\*mode:.*/\*mode: blank/g'          /etc/X11/app-defaults/XScreenSaver-gl
+	sed -i 's/\*fade:.*/\*fade: False/g'          /etc/X11/app-defaults/XScreenSaver-gl
+	sed -i 's/\*cycle:.*/\*cycle: 0:00:00/g'      /etc/X11/app-defaults/XScreenSaver-gl
+	sed -i 's/\*timeout:.*/\*timeout: 12:00:00/g' /etc/X11/app-defaults/XScreenSaver-gl
+	sed -i 's/\*textMode:.*/\*textMode: date/g'   /etc/X11/app-defaults/XScreenSaver-gl
+	sed -i 's/\(^\*newLoginCommand:.*\)/!\1/g'    /etc/X11/app-defaults/XScreenSaver-gl
+    fi
+
+    if [ -w /etc/X11/app-defaults/XScreenSaver-nogl ]; then
+	sed -i 's/\*mode:.*/\*mode: blank/g'          /etc/X11/app-defaults/XScreenSaver-nogl
+	sed -i 's/\*fade:.*/\*fade: False/g'          /etc/X11/app-defaults/XScreenSaver-nogl
+	sed -i 's/\*cycle:.*/\*cycle: 0:00:00/g'      /etc/X11/app-defaults/XScreenSaver-nogl
+	sed -i 's/\*timeout:.*/\*timeout: 12:00:00/g' /etc/X11/app-defaults/XScreenSaver-nogl
+	sed -i 's/\*textMode:.*/\*textMode: date/g'   /etc/X11/app-defaults/XScreenSaver-nogl
+	sed -i 's/\(^\*newLoginCommand:.*\)/!\1/g'    /etc/X11/app-defaults/XScreenSaver-nogl
+    fi
+    
+fi
+    
+exit 0

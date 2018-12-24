@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/opt/kaspersky/klnagent/lib/bin/setup/klnagent_setup.pl
+
+exit 0

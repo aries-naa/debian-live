@@ -1,0 +1,3 @@
+#!/bin/sh
+
+useradd -m -d /home/alex -g users -G disk,dialout,cdrom,floppy,sudo,audio,video,kvm,plugdev -s /bin/zsh -u 1000 alex

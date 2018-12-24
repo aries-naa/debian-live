@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: sane"
+
+umask 022
+
+if [ -x /etc/init.d/saned ]; then
+    update-rc.d saned disable
+fi
+
+exit 0

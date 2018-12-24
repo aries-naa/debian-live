@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+echo "I: isc-dhcp"
+
+umask 022
+
+if [ -x /etc/init.d/isc-dhcp-relay ]; then
+    update-rc.d isc-dhcp-relay disable
+fi
+
+if [ -x /etc/init.d/isc-dhcp-server ]; then
+    update-rc.d isc-dhcp-server disable
+fi
+
+exit 0

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [ -x /usr/bin/startkde ]; then
+    exec /usr/bin/startkde
+fi

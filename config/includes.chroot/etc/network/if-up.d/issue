@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[ -n "$IFACE" ]       || exit 0
+[ ! "$IFACE" = "lo" ] || exit 0
+
+/usr/local/sbin/issue-netboot
+
+if [ "$IFACE" != "--all" ]; then
+    /usr/local/sbin/issue-add $IFACE
+fi

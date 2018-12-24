@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: cups"
+
+umask 022
+
+if [ -w /etc/cups/cupsd.conf ]; then
+
+    sed -i 's/^Listen localhost/#Listen localhost/g' /etc/cups/cupsd.conf
+
+fi
+
+exit 0

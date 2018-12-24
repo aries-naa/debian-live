@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DEV=sdc
+DIR=$(pwd)
+
+if pmount ${DEV}2; then
+    pushd /media/${DEV}2
+    sudo /sbin/restore -rf ${DIR}/persistence.img
+    popd
+    pumount ${DEV}2
+fi

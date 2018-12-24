@@ -1,0 +1,70 @@
+#!/bin/sh
+
+set -e
+
+echo "I: nagios"
+
+umask 022
+
+if [ -x /etc/init.d/nagios3 ]; then
+    update-rc.d nagios3 disable
+fi
+
+if [ -w /etc/default/nagios3 ]; then
+    sed -i 's/^ENABLED=.*/ENABLED="no"/g' /etc/default/nagios3
+fi
+
+if [ -w /etc/nagios3/apache2.conf ]; then
+
+    cat > /etc/nagios3/apache2.conf << EOF
+ScriptAlias /cgi-bin/nagios3 /usr/lib/cgi-bin/nagios3
+ScriptAlias /nagios3/cgi-bin /usr/lib/cgi-bin/nagios3
+Alias /nagios3/stylesheets /etc/nagios3/stylesheets
+Alias /nagios3 /usr/share/nagios3/htdocs
+
+<Location /cgi-bin/nagios3/cmd.cgi>
+        Options FollowSymLinks
+        DirectoryIndex index.php index.html
+        AllowOverride AuthConfig
+        Require all denied
+        AuthName "Nagios Access"
+        AuthType Basic
+        AuthUserFile /etc/nagios3/htpasswd.users
+        Require valid-user
+</Location>
+
+<DirectoryMatch (/usr/share/nagios3/htdocs|/usr/lib/cgi-bin/nagios3|/etc/nagios3/stylesheets)>
+        Options FollowSymLinks
+        DirectoryIndex index.php index.html
+        AllowOverride AuthConfig
+        Order Allow,Deny
+        Allow From All
+        Require all granted
+</DirectoryMatch>
+
+<Directory /usr/share/nagios3/htdocs>
+        Options +ExecCGI
+</Directory>
+EOF
+
+fi
+
+if [ -w /etc/nagios3/cgi.cfg ]; then
+    sed -i 's/^.*default_user_name=.*$/default_user_name=guest/g' /etc/nagios3/cgi.cfg
+    sed -i 's/authorized_for_all_services=.*/authorized_for_all_services=*/g' /etc/nagios3/cgi.cfg
+    sed -i 's/authorized_for_all_hosts=.*/authorized_for_all_hosts=*/g' /etc/nagios3/cgi.cfg
+fi
+
+if [ -w /etc/nagios3/nagios.cfg ]; then
+    sed -i 's/check_external_commands=.*$/check_external_commands=1/g' /etc/nagios3/nagios.cfg
+fi
+
+if [ -w /etc/nagios3/conf.d/localhost_nagios2.cfg ]; then
+    sed -i 's/check_all_disks!20%!10%/check_disk!20%!10%!\//g' /etc/nagios3/conf.d/localhost_nagios2.cfg
+fi
+
+if [ -d /etc/nagios3 -a ! -e /etc/nagios3/htpasswd.users ]; then
+    htpasswd -bc /etc/nagios3/htpasswd.users nagiosadmin nagiosadmin
+fi
+
+exit 0

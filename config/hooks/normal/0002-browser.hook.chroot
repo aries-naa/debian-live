@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+echo "I: browser"
+
+umask 022
+
+BROWSER=""
+if [ -e /usr/bin/iceweasel ]; then
+    BROWSER=/usr/bin/iceweasel
+elif [ -e /usr/bin/firefox ]; then
+     BROWSER=/usr/bin/firefox
+elif [ -e /usr/bin/chromium ]; then
+    BROWSER=/usr/bin/chromium
+fi
+
+if [ -n "${BROWSER}" -a -e /etc/alternatives/x-www-browser ]; then
+    update-alternatives --install /usr/bin/x-www-browser x-www-browser ${BROWSER} 70
+    update-alternatives --quiet --set x-www-browser ${BROWSER}
+fi
+
+exit 0

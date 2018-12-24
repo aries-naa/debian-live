@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: rsync"
+
+umask 022
+
+if [ -x /etc/init.d/rsync ]; then
+    update-rc.d rsync disable
+fi
+
+exit 0

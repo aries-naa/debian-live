@@ -1,0 +1,416 @@
+#!/bin/sh
+
+set -e
+
+image="esk"
+
+echo "I: $image"
+
+umask 022
+
+image_index () {
+
+    image_name=${1}
+    image_list=${2}
+
+    index=0
+    for image in ${image_list}; do
+
+	index=$(expr ${index} + 1)
+
+	if [ "${image_name}" = "${image}" ]; then
+	    printf "%02d0\n" ${index}
+	    return
+	fi
+    done
+}
+
+image_type=${LIVE_IMAGE_TYPE}
+
+# индекс образа для монтирования.
+index=$(image_index "${image}" "${LB_TASK}")
+
+if [ -n "${index}" ]; then
+
+    image_name="z${index}-${image}.squashfs"
+
+    mkdir -p ../chroot.${image}
+    mkdir -p ../chroot.${image}/etc/pam.d/
+
+    # изменить конфигурацию pam
+    if [ -w ../chroot/usr/share/pam-configs/pam_script ]; then
+	
+	mkdir -p ../chroot.${image}/usr/share/pam-configs/
+	cp ../chroot/usr/share/pam-configs/pam_script ../chroot.${image}/usr/share/pam-configs
+	
+	sed -i 's/: Primary/: Additional/g'    ../chroot.${image}/usr/share/pam-configs/pam_script
+	sed -i 's/sufficient/optional/g'       ../chroot.${image}/usr/share/pam-configs/pam_script
+	sed -i 's/Priority:.*/Priority: 129/g' ../chroot.${image}/usr/share/pam-configs/pam_script
+	sed -i '/Password:/,+1 d'              ../chroot.${image}/usr/share/pam-configs/pam_script
+	sed -i '/Password-Type:.*/ d'          ../chroot.${image}/usr/share/pam-configs/pam_script
+    fi
+
+#
+# PAM: common-account
+#
+    cat > ../chroot.${image}/etc/pam.d/common-account << EOF
+# live generated
+account [success=1 new_authtok_reqd=done default=ignore] pam_unix.so
+account requisite                                        pam_deny.so
+account required                                         pam_permit.so
+EOF
+
+    if dpkg --root ../chroot -s libpam-krb5 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-account << EOF
+account required                                         pam_krb5.so
+EOF
+    fi
+    if dpkg --root ../chroot -s libpam-script 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-account << EOF
+account optional                                         pam_script.so
+EOF
+    fi
+
+#
+# PAM: common-session
+#
+    cat > ../chroot.${image}/etc/pam.d/common-session << EOF
+# live generated
+session required                        pam_permit.so
+session required                        pam_unix.so
+EOF
+
+    if dpkg --root ../chroot -s libpam-krb5 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-session << EOF
+session optional                        pam_krb5.so
+EOF
+    fi
+    if dpkg --root ../chroot -s libpam-modules 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-session << EOF
+session optional                        pam_mkhomedir.so umask=0077
+EOF
+    fi
+    if dpkg --root ../chroot -s libpam-script 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-session << EOF
+session optional                        pam_script.so
+EOF
+    fi
+    if dpkg --root ../chroot -s libpam-mount 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-session << EOF
+#session optional                        pam_mount.so
+EOF
+    fi
+
+#
+# PAM: common-password
+#
+    echo "# live generated" > ../chroot.${image}/etc/pam.d/common-password
+    if dpkg --root ../chroot -s libpam-krb5 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-password << EOF
+password        [success=2 default=ignore]    pam_krb5.so
+EOF
+    fi
+    cat >> ../chroot.${image}/etc/pam.d/common-password << EOF
+password        [success=1 default=ignore]    pam_unix.so obscure use_authtok try_first_pass sha512
+password        requisite                     pam_deny.so
+password        required                      pam_permit.so
+EOF
+
+#
+# PAM: common-auth
+#
+    echo "# live generated" > ../chroot.${image}/etc/pam.d/common-auth
+    if dpkg --root ../chroot -s libpam-krb5 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-auth << EOF
+auth    [success=3 user_unknown=1 default=ignore] pam_krb5.so
+auth    [success=2 default=1]                     pam_unix.so nullok_secure use_first_pass
+EOF
+    fi
+    cat >> ../chroot.${image}/etc/pam.d/common-auth << EOF
+auth    [success=1 default=ignore]                pam_unix.so nullok_secure try_first_pass
+auth    requisite                                 pam_deny.so
+auth    required                                  pam_permit.so
+EOF
+    if dpkg --root ../chroot -s libpam-script 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-auth << EOF
+auth    optional                                  pam_script.so
+EOF
+    fi
+    if dpkg --root ../chroot -s libpam-mount 2>/dev/null >/dev/null; then
+	cat >> ../chroot.${image}/etc/pam.d/common-auth << EOF
+#auth    optional                                  pam_mount.so
+EOF
+    fi
+
+    if [ -w ../chroot/etc/krb5.conf ]; then
+	cat > ../chroot.${image}/etc/krb5.conf << EOF
+[libdefaults]
+default_realm    = REGION.CBR.RU
+kdc_timesync     = 1
+ccache_type      = 4
+forwardable      = true
+proxiable        = true
+
+[realms]
+  REGION.CBR.RU = {
+    kdc          = dc75-region01.region.cbr.ru
+    admin_server = dc75-region01.region.cbr.ru
+    kdc          = dc75-region02.region.cbr.ru
+    admin_server = dc75-region02.region.cbr.ru
+    kdc          = region.cbr.ru
+    admin_server = region.cbr.ru
+  }
+
+[appdefaults]
+  pam = {
+    minimum_uid    = 1000
+    ignore_k5login = true
+  }
+EOF
+    fi
+
+    if [ -d ../chroot/usr/share/libpam-script ]; then
+	mkdir -p ../chroot.${image}/usr/share/libpam-script
+	cp ../chroot/usr/share/doc/libpam-script/examples/pam_script ../chroot.${image}/usr/share/libpam-script
+	ln -sf pam_script ../chroot.${image}/usr/share/libpam-script/pam_script_auth
+	ln -sf pam_script ../chroot.${image}/usr/share/libpam-script/pam_script_acct
+	ln -sf pam_script ../chroot.${image}/usr/share/libpam-script/pam_script_passwd
+	ln -sf pam_script ../chroot.${image}/usr/share/libpam-script/pam_script_ses_open
+	ln -sf pam_script ../chroot.${image}/usr/share/libpam-script/pam_script_ses_close
+    fi
+
+    if [ -w ../chroot/etc/security/pam_mount.conf.xml ]; then
+	mkdir -p ../chroot.${image}/etc/security
+	cat > ../chroot.${image}/etc/security/pam_mount.conf.xml << EOF
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
+
+<pam_mount>
+
+<!-- Домашний каталог unix в домашнем каталоге windows :)) -->
+<volume uid="7502000-7599999" fstype="cifs"
+  server="s75ctxfs.chel.cbr.ru"
+  path="Home/%(USER).REGION"
+  mountpoint="/home/%(USER)"
+  options="iocharset=utf8,file_mode=0600,dir_mode=0700,dynperm,noserverino" />
+
+<debug enable="0" />
+<mntoptions allow="*" />
+<mntoptions require="nosuid,nodev" />
+<path>/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin</path>
+
+<!-- pam_mount parameters: Volume-related -->
+<fsckloop device="/dev/loop7" />
+<mkmountpoint enable="1" remove="true" />
+
+<!-- pam_mount parameters: Auxiliary programs -->
+<fd0ssh>pmt-fd0ssh</fd0ssh>
+<fsck>fsck -p %(FSCKTARGET)</fsck>
+<lsof>lsof %(MNTPT)</lsof>
+
+<!-- mntcheck utility for BSDs which lack /etc/mtab -->
+<mntcheck>mount</mntcheck>
+<pmvarrun>pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
+
+<!-- pam_mount parameters: Mount programs -->
+<cifsmount>mount.cifs //%(SERVER)/%(VOLUME) %(MNTPT) -o
+    "user=%(USER),domain=REGION,uid=%(USERUID),gid=%(USERGID),%(OPTIONS)"</cifsmount>
+
+<msg-authpw>pam_mount password:</msg-authpw>
+
+<msg-sessionpw>reenter password for pam_mount:</msg-sessionpw>
+
+</pam_mount>
+EOF
+    fi
+
+    # autofs
+    if [ -w ../chroot/etc/auto.master ]; then
+
+	cat > ../chroot.${image}/etc/auto.master << EOF
+/var/autofs/cifs-root /etc/auto.cifs-root --timeout=30
+EOF
+
+	cat > ../chroot.${image}/etc/auto.cifs-root << EOF
+#!/bin/sh
+/usr/local/bin/automap.cifs \$1 -u /root/.cifsmount -o uid=root,gid=root,iocharset=utf8,file_mode=0600,dir_mode=0700
+EOF
+	chmod a+rx ../chroot.${image}/etc/auto.cifs-root
+
+    fi
+
+    # root
+    echo "root:adminlive-esk" | sudo chroot ../chroot chpasswd -c SHA512
+    #sudo chroot chroot usermod --lock root
+
+    # user
+    sudo chroot ../chroot deluser --remove-home user
+
+    # nss_ldap
+    if dpkg --root ../chroot -s libnss-ldap 2>/dev/null >/dev/null; then
+
+	if [ -w ../chroot/etc/nsswitch.conf ]; then
+	    cp ../chroot/etc/nsswitch.conf ../chroot.${image}/etc
+	    sed -i 's/^\([^#].*\)ldap\(.*\)/\1\2/g'    ../chroot.${image}/etc/nsswitch.conf
+	    sed -i 's/^passwd:\(.*\)/passwd:\1 ldap/g' ../chroot.${image}/etc/nsswitch.conf
+	    sed -i 's/^group:\(.*\)/group:\1 ldap/g'   ../chroot.${image}/etc/nsswitch.conf
+	fi
+
+	cat > ../chroot.${image}/etc/libnss-ldap.conf << EOF
+uri ldap://dc75-region01.region.cbr.ru/ ldap://dc75-region02.region.cbr.ru/ ldap://region.region.cbr.ru/
+
+base ou=Chelyabinsk,dc=region,dc=cbr,dc=ru
+ldap_version 3
+
+binddn cn=75srv-netboot,ou=fs,ou=75groups,ou=Chelyabinsk,dc=region,dc=cbr,dc=ru
+bindpw 1qaz@WSX
+#rootuse_sasl yes
+
+bind_policy soft
+
+referrals on
+scope sub
+timelimit 30
+
+pam_login_attribute sAMAccountName
+pam_loockup_policy yes
+
+# passwd: uidNumber, gidNumber, loginShell, unixHomeDirectory.
+# group:  gidNumber.
+
+nss_base_passwd ou=Chelyabinsk,dc=region,dc=cbr,dc=ru?sub?&(objectClass=user)(uidNumber=*)
+nss_base_group  ou=Chelyabinsk,dc=region,dc=cbr,dc=ru?sub?&(objectClass=group)(gidNumber=*)
+
+nss_map_objectclass posixAccount user
+nss_map_objectclass posixGroup group
+
+nss_map_attribute uid sAMAccountName
+nss_map_attribute homeDirectory unixHomeDirectory
+nss_map_attribute uniqueMember member
+EOF
+
+	if [ -d ../chroot/etc/sudoers.d ]; then
+	    mkdir -p ../chroot.${image}/etc/sudoers.d/
+	    cat > ../chroot.${image}/etc/sudoers.d/75admins << EOF
+# администраторы подразделения ЕСК.
+%OU\\ Admins\\ -\\ Chelyabinsk ALL=(ALL:ALL) ALL
+
+# локальные администраторы компьютеров пользователей.
+#%75sg-local-admins ALL=(ALL:ALL) ALL
+EOF
+	fi
+    fi
+
+    # ntpdate
+    if [ -w ../chroot/etc/default/ntpdate ]; then
+	mkdir -p ../chroot.${image}/etc/default
+	cp ../chroot/etc/default/ntpdate ../chroot.${image}/etc/default
+	sed -i 's/^NTPSERVERS=.*/NTPSERVERS=\"75ntp\.chel\.cbr\.ru s75dc01\.chel\.cbr\.ru s75dc02\.chel\.cbr\.ru s75dc11\.chel\.cbr\.ru s75dc12\.chel\.cbr\.ru\"/g' ../chroot.${image}/etc/default/ntpdate
+    fi
+
+    # ntp
+    if [ -w ../chroot/etc/ntp.conf ]; then
+	sed -r -e '/^ *(server|peer).*$/d' ../chroot/etc/ntp.conf > ../chroot.${image}/etc/ntp.conf
+	echo server 75ntp.chel.cbr.ru   iburst >> ../chroot.${image}/etc/ntp.conf
+	echo server s75dc01.chel.cbr.ru iburst >> ../chroot.${image}/etc/ntp.conf
+	echo server s75dc02.chel.cbr.ru iburst >> ../chroot.${image}/etc/ntp.conf
+	echo server s75dc11.chel.cbr.ru iburst >> ../chroot.${image}/etc/ntp.conf
+	echo server s75dc12.chel.cbr.ru iburst >> ../chroot.${image}/etc/ntp.conf
+    fi
+
+    # samba
+    if [ -w ../chroot/etc/samba/smb.conf ]; then
+	mkdir -p ../chroot.${image}/etc/samba
+	cat > ../chroot.${image}/etc/samba/smb.conf << EOF
+[global]
+   workgroup = REGION
+   security = ADS
+   netbios name = s75live-esk
+   realm = REGION.CBR.RU
+   encrypt passwords = true
+   domain master = no
+   local master = no
+   preferred master = no
+   os level = 0
+   domain logons = no
+   allow trusted domains = yes
+
+   idmap config * : backend  = rid
+   idmap config * : range = 1000000000 - 2000000000
+
+   winbind enum users = yes
+   winbind enum groups = yes
+   winbind use default domain = no
+   winbind refresh tickets = yes
+
+   vfs objects = acl_xattr
+   map acl inherit = yes
+   store dos attributes = yes
+
+   template shell = /bin/zsh
+
+   log file = /var/log/samba/log.%m
+   log level = 10
+   max log size = 1000
+   server role = member server
+   usershare allow guests = yes
+
+[share]
+   path = /srv/samba/share
+   comment = share
+   browseable = yes
+   read only = no
+   hide unreadable = yes
+
+# net ads join -U '75NikolnikovAA$'
+# net sam rights grant 'REGION\OU Admins - Chelyabinsk' SeDiskOperatorPrivilege
+EOF
+    fi
+
+    # пароли.
+    cp -ar ../chroot/etc/shadow ../chroot.${image}/etc
+
+    # zsh
+    mkdir -p ../chroot.${image}/etc/skel
+    touch ../chroot.${image}/etc/skel/.zshrc
+
+    # hostname
+    echo live-esk > ../chroot.${image}/etc/hostname
+    echo 127.0.0.1 localhost live-esk > ../chroot.${image}/etc/hosts
+
+    # fstab
+    echo \#debugfs /sys/kernel/debug debugfs mode=755 0 0 >> ../chroot.${image}/etc/fstab
+    echo \#/dev/bus/usb /proc/bus/usb none bind 0 0 >> ../chroot.${image}/etc/fstab
+
+    # local includes
+    mkdir -p ../chroot.${image}
+    tar -cvf - -C ../config/includes.chroot.${image} . | sudo tar -xvf - --no-same-owner -C ../chroot.${image}
+
+    # proc-usb
+    if [ -d ../chroot/etc/modules-load.d ]; then
+	mkdir -p ../chroot.${image}/etc/modules-load.d
+	echo \#proc-usb > ../chroot.${image}/etc/modules-load.d/proc-usb.conf
+    fi
+    cat >> ../chroot.${image}/etc/rc.local << EOF
+# usbfs emulation
+if [ -e /sys/kernel/debug/usb/devices -a -d /proc/bus/usb ]; then
+    ln -sf /sys/kernel/debug/usb/devices /proc/bus/usb/devices
+fi
+
+exit 0
+EOF
+
+    chown -R root:root ../chroot.${image}/*
+    chmod -R go-rwx ../chroot.${image}/root
+    chown -R root:staff ../chroot.${image}/usr/local/*
+    chmod go-rwx ../chroot.${image}/var/autofs/cifs-root
+    find ../chroot.${image}/usr/local -type d -exec chmod g+rws {} \;
+    find ../chroot.${image}/usr/local -type f -exec chmod g+rw  {} \;
+
+    mksquashfs ../chroot.${image} live/${image_name}
+    chmod a-x live/${image_name}
+    chmod a+r live/${image_name}
+
+fi
+
+exit 0

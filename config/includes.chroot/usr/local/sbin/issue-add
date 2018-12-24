@@ -1,0 +1,15 @@
+#!/bin/sh
+
+interface=${1}
+ip_address=$(ip -4 addr show "${interface}" | awk '/.* inet .+/ {print $2}')
+
+sed -i "/^${interface}:.*/ d" /etc/issue
+if [ -n "${ip_address}" ]; then
+
+    ICOLOR=$(tput -Tlinux setaf 2)
+    NCOLOR=$(tput -Tlinux setaf 9)
+    TITLE="${interface}: ""${ICOLOR}""${ip_address}""${NCOLOR}"
+
+    sed -i "1 a ${TITLE}" /etc/issue
+
+fi

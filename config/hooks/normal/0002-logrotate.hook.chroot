@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: logrotate"
+
+umask 022
+
+if [ -w /etc/logrotate.d/rsyslog ]; then
+    sed -i '
+s/\(^[[:blank:]]*\)rotate.*/\1rotate 160/g
+s/\(^[[:blank:]]*\)daily.*/\1weekly/g' /etc/logrotate.d/rsyslog
+fi
+
+exit 0

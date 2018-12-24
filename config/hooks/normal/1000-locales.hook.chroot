@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+echo "I: generating locales"
+
+umask 022
+
+if [ -f /etc/locale.gen ]; then
+
+    sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+    #sed -i 's/# en_US ISO-8859-1/en_US ISO-8859-1/g' /etc/locale.gen
+    #sed -i 's/# en_US.ISO-8859-15 ISO-8859-15/en_US.ISO-8859-15 ISO-8859-15/g' /etc/locale.gen
+    sed -i 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/g' /etc/locale.gen
+    #sed -i 's/# ru_RU.CP1251 CP1251/ru_RU.CP1251 CP1251/g' /etc/locale.gen
+    #sed -i 's/# ru_RU.KOI8-R KOI8-R/ru_RU.KOI8-R KOI8-R/g' /etc/locale.gen
+    #sed -i 's/# ru_RU ISO-8859-5/ru_RU ISO-8859-5/g' /etc/locale.gen
+
+    /usr/sbin/locale-gen
+
+fi
+
+echo "I: update system locale"
+
+if [ -w /etc/default/locale ]; then
+
+    #update-locale LANG=ru_RU.UTF-8 LANGUAGE=ru_RU.UTF-8
+    update-locale LANG=en_US.UTF-8 LC_TIME=ru_RU.UTF-8 LC_MONETARY=ru_RU.UTF-8 \
+                  LC_NAME=ru_RU.UTF-8 LC_NUMERIC=ru_RU.UTF-8 LC_PAPER=ru_RU.UTF-8 \
+                  LC_MESSAGES=ru_RU.UTF-8
+
+fi
+
+exit 0

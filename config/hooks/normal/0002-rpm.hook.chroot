@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: rpm"
+
+if [ -w /usr/lib/rpm/macros ]; then
+
+    sed -i 's/^%_dbpath\([[:space:]]\+\).*/%_dbpath\1\/var\/lib\/rpm/g' /usr/lib/rpm/macros
+
+fi
+
+exit 0

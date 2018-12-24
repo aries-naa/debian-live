@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: fetchmail"
+
+umask 022
+
+if [ -x /etc/init.d/fetchmail ]; then
+    update-rc.d fetchmail disable
+fi
+
+exit 0

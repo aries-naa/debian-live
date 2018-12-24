@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: icaclient"
+
+umask 022
+
+if [ -d /opt/Citrix/ICAClient/nls ]; then
+    find /opt/Citrix/ICAClient/nls -type f -iname "module.ini" -exec rm -f {} \;
+fi
+
+exit 0

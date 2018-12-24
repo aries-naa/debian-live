@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -e
+
+exit 0
+
+echo "I: network"
+
+umask 022
+
+# устанавливается при конфигурировании образа.
+image_type=iso-hybrid
+
+if [ -w /etc/network/interfaces ]; then
+
+    ifupdown_ver=$(dpkg -l ifupdown | grep '^ii' | awk '{print $3}')
+    if dpkg --compare-versions "$ifupdown_ver" le "0.7.8"; then
+	
+	cat >> /etc/network/interfaces << EOF
+
+auto eth0
+iface eth0 inet dhcp
+EOF
+	
+    else
+	
+	cat >> /etc/network/interfaces << EOF
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+EOF
+
+    fi
+
+    # для netboot закомментировать все auto-интерфейсы кроме lo
+    if [ "$image_type" = "netboot" ]; then
+	sed -i 's/\(^auto.*\)/#\1/g' /etc/network/interfaces
+	sed -i 's/^#\(auto[[:space:]]\+lo.*\)/\1/g' /etc/network/interfaces
+    fi
+fi
+
+if [ -x /bin/ping ]; then
+    chmod u+s /bin/ping
+fi
+
+exit 0

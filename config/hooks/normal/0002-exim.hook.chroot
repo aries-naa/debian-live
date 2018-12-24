@@ -1,0 +1,132 @@
+#!/bin/sh
+
+set -e
+
+echo "I: exim"
+
+umask 022
+
+if [ -d /etc/cron.d -a -x /usr/sbin/exim4 ]; then
+
+    cat << EOF > /etc/cron.d/exim
+0 * * * *       root    /usr/sbin/exim4 -q 
+EOF
+
+fi
+
+if [ -w /etc/logrotate.d/exim4-base ]; then
+
+    cat << EOF > /etc/logrotate.dexim4-base
+/var/log/exim4/mainlog /var/log/exim4/rejectlog {
+        weekly
+        missingok
+        rotate 3
+        compress
+        delaycompress
+        notifempty
+        create 640 Debian-exim adm
+}
+EOF
+
+fi
+
+if [ -w /etc/logrotate.d/exim4-paniclog ]; then
+
+    cat << EOF > /etc/logrotate.d/exim4-paniclog
+/var/log/exim4/paniclog {
+        weekly
+        missingok
+        rotate 3
+        compress
+        delaycompress
+        notifempty
+        create 640 Debian-exim adm
+}
+EOF
+
+fi
+
+if [ -w /etc/exim4/update-exim4.conf.conf ]; then
+    sed -i 's/^dc_use_split_config=.*/dc_use_split_config='"'true'"'/g' /etc/exim4/update-exim4.conf.conf
+fi
+
+if [ -w /etc/exim4/conf.d/transport/30_exim4-config_mail_spool ]; then
+
+    cat << EOF > /etc/exim4/conf.d/transport/30_exim4-config_mail_spool
+
+### transport/30_exim4-config_mail_spool
+
+# This transport is used for local delivery to user mailboxes in traditional
+# BSD mailbox format.
+#
+mail_spool:
+  debug_print = "T: appendfile for \$local_part@\$domain"
+  driver = appendfile
+  directory = /var/mail/\$local_part
+  create_directory
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+  group = mail
+  mode = 0660
+  mode_fail_narrower = false
+  maildir_format
+EOF
+
+fi
+
+if [ -w /etc/exim4/conf.d/router/mmm_mail4root ]; then
+
+    cat << EOF > /etc/exim4/conf.d/router/mmm_mail4root
+
+### router/mmm_mail4root
+#################################
+# deliver mail addressed to root to /var/mail/mail as user mail:mail
+# if it was not redirected in /etc/aliases or by other means
+# Exim cannot deliver as root since 4.24 (FIXED_NEVER_USERS)
+
+mail4root:
+  debug_print = "R: mail4root for \$local_part@\$domain"
+  driver = redirect
+  domains = +local_domains
+  data = /var/mail/root/
+  directory_transport = address_directory
+  local_parts = root
+  user = mail
+  group = mail
+EOF
+
+fi
+
+if [ -w /etc/exim4/conf.d/router/900_exim4-config_local_user ]; then
+
+    cat << EOF > /etc/exim4/conf.d/router/900_exim4-config_local_user
+
+### router/900_exim4-config_local_user
+#################################
+
+# This router matches local user mailboxes. If the router fails, the error
+# message is "Unknown user".
+
+local_user:
+  debug_print = "R: local_user for $local_part@$domain"
+  driver = accept
+  domains = +local_domains
+  caseful_local_part = true
+  check_local_user
+  local_parts = ! root
+  transport = LOCAL_DELIVERY
+  cannot_route_message = Unknown user
+EOF
+
+fi
+
+if [ -x /usr/sbin/update-exim4.conf ]; then
+    /usr/sbin/update-exim4.conf
+fi
+
+if [ -f /etc/init.d/exim4 ]; then
+    update-rc.d -f exim4 disable
+fi
+
+exit 0

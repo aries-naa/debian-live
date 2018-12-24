@@ -1,0 +1,13 @@
+#!/bin/sh
+
+control="/opt/kaspersky/kes4lwks/bin/kes4lwks-control"
+libexec="/opt/kaspersky/kes4lwks/libexec"
+
+$control --register-app --use-path=$libexec/product_bl
+$control --install-active-key /root/config/antivirus/4A8E1B2C.key
+
+$control --set-settings $($control --get-task-list | awk -v 'RS=Name:' -F '\n' '{if (index($1, "Update") != 0) print $2}' | awk '{print $2}') CommonSettings.SourceType=AKServer
+$control --set-settings $($control --get-task-list | awk -v 'RS=Name:' -F '\n' '{if (index($1, "On-demand scan") != 0) print $2}' | awk '{print $2}') ScanPriority=Low
+$control --set-settings $($control --get-task-list | awk -v 'RS=Name:' -F '\n' '{if (index($1, "Custom scan") != 0) print $2}' | awk '{print $2}') ScanPriority=Low
+
+exit 0

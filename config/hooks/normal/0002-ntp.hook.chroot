@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: ntp"
+
+umask 022
+
+if [ -x /etc/init.d/ntp ]; then
+    update-rc.d ntp disable
+fi
+
+exit 0

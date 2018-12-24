@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+exit 0
+
+echo "I: fstab usbfs"
+
+umask 022
+
+if [ -w /etc/fstab ]; then
+    echo usbfs /proc/bus/usb usbfs defaults 0 0 >> /etc/fstab
+fi
+
+exit 0

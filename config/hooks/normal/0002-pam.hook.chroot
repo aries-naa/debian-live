@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: pam"
+
+if dpkg -s libpam-runtime | grep '^Status:.*[^-]installed$'; then
+    pam-auth-update --package --force --remove krb5 libpam-mount pam_script systemd
+fi
+
+if [ -d /etc/pam.d ]; then
+    rm -f /etc/pam.d/*.pam-old
+fi
+
+exit 0

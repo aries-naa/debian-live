@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+echo "I: ssh-server"
+
+umask 022
+
+if [ -x /usr/sbin/sshd ]; then
+
+    if [ -d /etc/xinetd.d ]; then
+
+	cat > /etc/xinetd.d/ssh << EOF
+service ssh
+{
+    disable     = yes
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    server      = /usr/sbin/sshd
+    server_args = -i
+}
+
+EOF
+	touch /etc/ssh/sshd_not_to_be_run
+    fi
+
+    if [ -x /etc/init.d/ssh ]; then
+	update-rc.d ssh disable
+    fi
+    
+    if [ -w /etc/ssh/sshd_config ]; then
+	sed -i 's/^\(PermitRootLogin.*\)/# LIVE\n# change to yes for password login\n\1/g' /etc/ssh/sshd_config
+	sed -i 's/\(.*PasswordAuthentication.*\)/# LIVE \n# change to yes for password login\n\1/g' /etc/ssh/sshd_config
+    fi
+
+fi
+
+exit 0

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+
+echo "I: ccid"
+
+umask 022
+
+if [ -w /etc/libccid_Info.plist ]; then
+
+    install_patch=0
+    if [ ! -x /usr/bin/patch ]; then
+	aptitude -y --allow-untrusted install patch
+	install_patch=1
+    fi
+
+    cat << EOF | patch /etc/libccid_Info.plist
+379a380
+>                 <string>0x17e4</string>
+654a656
+>                 <string>0x0051</string>
+929a932
+>                 <string>NXP Semiconductors SBI</string>
+
+EOF
+
+    if [ "$install_patch" = "1" ]; then
+	aptitude -y --allow-untrusted purge patch
+    fi
+    
+fi
+
+exit 0

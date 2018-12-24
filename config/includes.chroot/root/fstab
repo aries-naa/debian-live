@@ -1,0 +1,7 @@
+#
+LABEL="data" /mnt/storage auto user,suid,exec,dev 0 0
+#UUID="29c83d4f-8740-49a3-9882-3c48ab83b4c9" /mnt/storage auto user,suid,exec,dev 0 0
+
+# swap
+UUID="58c7529d-3b78-40e0-959d-56e23bc9fcd3" none swap sw 0 0
+UUID="dc619399-a1b2-461a-9c98-1b3a6e1ed80e" none swap sw 0 0

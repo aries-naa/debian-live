@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: sysstat"
+
+umask 022
+
+if [ -x /etc/init.d/sysstat ]; then
+    update-rc.d sysstat disable
+fi
+
+exit 0

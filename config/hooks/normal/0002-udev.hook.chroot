@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: udev"
+
+umask 022
+
+if [ -w /lib/udev/rules.d/75-persistent-net-generator.rules ]; then
+
+    rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
+
+fi
+
+exit 0

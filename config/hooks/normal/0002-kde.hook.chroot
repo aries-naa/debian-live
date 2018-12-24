@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: kde"
+
+umask 022
+
+if [ -w /usr/share/xsessions/plasma.desktop ]; then
+
+    sed -i 's/Name\[ru\]=\(.*\)/Name[ru]=Рабочий стол KDE/g' /usr/share/xsessions/plasma.desktop
+
+fi
+
+exit 0

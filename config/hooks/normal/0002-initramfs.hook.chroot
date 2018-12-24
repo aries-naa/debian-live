@@ -1,0 +1,35 @@
+#!/bin/sh
+
+set -e
+
+echo "I: initramfs"
+
+umask 022
+
+if [ -w /etc/initramfs-tools/initramfs.conf ]; then
+
+    cat >> /etc/initramfs-tools/initramfs.conf << EOF
+# Иначе в initrd не попадет блочные модули и соответственно
+# не будет работать persistence.
+MODULES=netboot
+MODULES=most
+BOOT=nfs
+NFSROOT=auto
+EOF
+
+fi
+
+if [ -w /etc/initramfs-tools/modules ]; then
+
+    cat >> /etc/initramfs-tools/modules << EOF
+des_generic
+ecb
+md4
+hmac
+arc4
+overlay
+EOF
+
+fi
+
+exit 0

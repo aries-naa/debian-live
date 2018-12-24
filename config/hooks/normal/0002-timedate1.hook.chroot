@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: timedate1"
+
+if grep -l '<action id="org.freedesktop.timedate1.' /usr/share/polkit-1/actions/* > /dev/null; then
+
+    if [ -d /etc/polkit-1/localauthority/50-local.d ]; then
+	cat > /etc/polkit-1/localauthority/50-local.d/40-timedate1.pkla << EOF
+[timedate1]
+Identity=unix-group:users
+Action=org.freedesktop.timedate1.set-time*
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+EOF
+    fi
+
+fi
+
+exit 0

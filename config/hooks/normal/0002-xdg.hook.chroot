@@ -1,0 +1,60 @@
+#!/bin/sh
+
+set -e
+
+echo "I: xdg"
+
+umask 022
+
+register_xdg_mime () {
+
+    mime_type=${1}
+    mime_application=${2}
+
+    if [ ! -f /etc/xdg/mimeapps.list ]; then
+	cat << EOF > /etc/xdg/mimeapps.list
+[Default Applications]
+EOF
+    fi
+
+    cat << EOF >> /etc/xdg/mimeapps.list
+${mime_type}=${mime_application};
+EOF
+
+}
+
+if [ -d /etc/xdg ]; then
+
+    if [ -f /usr/share/applications/FBReader.desktop ]; then
+	register_xdg_mime application/x-zip-compressed-fb2 FBReader.desktop
+	register_xdg_mime application/x-fictionbook+xml    FBReader.desktop
+    elif [ -f /usr/share/applications/kde4/okular.desktop ]; then
+	register_xdg_mime application/x-fictionbook+xml okular.desktop
+    fi
+
+    if [ -f /usr/share/applications/kde4/okular.desktop ]; then
+	register_xdg_mime application/pdf               okular.desktop
+	register_xdg_mime application/x-bzpdf           okular.desktop
+	register_xdg_mime application/x-gzpdf           okular.desktop
+	register_xdg_mime application/x-xzpdf           okular.desktop
+    elif [ -f /usr/share/applications/evince.desktop ]; then
+	register_xdg_mime application/pdf evince.desktop
+    fi
+
+    if [ -f /usr/share/applications/org.kde.showfoto.desktop ]; then
+	register_xdg_mime image/gif                org.kde.showfoto.desktop
+	register_xdg_mime image/x-xpixmap          org.kde.showfoto.desktop
+	register_xdg_mime image/jpeg               org.kde.showfoto.desktop
+	register_xdg_mime image/png                org.kde.showfoto.desktop
+	register_xdg_mime image/tiff               org.kde.showfoto.desktop
+	register_xdg_mime image/x-bmp              org.kde.showfoto.desktop
+	register_xdg_mime image/x-psd              org.kde.showfoto.desktop
+	register_xdg_mime image/x-portable-bitmap  org.kde.showfoto.desktop
+	register_xdg_mime image/x-portable-pixmap  org.kde.showfoto.desktop
+	register_xdg_mime image/x-portable-graymap org.kde.showfoto.desktop
+	register_xdg_mime image/x-dcraw            org.kde.showfoto.desktop
+    fi
+
+fi
+
+exit 0

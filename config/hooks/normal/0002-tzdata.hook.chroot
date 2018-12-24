@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+echo "I: tzdata"
+
+umask 022
+
+echo Asia/Yekaterinburg > /etc/timezone
+dpkg-reconfigure tzdata
+
+exit 0

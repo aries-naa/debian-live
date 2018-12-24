@@ -1,0 +1,10 @@
+#!/bin/sh
+
+DEV=sdc2
+
+backup=persistence-$(date +%Y.%m.%d).img
+
+if [ ! -e persistence.img ]; then
+    /sbin/dump -0 -j9 -f ${backup} /dev/${DEV}
+    ln -sf ${backup} persistence.img
+fi

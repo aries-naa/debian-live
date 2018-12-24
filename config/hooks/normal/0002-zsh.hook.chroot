@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -e
+
+echo "I: bash"
+
+umask 022
+
+if [ -w /etc/zsh/zshrc ]; then
+
+    cat >> /etc/zsh/zshrc << EOF
+
+alias ls="ls --color=auto"
+alias dir="dir --color=auto"
+alias vdir="vdir --color=auto"
+
+EOF
+
+fi
+
+if [ -w /etc/zsh/zshenv ]; then
+
+    cat >> /etc/zsh/zshenv << EOF
+ 
+autoload -U colors
+colors
+
+#export GREP_OPTIONS="--color=auto"
+
+#PROMPT=">>> %{$fg[red]%}%#%{$reset_color%} "
+#PROMPT="%n@%m %# "
+
+if [ \$(id -u) = "0" ]; then
+    PROMPT=\$(echo \$PROMPT | sed "s/%#/%{\$fg[red]%}%#%{\$reset_color%}/g")
+
+    if [ -n "\$PS2" ]; then
+        PS2="%{\$fg[red]%}"\$PS2"%{\$reset_color%}"
+    else
+        PS2="%{\$fg[red]%}"%_>"%{\$reset_color%}"
+    fi
+fi
+EOF
+fi
+
+exit 0

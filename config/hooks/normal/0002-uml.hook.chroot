@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+echo "I: uml-utilities"
+
+umask 022
+
+if [ -x /etc/init.d/uml-utilities ]; then
+    update-rc.d uml-utilities disable
+fi
+
+if [ -w /etc/default/uml-utilities ]; then
+    sed -i 's/#[[:space:]]*UML_SWITCH_START.*$/UML_SWITCH_START="false"/g' /etc/default/uml-utilities
+fi
+
+exit 0

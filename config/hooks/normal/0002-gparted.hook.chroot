@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: gparted"
+
+if grep -l '<action id="com.ubuntu.pkexec.gparted' /usr/share/polkit-1/actions/* > /dev/null; then
+
+    if [ -d /etc/polkit-1/localauthority/50-local.d ]; then
+	cat > /etc/polkit-1/localauthority/50-local.d/40-gparted.pkla << EOF
+[gparted]
+Identity=unix-group:disk
+Action=com.ubuntu.pkexec.gparted
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+EOF
+    fi
+
+fi
+
+exit 0

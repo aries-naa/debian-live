@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: apcupsd"
+
+umask 022
+
+if [ -w /etc/apcupsd/apcupsd.conf ]; then
+
+    sed -i 's/^UPSCABLE.*/UPSCABLE usb/g' /etc/apcupsd/apcupsd.conf
+    sed -i 's/^UPSTYPE.*/UPSTYPE usb/g' /etc/apcupsd/apcupsd.conf
+    sed -i 's/^DEVICE.*//g' /etc/apcupsd/apcupsd.conf
+    sed -i 's/^NETSERVER.*/NETSERVER off/g' /etc/apcupsd/apcupsd.conf
+
+fi
+
+if [ -x /etc/init.d/apcupsd ]; then
+    update-rc.d apcupsd disable
+fi
+
+exit 0

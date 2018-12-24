@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: drweb"
+
+umask 022
+
+if [ -x /etc/init.d/drweb-configd ]; then
+    update-rc.d drweb-configd disable
+fi
+
+exit 0

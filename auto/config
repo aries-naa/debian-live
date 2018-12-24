@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+        --clean \
+        --binary-filesystem ext4 \
+        --ignore-system-defaults \
+        --mode debian \
+        --system live \
+        --build-with-chroot true \
+        --apt-secure false \
+        --apt-source-archives false \
+        --apt-recommends false \
+        --source false \
+        --security true \
+        --firmware-binary false \
+        --firmware-chroot false \
+        --debian-installer false \
+        --memtest memtest86+ \
+        --debian-installer false \
+        --bootloaders syslinux \
+        --archive-areas "main contrib non-free" \
+        --chroot-filesystem squashfs \
+        --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
+        --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
+"${@}"
+
+#        --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
+#        --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
+
+# image type
+image_type=$(awk -F ": " '/Type:/ {print $2}' config/build)
+sed -i 's/image_type=.*/image_type='${image_type}'/g' config/hooks/normal/0002-network.hook.chroot
+
+exit 0

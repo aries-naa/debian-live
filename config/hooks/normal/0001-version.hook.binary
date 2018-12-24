@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+echo "I: image version"
+
+umask 022
+
+if [ -f ../config/build -a -d live ]; then
+    sed '/^Archive.*/ d
+         /Mirror.*/ d' ../config/build > live/build
+fi
+
+exit 0

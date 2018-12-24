@@ -1,0 +1,4 @@
+#auto eth0
+#iface eth0 inet manual
+#	up   dhclient -sf /bin/true -pf /run/dhclient.eth0.pid -lf /var/lib/dhcp/dhclient.eth0.leases -v    eth0
+#	down dhclient -sf /bin/true -pf /run/dhclient.eth0.pid -lf /var/lib/dhcp/dhclient.eth0.leases -r -v eth0

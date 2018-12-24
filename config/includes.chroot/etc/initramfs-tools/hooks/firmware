@@ -1,0 +1,44 @@
+#!/bin/sh
+
+exit 0
+
+set -e
+
+PREREQ=""
+
+prereqs () {
+	echo "${PREREQ}"
+}
+
+case "${1}" in
+	prereqs)
+		prereqs
+		exit 0
+		;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+mkdir -p ${DESTDIR}/lib/firmware
+
+if [ -d /lib/firmware/bnx2 ]; then
+    cp -ar /lib/firmware/bnx2 ${DESTDIR}/lib/firmware
+fi
+
+if [ -d /lib/firmware/bnx2x ]; then
+    cp -ar /lib/firmware/bnx2x ${DESTDIR}/lib/firmware
+fi
+
+if [ -d /lib/firmware/i915 ]; then
+    cp -ar /lib/firmware/i915 ${DESTDIR}/lib/firmware
+fi
+
+if [ -d /lib/firmware/r128 ]; then
+    cp -ar /lib/firmware/r128 ${DESTDIR}/lib/firmware
+fi
+
+if [ -d /lib/firmware/radeon ]; then
+    cp -ar /lib/firmware/radeon ${DESTDIR}/lib/firmware
+fi
+
+exit 0

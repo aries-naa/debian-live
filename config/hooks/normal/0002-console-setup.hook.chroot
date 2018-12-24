@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+echo "I: console-setup"
+
+umask 022
+
+if [ -w /etc/default/keyboard ]; then
+    echo >> /etc/default/keyboard
+    echo KMAP=/etc/console-setup/boottime.kmap.gz >> /etc/default/keyboard
+fi
+
+exit 0

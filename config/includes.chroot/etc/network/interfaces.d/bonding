@@ -1,0 +1,8 @@
+#auto bond0
+#iface bond0 inet dhcp
+#	bond-slaves eth0 eth1
+#	bond-mode 1
+#	bond-miimon 100
+#	bond-primary eth0 eth1
+#	post-up ifconfig eth0 0.0.0.0
+#	post-up ifconfig eth1 0.0.0.0

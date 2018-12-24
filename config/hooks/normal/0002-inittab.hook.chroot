@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: inittab and boot"
+
+umask 022
+
+if [ -w /etc/inittab ]; then
+    sed -i s/id:2:initdefault:/id:3:initdefault:/g /etc/inittab
+fi
+
+exit 0

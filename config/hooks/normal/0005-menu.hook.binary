@@ -1,0 +1,66 @@
+#!/bin/sh
+
+set -e
+
+echo "I: boot menu"
+
+umask 022
+
+[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
+. ../config/binary
+
+kernels=../binary/live
+if [ "${LIVE_IMAGE_TYPE}" = "netboot" ]; then
+    boot_dir=tftpboot
+    m_conf=pxelinux.cfg
+elif [ "${LIVE_IMAGE_TYPE}" = "hdd" ]; then
+    boot_dir=../binary/boot/extlinux
+    m_conf=extlinux.cfg
+else
+    boot_dir=../binary/isolinux
+    m_conf=isolinux.cfg
+fi
+boot_config=${boot_dir}/menu.cfg
+adv_config=${boot_dir}/advanced.cfg
+main_conf=${boot_dir}/${m_conf}
+
+# задержка загрузки.
+if [ -w "${main_conf}" ]; then
+    sed -i "s/timeout.*/timeout 300/g" "${main_conf}"
+fi
+
+# убрать нерабочую ссылку на debian installer.
+if [ -w "${boot_config}" ]; then
+
+    sed -i "s/\\a//g" "${boot_config}"
+
+    if [ "${LB_DEBIAN_INSTALLER}" = "false" ]; then
+	sed -i "s/^.*install.cfg.*//g" "${boot_config}"
+    fi
+
+fi
+
+# убрать нерабочую ссылку на memtest.
+if [ -w "${adv_config}" ]; then
+
+    if [ "${LB_MEMTEST}" = "none" ]; then
+	sed -i '/^label memtest/,+2 d' "${adv_config}"
+    fi
+
+fi
+
+#if [ -f "${boot_dir}/hdt.c32" ]; then
+#
+#    if [ -f /usr/lib/syslinux/modules/bios/libmenu.c32 ]; then
+#	cp /usr/lib/syslinux/modules/bios/libmenu.c32 "${boot_dir}"
+#    fi
+#
+#    if [ -f /usr/lib/syslinux/modules/bios/libgpl.c32 ]; then
+#	cp /usr/lib/syslinux/modules/bios/libgpl.c32 "${boot_dir}"
+#    fi
+#
+#    sed -i 's/com32/kernel/g' "${adv_config}"
+#
+#fi
+
+exit 0

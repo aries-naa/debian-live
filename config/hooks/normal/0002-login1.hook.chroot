@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: login1"
+
+if grep -l '<action id="org.freedesktop.login1.' /usr/share/polkit-1/actions/* > /dev/null; then
+
+    if [ -d /etc/polkit-1/localauthority/50-local.d ]; then
+	cat > /etc/polkit-1/localauthority/50-local.d/40-login1.pkla << EOF
+[login1]
+Identity=unix-group:users
+Action=org.freedesktop.login1.power-off*;org.freedesktop.login1.reboot*;org.freedesktop.login1.suspend*;org.freedesktop.login1.hibernate*
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+EOF
+    fi
+
+fi
+
+exit 0

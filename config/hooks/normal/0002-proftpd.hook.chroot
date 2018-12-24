@@ -1,0 +1,97 @@
+#!/bin/sh
+
+set -e
+
+echo "I: proftpd"
+
+umask 022
+
+if [ -x /usr/sbin/proftpd ]; then
+
+    mkdir -p /var/ftp
+
+    if [ -d /etc/xinetd.d ]; then
+
+	cat > /etc/xinetd.d/proftpd << EOF
+service ftp
+{
+    disable     = yes
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    server      = /usr/sbin/proftpd
+}
+
+EOF
+    fi
+
+    if [ -w /etc/default/proftpd ]; then
+	sed -i 's/^RUN=.*/RUN="no"/g' /etc/default/proftpd
+    fi
+
+    if [ -x /etc/init.d/proftpd ]; then
+	update-rc.d proftpd disable
+    fi
+
+    if [ -w /etc/proftpd/proftpd.conf ]; then
+	
+	cat > /etc/proftpd/proftpd.conf << EOF
+UseIPv6                         off
+IdentLookups                    off
+
+ServerName                      "Debian"
+ServerType                      inetd
+DeferWelcome                    off
+
+MultilineRFC2228                on
+DefaultServer                   on
+ShowSymlinks                    on
+
+TimeoutNoTransfer               600
+TimeoutStalled                  600
+TimeoutIdle                     1200
+
+DisplayLogin                    welcome.msg
+DisplayChdir                    .message true
+ListOptions                     "-l"
+
+DenyFilter                      \\*.*/
+
+Port                            21
+MaxInstances                    30
+User                            proftpd
+Group                           nogroup
+Umask                           022  022
+AllowOverwrite                  on
+
+TransferLog /var/log/proftpd/xferlog
+SystemLog   /var/log/proftpd/proftpd.log
+
+<Anonymous ~ftp>
+  User              ftp
+  Group             nogroup
+  UserAlias         anonymous ftp
+  DirFakeUser       on ftp
+  DirFakeGroup      on ftp
+  RequireValidShell off
+  MaxClients        10
+  DisplayLogin      welcome.msg
+  DisplayChdir      .message
+
+  <Directory *>
+    <Limit WRITE>
+      DenyAll
+    </Limit>
+  </Directory>
+
+</Anonymous>
+
+Include /etc/proftpd/conf.d/
+EOF
+	
+    fi
+
+fi
+
+exit 0

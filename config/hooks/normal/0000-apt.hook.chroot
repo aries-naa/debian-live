@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: apt"
+
+umask 022
+
+if [ -w /etc/apt/apt.conf.d ]; then
+    echo "Acquire::AllowInsecureRepositories "true";" >> /etc/apt/apt.conf.d/00secure
+fi
+
+exit 0

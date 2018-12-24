@@ -1,0 +1,9 @@
+#!/bin/sh
+
+logger "Setup shipka: exec $0 ${DEVICE}"
+
+if [ -n "${DEVICE}" ]; then
+    chown root:plugdev "${DEVICE}"
+    chmod ug+rw "${DEVICE}"
+    logger "Setup shipka: ${DEVICE}"
+fi

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+echo "I: laptop-mode-tools"
+
+umask 022
+
+exit 0
+
+if [ -w /etc/laptop-mode/conf.d/auto-hibernate.conf ]; then
+
+    sed -i 's/^ENABLE_AUTO_HIBERNATION=.*/ENABLE_AUTO_HIBERNATION=1/g' /etc/laptop-mode/conf.d/auto-hibernate.conf
+    sed -i 's/^HIBERNATE_COMMAND=.*/HIBERNATE_COMMAND=\/usr\/local\/bin\/laptop/g' /etc/laptop-mode/conf.d/auto-hibernate.conf
+
+fi
+
+if [ -w /etc/laptop-mode/conf.d/battery-level-polling.conf ]; then
+
+    sed -i 's/^ENABLE_BATTERY_LEVEL_POLLING=.*/ENABLE_BATTERY_LEVEL_POLLING=1/g' /etc/laptop-mode/conf.d/battery-level-polling.conf
+
+fi
+
+if [ -x /etc/init.d/laptop-mode ]; then
+    update-rc.d laptop-mode disable
+fi
+
+exit 0

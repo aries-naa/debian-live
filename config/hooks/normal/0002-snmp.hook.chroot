@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -e
+
+echo "I: snmpd"
+
+umask 022
+
+if [ -w /etc/default/snmpd ]; then
+    sed -i 's/^SNMPDRUN=.*/SNMPDRUN=no/g' /etc/default/snmpd
+fi
+
+if [ -w /etc/default/snmptrapd ]; then
+    sed -i 's/^TRAPDRUN=.*/TRAPDRUN=no/g' /etc/default/snmptrapd
+fi
+
+if [ -x /etc/init.d/snmpd ]; then
+    update-rc.d snmpd disable
+fi
+
+if [ -x /etc/init.d/snmptrapd ]; then
+    update-rc.d snmptrapd disable
+fi
+
+if [ -x /etc/init.d/snmptrapfmt ]; then
+    update-rc.d snmptrapfmt disable
+fi
+
+if [ -w /etc/snmp/snmpd.conf ]; then
+
+    cat > /etc/snmp/snmpd.conf << EOF
+rocommunity public
+EOF
+    
+fi
+
+exit 0

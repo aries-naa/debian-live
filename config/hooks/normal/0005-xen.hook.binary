@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -e
+
+echo "I: xen kernels"
+
+umask 022
+
+[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
+. ../config/binary
+
+kernels=../binary/live
+if [ "${LIVE_IMAGE_TYPE}" = "netboot" ]; then
+    boot_config=../tftpboot/live.cfg
+elif [ "${LIVE_IMAGE_TYPE}" = "hdd" ]; then
+    boot_config=../binary/boot/extlinux/live.cfg
+else
+    boot_config=../binary/isolinux/live.cfg
+fi
+
+if ! xen_hyperv_list=$(ls ../chroot/boot/xen-*.gz); then
+    exit 0
+fi
+
+for xen_hyperv in ../chroot/boot/xen-*.gz; do
+
+    cp ${xen_hyperv} live
+    xen_name=$(basename ${xen_hyperv})
+    xen_version1=${xen_name#xen-}
+    xen_version=${xen_version1%.gz}
+
+    for kernel in ../chroot/boot/vmlinuz-*; do
+
+	kernel_name=$(basename ${kernel})
+	kernel_version=${kernel_name#vmlinuz-}
+
+	cat << EOF >> ${boot_config}
+
+label xen
+	menu label ^Xen (${xen_version} - ${kernel_version})
+	kernel mboot.c32
+	append /live/${xen_name} dom0_mem=524288 --- /live/${kernel_name} ${LB_BOOTAPPEND_LIVE} --- /live/initrd.img-${kernel_version}
+default xen
+EOF
+
+    done
+
+done
+
+exit 0

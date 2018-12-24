@@ -1,0 +1,61 @@
+#!/bin/sh
+
+set -e
+
+echo "I: mailcap"
+
+umask 022
+
+#if [ -x /usr/bin/run-mailcap ]; then
+#
+#    install_patch=0
+#    if [ ! -x /usr/bin/patch ]; then
+#	aptitude -y --allow-untrusted install patch
+#	install_patch=1
+#    fi
+#
+#    cat << EOF | patch /usr/bin/run-mailcap
+#59,62c59,64
+#<     if (\$file =~ m/\.gz\$/)  { \$encoding = "gzip";       }
+#<     if (\$file =~ m/\.bz\$/)  { \$encoding = "bzip";       }
+#<     if (\$file =~ m/\.bz2\$/) { \$encoding = "bzip2";      }
+#<     if (\$file =~ m/\.Z\$/)   { \$encoding = "compress";   }
+#---
+#>     if (\$file =~ m/\.gz\$/)    { \$encoding = "gzip";       }
+#>     if (\$file =~ m/\.bz\$/)    { \$encoding = "bzip";       }
+#>     if (\$file =~ m/\.bz2\$/)   { \$encoding = "bzip2";      }
+#>     if (\$file =~ m/\.Z\$/)     { \$encoding = "compress";   }
+#>     if (\$file =~ m/\.xz\$/)    { \$encoding = "xz";         }
+#>     if (\$file =~ m/\.lzma\$/)  { \$encoding = "lzma";       }
+#211a214,225
+#>         }
+#>     } elsif (\$encoding eq "xz") {
+#>         if (\$efile eq '-') {
+#>             \$res = system "xz -d >\Q\$tmpfile\E";
+#>         } else {
+#>             \$res = system "xz -dc <\Q\$efile\E >\Q\$tmpfile\E";
+#>         }
+#>     } elsif (\$encoding eq "lzma") {
+#>         if (\$efile eq '-') {
+#>             \$res = system "lzma -d >\Q\$tmpfile\E";
+#>         } else {
+#>             \$res = system "lzma -dc <\Q\$efile\E >\Q\$tmpfile\E";
+#EOF
+#
+#    if [ "$install_patch" = "1" ]; then
+#	aptitude -y --allow-untrusted purge patch
+#    fi
+#
+#fi
+
+if [ -w /etc/mailcap ]; then
+
+    sed -i 's/soffice/libreoffice/g' /etc/mailcap
+    if [ -x /usr/bin/evince ]; then
+	sed -i 's/evince-previewer/evince/g' /etc/mailcap
+	sed -i 's/zathura/evince/g' /etc/mailcap
+    fi
+
+fi
+
+exit 0

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: clamav"
+
+umask 022
+
+if [ -x /etc/init.d/clamav-freshclam ]; then
+    update-rc.d clamav-freshclam disable
+fi
+
+exit 0

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: creating user"
+
+useradd -d /home/user -m -c "default live user" -g users -G plugdev,cdrom,floppy,audio,video -s /bin/bash -u 2000 user
+echo "user:user" | chpasswd -c SHA512
+usermod -L user
+
+if [ -d /home/user ]; then
+    chown -R user:users /home/user
+fi
+
+exit 0

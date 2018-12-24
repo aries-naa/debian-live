@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -e
+
+image="test"
+
+echo "I: $image"
+
+umask 022
+
+image_index () {
+
+    local image_name=$1
+    local image_list=$2
+
+    index=0
+    for image in $image_list; do
+
+	index=$(expr ${index} + 1)
+
+	if [ "$image_name" = "$image" ]; then
+	    printf "%02d0\n" $index
+	    return
+	fi
+    done
+}
+
+#index=$(image_index "$image" "$LB_TASK")
+
+#mkdir -p ../chroot.z20-test/test/z20
+#mksquashfs ../chroot.z20-test live/z20-test.squashfs
+
+#mkdir -p ../chroot.z21-test/test/z21
+#mksquashfs ../chroot.z21-test live/z21-test.squashfs
+
+#mkdir -p ../chroot.z22-test/test/z22
+#mksquashfs ../chroot.z22-test live/z22-test.squashfs
+
+#if [ -n "$index" ]; then
+
+    #image_name="z${index}-${image}.squashfs"
+
+    #mkdir -p chroot.${image}
+    #mkdir -p chroot.${image}/test/ttt
+    #mksquashfs chroot.${image} binary/live/${image_name}
+    #chmod a-x binary/live/${image_name}
+    #chmod a+r binary/live/${image_name}
+
+#fi
+
+exit 0

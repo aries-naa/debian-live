@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+echo "I: lightdm"
+
+umask 022
+
+if [ -w /etc/lightdm/lightdm.conf ]; then
+
+    lightdm_ver=$(dpkg -l lightdm | grep '^ii' | awk '{print $3}')
+
+    if dpkg --compare-versions "$lightdm_ver" lt "1.10.3"; then
+
+	sed -i 's/#greeter-user=.*/greeter-user=root/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#log-directory=.*/log-directory=\/var\/log\/lightdm/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#run-directory=.*/run-directory=\/var\/run\/lightdm/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#cache-directory=.*/cache-directory=\/var\/cache\/lightdm/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#xsessions-directory=.*/xsessions-directory=\/usr\/share\/xsessions/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#xgreeters-directory=.*/xgreeters-directory=\/usr\/share\/xgreeters/g' /etc/lightdm/lightdm.conf
+	sed -i 's/#autologin-guest=.*/autologin-guest=false/g' /etc/lightdm/lightdm.conf
+	
+    fi
+
+    #sed -i 's/#greeter-user=.*/greeter-user=root/g' /etc/lightdm/lightdm.conf
+    #sed -i 's/#display-setup-script=.*/display-setup-script=\/etc\/X11\/xinit\/xinit-display/g' /etc/lightdm/lightdm.conf
+
+fi
+
+if dpkg -s lightdm | grep '^Status:.*[^-]installed$'; then
+    update-rc.d -f lightdm disable 2
+fi
+
+exit 0

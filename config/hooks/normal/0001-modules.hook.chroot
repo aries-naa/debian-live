@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+echo "I: update and build modules"
+
+dkms_modules=$(ls /usr/src | awk '{if (index($1, "linux-") != 1) print $0}' | sed 's/-\([^-]*\)$/\/\1/g')
+
+[ -n "${dkms_modules}" ] || exit 0
+
+deinstall_dpkg=""
+for kernel_version in $(ls /var/lib/initramfs-tools); do
+    if ! dpkg -s linux-headers-${kernel_version} | grep '^Status:.*[^-]installed$' 2>/dev/null >/dev/null; then
+	aptitude -y install linux-headers-${kernel_version}
+	if [ ! -L /lib/modules/${kernel_version}/build ]; then
+	    ln -sf /usr/src/linux-headers-${kernel_version} /lib/modules/${kernel_version}/build
+	fi
+	deinstall_dpkg="${deinstall_dpkg} linux-headers-${kernel_version}"
+    fi
+done
+
+for module in ${dkms_modules}; do
+    for kernel in $(ls /var/lib/initramfs-tools/); do
+	if dkms install ${module} -k ${kernel}; then
+	    echo dkms install ${module} -k ${kernel}: ok
+	else
+	    echo dkms install ${module} -k ${kernel}: fail
+	fi
+    done
+done
+
+ls /var/lib/initramfs-tools | xargs -n 1 depmod -a
+
+aptitude -y purge ${deinstall_dpkg}
+
+exit 0

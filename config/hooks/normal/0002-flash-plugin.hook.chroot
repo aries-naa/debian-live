@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -e
+
+echo "I: flash plugin"
+
+umask 022
+
+if [ -f /usr/lib/flash-plugin/libflashplayer.so -a -d /usr/lib/mozilla/plugins ]; then
+    ln -f /usr/lib/flash-plugin/libflashplayer.so /usr/lib/mozilla/plugins/libflashplayer.so
+fi
+if [ -f /usr/lib64/flash-plugin/libflashplayer.so -a -d /usr/lib/mozilla/plugins ]; then
+    ln -f /usr/lib64/flash-plugin/libflashplayer.so /usr/lib/mozilla/plugins/libflashplayer.so
+fi
+
+if plugin_version=$(dpkg -s flash-player-ppapi | awk '/^Version: / {print $2}'); then
+
+    if [ -f /usr/lib/flash-plugin/libpepflashplayer.so -a -d /etc/chromium.d ]; then
+	cat > /etc/chromium.d/flash-plugin << EOF
+export CHROMIUM_FLAGS="\$CHROMIUM_FLAGS --ppapi-flash-path=/usr/lib/flash-plugin/libpepflashplayer.so --ppapi-flash-version=${plugin_version}"
+EOF
+    fi
+    if [ -f /usr/lib64/flash-plugin/libpepflashplayer.so -a -d /etc/chromium.d ]; then
+	cat > /etc/chromium.d/flash-plugin << EOF
+export CHROMIUM_FLAGS="\$CHROMIUM_FLAGS --ppapi-flash-path=/usr/lib64/flash-plugin/libpepflashplayer.so --ppapi-flash-version=${plugin_version}"
+EOF
+    fi
+
+fi
+
+exit 0

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+exit 0
+
+echo "I: glamoregl"
+
+umask 022
+
+if [ -d /usr/share/X11/xorg.conf.d/ ]; then
+
+    cat > /usr/share/X11/xorg.conf.d/01-glamoregl.conf << EOF
+Section "Module"
+        Disable "glamoregl"
+EndSection
+
+EOF
+
+fi
+
+exit 0

@@ -1,0 +1,6 @@
+source-directory /etc/network/interfaces.d
+
+iface lo inet loopback
+auto lo
+
+iface wlan-wifi inet dhcp

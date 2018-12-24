@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+echo "I: issue"
+
+umask 022
+
+if [ -w /etc/issue ]; then
+    
+    CLEAR=`tput -Tlinux clear`
+    sed -i "1 i $CLEAR\n" /etc/issue
+    
+fi
+
+exit 0

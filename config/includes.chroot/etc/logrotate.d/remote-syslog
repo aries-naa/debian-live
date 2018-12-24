@@ -1,0 +1,12 @@
+#/srv/samba/syslog/message
+#{
+#	rotate 160
+#	daily
+#	missingok
+#	notifempty
+#	delaycompress
+#	compress
+#	postrotate 160
+#		invoke-rc.d rsyslog rotate > /dev/null
+#	endscript
+#}

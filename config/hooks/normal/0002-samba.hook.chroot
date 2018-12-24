@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: samba"
+
+umask 022
+
+if [ -x /etc/init.d/nmbd ]; then
+    update-rc.d nmbd disable
+fi
+
+if [ -x /etc/init.d/smbd ]; then
+    update-rc.d smbd disable
+    mkdir -p /srv/samba
+fi
+
+if [ -x /etc/init.d/samba-ad-dc ]; then
+    update-rc.d samba-ad-dc disable
+fi
+
+exit 0

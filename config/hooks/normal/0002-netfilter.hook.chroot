@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+echo "I: netfilter-persistent"
+
+umask 022
+
+if [ -w /etc/default/netfilter-persistent ]; then
+    sed -i 's/^FLUSH_ON_STOP=.*/FLUSH_ON_STOP=1/g' /etc/default/netfilter-persistent
+fi
+
+if [ -w /usr/sbin/netfilter-persistent ]; then
+    sed -i 's/run-parts -v/run-parts/g' /usr/sbin/netfilter-persistent
+fi
+
+exit 0

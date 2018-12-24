@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# disk - может всё
+# plugdev, cdrom, floppy - filesystem-mount-other-seat, filesystem-fstab,
+#   filesystem-unmount-others, power-off-drive-other-seat, eject-media-other-seat,
+
+set -e
+
+echo "I: udisks2"
+
+if grep -l '<action id="org.freedesktop.udisks2.' /usr/share/polkit-1/actions/* > /dev/null; then
+
+    if [ -d /etc/polkit-1/localauthority/50-local.d ]; then
+	cat > /etc/polkit-1/localauthority/50-local.d/40-udisks2.pkla << EOF
+[udisks2.plugdev]
+Identity=unix-group:disk
+Action=org.freedesktop.udisks2.*
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+
+[udisks2.users]
+Identity=unix-group:plugdev;unix-group:cdrom;unix-group:floppy
+Action=org.freedesktop.udisks2.filesystem-mount-other-seat;org.freedesktop.udisks2.filesystem-fstab;org.freedesktop.udisks2.filesystem-unmount-others;org.freedesktop.udisks2.power-off-drive-other-seat;org.freedesktop.udisks2.eject-media-other-seat
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+EOF
+    fi
+
+    if [ -d /etc/udev/rules.d ]; then
+	cat > /etc/udev/rules.d/80-udisks2.rules << EOF
+# UDISKS_FILESYSTEM_SHARED
+# ==1: mount filesystem to a shared directory (/media/VolumeName)
+# ==0: mount filesystem to a private directory (/run/media/$USER/VolumeName)
+# See udisks(8)
+ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
+EOF
+    fi
+
+fi
+
+exit 0

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: xfce"
+
+umask 022
+
+if [ -w /usr/share/xsessions/xfce.desktop ]; then
+
+    sed -i 's/Name\[ru\]=\(.*\)/Name[ru]=Рабочий стол Xfce/g' /usr/share/xsessions/xfce.desktop
+
+fi
+
+exit 0

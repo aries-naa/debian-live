@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/sbin/udevadm info --query=all      --path="${1}"
+/sbin/udevadm info --attribute-walk --path="${1}"

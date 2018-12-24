@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: drweb"
+
+umask 022
+
+if [ -x /etc/init.d/open-vm-tools ]; then
+    update-rc.d open-vm-tools disable
+fi
+
+exit 0

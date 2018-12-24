@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: bind"
+
+umask 022
+
+if [ -x /etc/init.d/bind9 ]; then
+    update-rc.d bind9 disable
+fi
+
+exit 0

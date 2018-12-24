@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ -r /var/lib/netboot/boot-interface ] && . /var/lib/netboot/boot-interface
+
+if [ -n "${netboot_interface}" ]; then
+    /usr/local/sbin/issue-add "${netboot_interface}"
+fi
+
+exit 0

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+echo "I: altiris"
+
+umask 022
+
+if [ -x /etc/init.d/altiris ]; then
+    update-rc.d altiris disable
+fi
+
+if [ -d /opt/altiris/notification/nsagent/etc ]; then
+    chmod a+rx /opt/altiris/notification/nsagent/etc
+    find /opt/altiris/notification/nsagent/etc -type d -exec chmod a+rx {} \;
+    find /opt/altiris/notification/nsagent/etc -type f -exec chmod a+r {} \;
+    find /opt/altiris/notification/nsagent/etc -type f -exec chmod u+wr {} \;
+fi
+
+exit 0

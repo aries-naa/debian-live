@@ -1,0 +1,179 @@
+#!/bin/sh
+
+set -e
+
+echo "I: iptables"
+
+umask 022
+
+if [ -w /etc/iptables/rules.v4 ]; then
+
+    cat > /etc/iptables/rules.v4 << EOF
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# syslog
+#-A INPUT -p tcp --dport shell -j ACCEPT
+#-A INPUT -p udp --dport syslog -j ACCEPT
+
+# rdate
+#-A INPUT -p tcp --dport time -j ACCEPT
+#-A INPUT -p udp --dport time -j ACCEPT
+EOF
+
+    if [ -x /usr/sbin/sshd ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# ssh server
+#-A INPUT -p tcp --dport ssh -j ACCEPT
+#-A INPUT -p udp --dport ssh -j ACCEPT
+EOF
+
+    fi
+
+#    if dpkg -s ioquake3 | grep '^Status:.*[^-]installed$'; then
+#
+#	cat >> /etc/iptables/rules.v4 << EOF
+#
+## quake3 game server
+#-A INPUT -p tcp --dport 27960 -j ACCEPT
+#EOF
+#
+#    fi
+
+    if [ -x /usr/sbin/apache2 ]; then
+	
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# apache web server
+#-A INPUT -p tcp --dport http -j ACCEPT
+#-A INPUT -p udp --dport http -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/proftpd ]; then
+	
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# ftp server
+#-A INPUT -p tcp --dport ftp -j ACCEPT
+#-A INPUT -p tcp --dport ftp -m conntrack --ctstate ESTABLISHED,NEW -j ACCEPT
+#-A INPUT -p tcp --dport ftp -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+EOF
+
+	echo ip_conntrack_ftp >> /etc/modules
+	
+    fi
+
+    if [ -x /usr/sbin/in.tftpd ]; then
+	
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# tftp server
+#-A INPUT -p udp --dport tftp -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/nmbd -o -x /usr/sbin/smbd ]; then
+	
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# samba server
+#-A INPUT -p udp --dport netbios-ns -j ACCEPT
+#-A INPUT -p tcp --dport netbios-ns -j ACCEPT
+#-A INPUT -p udp --dport netbios-dgm -j ACCEPT
+#-A INPUT -p tcp --dport netbios-dgm -j ACCEPT
+#-A INPUT -p udp --dport netbios-ssn -j ACCEPT
+#-A INPUT -p tcp --dport netbios-ssn -j ACCEPT
+#-A INPUT -p udp --dport microsoft-ds -j ACCEPT
+#-A INPUT -p tcp --dport microsoft-ds -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/snmpd ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# snmpd server
+#-A INPUT -p udp --dport snmp -j ACCEPT
+#-A INPUT -p tcp --dport snmp -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/snmptrapd ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# snmptrapd server
+#-A INPUT -p udp --dport snmp-trap -j ACCEPT
+#-A INPUT -p tcp --dport snmp-trap -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/named ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# bind DNS server
+#-A INPUT -p udp --dport domain -j ACCEPT
+#-A INPUT -p tcp --dport domain -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/dhcpd ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# isc-dhcp DHCP server
+#-A INPUT -p udp --dport bootpc -j ACCEPT
+#-A INPUT -p tcp --dport bootpc -j ACCEPT
+#-A INPUT -p udp --dport bootps -j ACCEPT
+#-A INPUT -p tcp --dport bootps -j ACCEPT
+EOF
+	
+    fi
+
+    if [ -x /usr/sbin/ntpd ]; then
+
+	cat >> /etc/iptables/rules.v4 << EOF
+
+# ntp server
+#-A INPUT -p udp --dport ntp -j ACCEPT
+#-A INPUT -p tcp --dport ntp -j ACCEPT
+EOF
+	
+    fi
+    
+    cat >> /etc/iptables/rules.v4 << EOF
+
+-A INPUT -j REJECT --reject-with icmp-port-unreachable
+COMMIT
+EOF
+
+fi
+
+if [ -w /etc/iptables/rules.v6 ]; then
+
+    cat > /etc/iptables/rules.v6 << EOF
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+COMMIT
+EOF
+
+fi
+    
+exit 0

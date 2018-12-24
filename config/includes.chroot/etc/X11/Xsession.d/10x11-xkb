@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ -r $HOME/.xkb ]; then
+    
+    (
+	. $HOME/.xkb
+	xkb_options=""
+
+	if [ -n "$XKBMODEL" ]; then
+	    xkb_options="-model $XKBMODEL"
+	fi
+
+	if [ -n "$XKBLAYOUT" ]; then
+	    xkb_options="$xkb_options -layout $XKBLAYOUT"
+	fi
+
+	if [ -n "$XKBVARIANT" ]; then
+	    xkb_options="$xkb_options -variant $XKBVARIANT"
+	fi
+
+	if [ -n "$XKBOPTIONS" ]; then
+	    xkb_options="$xkb_options -option $XKBOPTIONS"
+	fi
+
+	if [ -n "$xkb_options" ]; then
+	    echo setxkbmap $xkb_options > $HOME/xkb.log
+            setxkbmap $xkb_options
+        fi
+    )  
+
+fi  

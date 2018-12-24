@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# !!! alex !!!
+
+#exit 0
+
+set -e
+
+echo "I: aptitude"
+
+if [ -d /var/lib/dkms  ]; then
+
+    find /var/lib/dkms -type d -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+
+    aptitude -y clean
+    aptitude -y autoclean
+
+fi
+
+exit 0

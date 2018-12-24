@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: ntpdate"
+
+umask 022
+
+if [ -w /etc/default/ntpdate ]; then
+
+    sed -i 's/^NTPDATE_USE_NTP_CONF=.*/NTPDATE_USE_NTP_CONF=no/g' /etc/default/ntpdate
+
+fi
+
+exit 0

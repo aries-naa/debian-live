@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: syslinux"
+
+umask 022
+
+if [ -f /usr/lib/syslinux/modules/bios/mboot.c32 ]; then
+    if [ -d isolinux ]; then
+	cp /usr/lib/syslinux/modules/bios/mboot.c32 isolinux
+    fi
+fi
+
+exit 0

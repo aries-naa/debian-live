@@ -1,0 +1,36 @@
+#!/bin/sh
+
+/usr/local/bin/vmtouch -l -d \
+		  /sbin/dhc* \
+		  /sbin/brctl \
+                  /sbin/bridge \
+                  /sbin/ifen* \
+                  /sbin/ip \
+                  /sbin/ifconfig* \
+                  /sbin/modprobe \
+                  /sbin/insmod \
+		  /usr/bin/test \
+		  /usr/bin/dpkg \
+                  /etc/network \
+                  /etc/iptables \
+                  /etc/iproute \
+                  /etc/dhcp \
+		  /lib/i386-linux-gnu/libirs* \
+                  /lib/i386-linux-gnu/libdns* \
+                  /lib/i386-linux-gnu/libisc* \
+                  /lib/i386-linux-gnu/libisccfg* \
+                  /lib/i386-linux-gnu/libc* \
+                  /lib/i386-linux-gnu/libdl* \
+                  /lib/i386-linux-gnu/libmount* \
+                  /lib/i386-linux-gnu/libblkid* \
+                  /lib/i386-linux-gnu/libselinux* \
+                  /lib/i386-linux-gnu/libuuid* \
+                  /lib/i386-linux-gnu/libpcre* \
+                  /lib/i386-linux-gnu/libpthread* \
+                  /lib/i386-linux-gnu/libacl* \
+                  /lib/i386-linux-gnu/libattr* \
+                  /lib/i386-linux-gnu/liblzma* \
+                  /lib/i386-linux-gnu/libgcrypt* \
+                  /lib/i386-linux-gnu/libgpg-error*
+
+exit 0

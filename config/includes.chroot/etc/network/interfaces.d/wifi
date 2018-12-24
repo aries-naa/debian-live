@@ -1,0 +1,5 @@
+#auto wlan-aries
+#iface wlan-aries inet manual
+#    wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+#
+#iface wlan-wifi inet dhcp

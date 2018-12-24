@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: cgproxy"
+
+umask 022
+
+if [ -x /etc/init.d/cgproxy ]; then
+    update-rc.d cgproxy disable
+fi
+
+exit 0

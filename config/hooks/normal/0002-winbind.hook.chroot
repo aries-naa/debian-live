@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: winbind"
+
+umask 022
+
+if [ -x /etc/init.d/winbind ]; then
+    update-rc.d winbind disable
+fi
+
+exit 0

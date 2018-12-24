@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[ ! "$IFACE" = "lo" ]    || exit 0
+[ ! "$IFACE" = "--all" ] || exit 0
+
+if [ -n "$IFACE" ]; then
+    /usr/local/sbin/issue-delete $IFACE
+fi

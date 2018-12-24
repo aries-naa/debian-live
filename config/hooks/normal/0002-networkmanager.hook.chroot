@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+echo "I: gparted"
+
+if grep -l '<action id="org.freedesktop.NetworkManager.' /usr/share/polkit-1/actions/* > /dev/null; then
+
+    if [ -d /etc/polkit-1/localauthority/50-local.d ]; then
+	cat > /etc/polkit-1/localauthority/50-local.d/40-networkmanager.pkla << EOF
+[networkmanager]
+Identity=unix-group:users
+Action=org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.enable-disable-wwan;org.freedesktop.NetworkManager.enable-disable-wimax
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+EOF
+    fi
+
+fi
+
+exit 0

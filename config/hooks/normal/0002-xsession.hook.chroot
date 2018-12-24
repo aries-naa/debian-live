@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+echo "I: default xsession"
+
+umask 022
+
+if [ -x /usr/bin/openbox-session -a -e /etc/alternatives/x-session-manager ]; then
+    update-alternatives --install /usr/bin/x-session-manager x-session-manager /usr/bin/openbox-session 70
+    update-alternatives --quiet --set x-session-manager /usr/bin/openbox-session
+fi
+
+exit 0

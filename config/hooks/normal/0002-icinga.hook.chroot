@@ -1,0 +1,70 @@
+#!/bin/sh
+
+set -e
+
+echo "I: icinga"
+
+umask 022
+
+if [ -x /etc/init.d/icinga ]; then
+    update-rc.d icinga disable
+fi
+
+if [ -w /etc/icinga/apache2.conf ]; then
+
+    cat > /etc/icinga/apache2.conf << EOF
+ScriptAlias /cgi-bin/icinga /usr/lib/cgi-bin/icinga
+ScriptAlias /icinga/cgi-bin /usr/lib/cgi-bin/icinga
+Alias /icinga/stylesheets /etc/icinga/stylesheets
+Alias /icinga /usr/share/icinga/htdocs
+
+<Location /cgi-bin/icinga/cmd.cgi>
+        Options FollowSymLinks
+        DirectoryIndex index.php index.html
+        AllowOverride AuthConfig
+        Require all denied
+        AuthName "Nagios Access"
+        AuthType Basic
+        AuthUserFile /etc/icinga/htpasswd.users
+        Require valid-user
+</Location>
+
+<DirectoryMatch (/usr/share/icinga/htdocs|/usr/lib/cgi-bin/icinga|/etc/icinga/stylesheets)>
+        Options FollowSymLinks
+        DirectoryIndex index.php index.html
+        AllowOverride AuthConfig
+        Order Allow,Deny
+        Allow From All
+        Require all granted
+</DirectoryMatch>
+
+<Directory /usr/share/icinga/htdocs>
+        Options +ExecCGI
+</Directory>
+EOF
+
+fi
+
+if [ -w /etc/icinga/cgi.cfg ]; then
+    sed -i 's/^.*default_user_name=.*$/default_user_name=guest/g' /etc/icinga/cgi.cfg
+    sed -i 's/authorized_for_all_services=.*/authorized_for_all_services=*/g' /etc/icinga/cgi.cfg
+    sed -i 's/authorized_for_all_hosts=.*/authorized_for_all_hosts=*/g' /etc/icinga/cgi.cfg
+fi
+
+if [ -d /var/lib/icinga ]; then
+    chmod g+rx /var/lib/icinga
+fi
+
+if [ -d /var/lib/icinga/rw ]; then
+    chmod g+rx /var/lib/icinga/rw
+fi
+
+if [ -w /etc/icinga/icinga.cfg ]; then
+    sed -i 's/check_external_commands=.*$/check_external_commands=1/g' /etc/icinga/icinga.cfg
+fi
+
+if [ -d /etc/icinga -a ! -e /etc/icinga/htpasswd.users ]; then
+    htpasswd -bc /etc/icinga/htpasswd.users icingaadmin icingaadmin
+fi
+
+exit 0

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: acpi"
+
+umask 022
+
+if [ -w /etc/acpi/events/powerbtn-acpi-support ]; then
+
+    sed -i 's/^action=.*$/action=\/etc\/acpi\/powerbutton/g' /etc/acpi/events/powerbtn-acpi-support
+
+fi
+
+exit 0

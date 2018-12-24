@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -e
+
+echo "I: tftpd"
+
+umask 022
+
+if [ -x /usr/sbin/in.tftpd ]; then
+
+    mkdir -p /srv/tftp
+
+    if [ -d /etc/xinetd.d ]; then
+
+	cat > /etc/xinetd.d/tftpd << EOF
+service tftp
+{
+    disable     = yes
+    socket_type = dgram
+    protocol    = udp
+    wait        = yes
+    user        = root
+    server      = /usr/sbin/in.tftpd
+    server_args = -s /srv/tftp
+}
+
+EOF
+    fi
+
+fi
+
+exit 0

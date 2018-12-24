@@ -1,0 +1,121 @@
+#!/bin/sh
+
+set -e
+
+image="rescue"
+
+echo "I: $image"
+
+umask 022
+
+image_index () {
+
+    image_name=${1}
+    image_list=${2}
+
+    index=0
+    for image in ${image_list}; do
+
+	index=$(expr ${index} + 1)
+
+	if [ "${image_name}" = "${image}" ]; then
+	    printf "%02d0\n" ${index}
+	    return
+	fi
+    done
+}
+
+index=$(image_index "${image}" "${LB_TASK}")
+if [ -n "${index}" ]; then
+
+    image_name="z${index}-${image}.squashfs"
+
+    # пароль root.
+    echo "root:adminrescue" | sudo chroot ../chroot chpasswd -c SHA512
+
+    # создание образа rescue.
+    mkdir -p ../chroot.${image}
+
+    # настройка sshd.
+    if [ -e ../chroot/etc/ssh/sshd_config ]; then
+
+	mkdir -p ../chroot.${image}/etc/ssh
+	touch ../chroot.${image}/etc/ssh/sshd_not_to_be_run
+#	cat ../chroot/etc/ssh/sshd_config | sed 's/^PermitRootLogin.*/PermitRootLogin yes/g' > ../chroot.${image}/etc/ssh/sshd_config
+#	cat ../chroot/etc/ssh/sshd_config | sed 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/g' > ../chroot.${image}/etc/ssh/sshd_config
+	cat ../chroot/etc/ssh/sshd_config |\
+	sed '
+s/^PermitRootLogin.*/PermitRootLogin yes/g
+s/^#*PasswordAuthentication.*/PasswordAuthentication yes/g' > ../chroot.${image}/etc/ssh/sshd_config
+
+	if [ -e ../chroot/etc/xinetd.d/ssh ]; then
+	    mkdir -p ../chroot.${image}/etc/xinetd.d
+	    cat ../chroot/etc/xinetd.d/ssh | sed 's/\([[:blank:]]*disable[[:blank:]]*=[[:blank:]]*\)yes/\1no/g' > ../chroot.${image}/etc/xinetd.d/ssh
+	fi
+
+	if [ -f ../chroot/etc/iptables/rules.v4 ]; then
+	    mkdir -p ../chroot.${image}/etc/iptables
+	    cat ../chroot/etc/iptables/rules.v4 | sed 's/^#\(.*INPUT.*--dport ssh.*$\)/\1/g' > ../chroot.${image}/etc/iptables/rules.v4
+	fi
+
+    fi
+
+    cp -ar ../chroot/etc/shadow ../chroot.${image}/etc
+    echo rescue > ../chroot.${image}/etc/hostname
+    echo 127.0.0.1 localhost rescue > ../chroot.${image}/etc/hosts
+
+    # ssh
+    mkdir -p ../chroot.${image}/lib/live/config/
+    cat > ../chroot.${image}/lib/live/config/1160-rescue-openssh-server <<EOF
+#!/bin/sh
+
+set -e
+
+Init ()
+{
+    # Checking if package is installed or already configured
+	if [ ! -e /var/lib/dpkg/info/openssh-server.list ] || \
+	[ -e /var/lib/live/config/rescue-openssh-server ]
+    then
+		exit 0
+	fi
+
+	echo -n " openssh-server"
+}
+
+Config ()
+{
+	for _PROTOCOL in dsa rsa ecdsa
+	do
+		if [ ! -e /etc/ssh/ssh_host_\${_PROTOCOL}_key ] &&
+		    grep -qs ssh_host_\${_PROTOCOL}_key /etc/ssh/sshd_config
+		then
+			ssh-keygen -q -f /etc/ssh/ssh_host_\${_PROTOCOL}_key -N "" -t \${_PROTOCOL}
+			_SSH="true"
+		fi
+	done
+
+	case "\${_SSH}" in
+		true)
+			# Creating state file
+			touch /var/lib/live/config/rescue-openssh-server
+			;;
+	esac
+}
+
+Init
+Config
+EOF
+    chmod a+x ../chroot.${image}/lib/live/config/1160-rescue-openssh-server
+
+    # local includes
+    #tar -cvf - -C ../config/includes.chroot.${image} . | sudo tar -xvf - --no-same-owner -C ../chroot.${image}
+
+    mksquashfs ../chroot.${image} live/${image_name}
+    chmod a-x live/${image_name}
+
+    rm -rf ${rescue_tmp}
+
+fi
+
+exit 0

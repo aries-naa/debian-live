@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: udftools"
+
+umask 022
+
+if [ -x /etc/init.d/udftools ]; then
+    update-rc.d udftools disable
+fi
+
+exit 0

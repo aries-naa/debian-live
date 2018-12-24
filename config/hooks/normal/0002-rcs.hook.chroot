@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+echo "I: default/rcS"
+
+umask 022
+
+if [ -w /etc/default/rcS ]; then
+
+    sed -i 's/^.*TMPTIME.*/TMPTIME=30/g' /etc/default/rcS
+    sed -i 's/^.*SULOGIN.*/SULOGIN=no/g' /etc/default/rcS
+    sed -i 's/^.*DELAYLOGIN.*/DELAYLOGIN=yes/g' /etc/default/rcS
+
+    echo >> /etc/default/rcS
+    echo UTC=no >> /etc/default/rcS
+
+fi
+
+exit 0

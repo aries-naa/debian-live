@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+echo "I: emacs"
+
+umask 022
+
+if dpkg -s emacs | grep '^Status:.*[^-]installed$'; then
+
+    cat > /etc/X11/Xresources/emacs << EOF
+Emacs.Background: black
+Emacs.Foreground: grey
+Emacs.cursorColor: green
+Emacs.toolBar: 0
+EOF
+
+    if dpkg -s fonts-droid | grep '^Status:.*[^-]installed$'; then
+	cat >> /etc/X11/Xresources/emacs << EOF
+Emacs.font: Droid Sans Mono -14
+EOF
+    elif dpkg -s xfonts-terminus | grep '^Status:.*[^-]installed$'; then
+	cat >> /etc/X11/Xresources/emacs << EOF
+Emacs.font: -*-terminus-bold-r-*-*-20-*-*-*-*-*-iso10646-1
+EOF
+    else
+	cat >> /etc/X11/Xresources/emacs << EOF
+Emacs.font: -misc-fixed-*-*-*-*-20-*-*-*-*-*-iso10646-1
+EOF
+    fi
+
+fi
+
+exit 0

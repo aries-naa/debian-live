@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+echo "I: creating font cache"
+
+umask 022
+
+if [ -x /usr/bin/fc-cache ]; then
+  /usr/bin/fc-cache
+  chmod a+r /var/cache/fontconfig/*
+fi
+
+exit 0

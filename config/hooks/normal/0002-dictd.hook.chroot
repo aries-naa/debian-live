@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+echo "I: dictd"
+
+umask 022
+
+if [ -w /etc/default/dictd ]; then
+    sed -i 's/^RUN_MODE=.*/RUN_MODE="inetd"/g' /etc/default/dictd
+fi
+
+if [ -x /etc/init.d/dictd ]; then
+    update-rc.d dictd disable
+fi
+
+if [ -d /etc/xinetd.d ]; then
+
+    if [ -x /usr/sbin/dictd ]; then
+        cat > /etc/xinetd.d/dictd << EOF
+service dict
+{
+    disable     = no
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    bind        = 127.0.0.1
+    user        = dictd
+    only_from   = localhost
+    server      = /usr/sbin/dictd
+    server_args = -i --locale en_US.UTF-8
+}
+
+EOF
+    fi
+
+fi
+
+
+exit 0

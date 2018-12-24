@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [ "$IFACE" = "--all" ]; then
+    /usr/local/sbin/issue-clean
+fi

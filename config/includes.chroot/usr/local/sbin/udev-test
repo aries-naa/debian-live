@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo --- `date` :$1: --- >> /test-live
+echo >> /test-live
+set >> /test-live
+echo >> /test-live
+/usr/local/bin/udev-info "${DEVPATH}" >> /test-live
+echo >> /test-live

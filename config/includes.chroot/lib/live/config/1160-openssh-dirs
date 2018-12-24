@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ ! -d /run/sshd ]; then
+    mkdir /run/sshd
+    chmod go-rwx /run/sshd
+fi
+
+exit 0

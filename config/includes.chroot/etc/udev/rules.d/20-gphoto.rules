@@ -1,0 +1,2 @@
+# asus zenphone 5
+#ACTION=="add", ENV{DEVNAME}!="", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="7784", MODE="0664", GROUP="plugdev"

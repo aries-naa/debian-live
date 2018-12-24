@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: autofs"
+
+umask 022
+
+if [ -x /etc/init.d/autofs ]; then
+    update-rc.d autofs disable
+fi
+
+exit 0

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: apache"
+
+umask 022
+
+if [ -x /etc/init.d/apache2 ]; then
+    update-rc.d apache2 disable
+fi
+
+exit 0

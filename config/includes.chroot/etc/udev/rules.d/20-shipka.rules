@@ -1,0 +1,4 @@
+ACTION=="add", ATTR{idVendor}=="17e4", ATTR{idProduct}=="0003", GROUP="plugdev", MODE="660", RUN+="/usr/local/sbin/setup-shipka"
+ACTION=="add", ATTR{idVendor}=="17e4", ATTR{idProduct}=="0032", GROUP="plugdev", MODE="660", RUN+="/usr/local/sbin/setup-shipka"
+ACTION=="add", ATTR{idVendor}=="17e4", ATTR{idProduct}=="0035", GROUP="plugdev", MODE="660", RUN+="/usr/local/sbin/setup-shipka"
+ACTION=="add", ATTR{idVendor}=="17e4", ATTR{idProduct}=="0051", GROUP="plugdev", MODE="660", RUN+="/usr/local/sbin/setup-shipka"

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+exit 0
+
+echo "I: nsswitch"
+
+umask 022
+
+if dpkg -s libnss-db | grep '^Status:.*[^-]installed$'; then
+    exit 0
+fi
+
+if [ -w /etc/nsswitch.conf ]; then
+    sed -i 's/^\([^#].*\)db\(.*\)/\1\2/g' /etc/nsswitch.conf
+fi
+
+exit 0

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+echo "I: dhcp"
+
+umask 022
+
+if [ -w /etc/dhcp/dhclient.conf ]; then
+    sed -i 's/.*timeout.*\;.*//g' /etc/dhcp/dhclient.conf
+    sed -i 's/.*initial-interval.*\;.*//g' /etc/dhcp/dhclient.conf
+    sed -i 's/[[:space:]]*send[[:space:]]\+host-name/#send host-name/g' /etc/dhcp/dhclient.conf
+    echo "timeout 15;" >> /etc/dhcp/dhclient.conf
+    echo "initial-interval 1;" >> /etc/dhcp/dhclient.conf
+fi
+
+if [ -w /sbin/dhclient-script ]; then
+    sed -i 's/route[[:space:]]\+add[[:space:]]\+default/route replace default/g' /sbin/dhclient-script
+fi
+
+exit 0

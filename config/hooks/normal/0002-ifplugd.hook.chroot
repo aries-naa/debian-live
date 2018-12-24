@@ -1,0 +1,70 @@
+#!/bin/sh
+
+set -e
+
+echo "I: ifplugd"
+
+umask 022
+
+if [ -w /etc/default/ifplugd ]; then
+
+    sed -i 's/^INTERFACES=.*/INTERFACES=\"eth0\"/g' /etc/default/ifplugd
+    sed -i 's/^ARGS=.*/ARGS=\"--no-shutdown --no-startup --ignore-fail --delay-up=0 --delay-down=10 --wait-on-fork --ignore-retval --no-beep-up --no-beep-down\"/g' /etc/default/ifplugd
+    
+fi
+
+if [ -w /etc/ifplugd/action.d/ifupdown ]; then
+
+    cat > /etc/ifplugd/action.d/ifupdown << EOF
+#!/bin/sh
+set -e
+
+# перезапускаем интерфейс если он был поднят и auto.
+# заглушенные auto интерфейсы не перезапускаем.
+
+if ifquery --list | grep "\$1" > /dev/null 2>&1 ; then
+
+        case "\$2" in
+        up)
+                if ifquery --state "\$1"; then
+                        /sbin/ifdown "\$1"
+                        /sbin/ifup "\$1"
+                fi
+                ;;
+        esac
+
+fi
+
+EOF
+
+    chmod a+x /etc/ifplugd/action.d/ifupdown
+
+    cat > /etc/ifplugd/action.d/hotplug << EOF
+#!/bin/sh
+set -e
+
+# auto интерфейсами занимается другой скрипт.
+# здесь hotplug но не auto.
+
+if ifquery --list | grep "\$1" > /dev/null 2>&1 ; then
+        exit 0
+else
+
+        case "\$2" in
+        up)
+                /sbin/ifup --allow=hotplug "\$1"
+                ;;
+        down)
+                /sbin/ifdown --allow=hotplug "\$1"
+                ;;
+        esac
+
+fi
+
+EOF
+
+    chmod a+x /etc/ifplugd/action.d/hotplug
+
+fi
+
+exit 0

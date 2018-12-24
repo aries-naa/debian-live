@@ -1,0 +1,58 @@
+#!/bin/sh
+
+set -e
+
+image="gdata"
+
+echo "I: ${gdata}"
+
+umask 022
+
+image_index () {
+
+    image_name=${1}
+    image_list=${2}
+
+    index=0
+    for image in ${image_list}; do
+
+	index=$(expr ${index} + 1)
+
+	if [ "${image_name}" = "${image}" ]; then
+	    printf "%02d0\n" ${index}
+	    return
+	fi
+    done
+}
+
+index=$(image_index "${image}" "${LB_TASK}")
+if [ -n "$index" ]; then
+
+    image_name="z${index}-${image}.squashfs"
+
+
+    mkdir -p ../chroot.${image}/usr/lib/ioquake3/baseq3
+    if [ -d /home/${USER}/.q3a/baseq3 ]; then
+
+	cp -ar /home/${USER}/.q3a/baseq3/*.pk3 ../chroot.${image}/usr/lib/ioquake3/baseq3
+	cp -ar /home/${USER}/.q3a/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
+	
+	chown root:root ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+	chmod a+r ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+
+    elif [ -d /usr/lib/ioquake3/baseq3 ]; then
+ 
+	cp -ar /usr/lib/ioquake3/baseq3/*.pk3 ../chroot.${image}/usr/lib/ioquake3/baseq3
+	cp -ar /usr/lib/ioquake3/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
+	
+	chown root:root ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+	chmod a+r ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+
+    fi
+
+    mksquashfs ../chroot.${image} live/${image_name}
+    chmod a-x live/${image_name}
+
+fi
+
+exit 0

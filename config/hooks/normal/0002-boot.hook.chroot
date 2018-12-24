@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+echo "I: boot"
+
+rm -f /boot/initrd*.old-dkms
+
+exit 0

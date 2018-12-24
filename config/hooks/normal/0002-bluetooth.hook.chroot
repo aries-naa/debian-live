@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+echo "I: bluetooth"
+
+umask 022
+
+if [ -w /etc/default/proftpd ]; then
+    sed -i 's/\(^BLUETOOTH_ENABLED=.*\)/#\1/g' /etc/default/bluetooth
+fi
+
+if [ -x /etc/init.d/bluetooth ]; then
+    update-rc.d bluetooth disable
+fi
+
+exit 0
