@@ -7,3 +7,4 @@ include(`firmware.m4')
 include(`antivirus.m4')
 
 openjdk-8-jre
+jenkins
