@@ -27,6 +27,7 @@ xfwm4-theme-breeze
 gtk2-engines-oxygen
 oxygen-icon-theme
 oxygen-sounds
+xfburn
 
 # для минимальной установки.
 upower

@@ -20,6 +20,7 @@ kde-l10n-ru
 kmail
 ark
 kdeconnect
+k3b
 
 krusader
 dolphin

@@ -41,6 +41,8 @@ cvs
 subversion
 subversion-tools
 git-all
+git-annex
+git-crypt
 mercurial
 ghc
 ghc-doc
