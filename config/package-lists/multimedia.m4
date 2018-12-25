@@ -50,3 +50,4 @@ exif
 exifprobe
 exiftran
 krita
+krita-l10n
