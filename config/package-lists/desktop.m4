@@ -8,6 +8,29 @@ openbox
 i3-wm
 i3lock
 i3status
+fetchmail
+evince
+myspell-ru
+mythes-ru
+emacs
+emacs-goodies-el
+org-mode
+bbdb
+alsa-tools-gui
+aconnectgui
+mesa-utils
+libglu1-mesa
+gnucash
+gnucash-docs
+
+#if DISTRIBUTION wheezy
+emacs23-lucid
+#endif
+
+#if DISTRIBUTION jessie stretch
+hyphen-ru
+emacs24-lucid
+#endif
 
 #if DISTRIBUTION jessie stretch
 i3blocks
