@@ -1,88 +1,14 @@
 -*- mode: org -*-
-* DONE обаз с KDE
-  CLOSED: [2018-12-05 Ср 11:09]
-** DONE synaptic не работает
-   CLOSED: [2018-11-23 Пт 09:15]
-** DONE управление питанием из KDE для обычного пользователя
-   CLOSED: [2018-11-23 Пт 09:10]
-** DONE изменение часового пояса
-   CLOSED: [2018-11-23 Пт 10:09]
-* DONE openbox - по умолчанию
-  CLOSED: [2018-11-23 Пт 14:50]
-* DONE USB прнтер
-  CLOSED: [2018-11-27 Вт 10:45]
-* DONE настройка cups без web
-  CLOSED: [2018-11-27 Вт 11:07]
-* DONE тонкая настройка прав для udisks2, gparted, timedate1 и login1.
-  CLOSED: [2018-11-27 Вт 12:1
-* DONE uid для пользователя user - 2000
-  CLOSED: [2018-11-27 Вт 19:39]
-* DONE заблокировать пользователя user
-  CLOSED: [2018-11-27 Вт 19:41]
-* DONE clamav updater
-  CLOSED: [2018-11-27 Вт 19:45]
-* DONE locale rn_US.UTF8
-  CLOSED: [2018-11-27 Вт 20:09]
-* DONE новые пользователи cups, clamav - настроить uid
-  CLOSED: [2018-11-28 Ср 15:07]
-* DONE cggroups
-  CLOSED: [2018-11-28 Ср 15:07]
-* DONE почему без ggmanager нет кнопки выключения в KDE ? systemd-logind ?
-  CLOSED: [2018-11-30 Пт 12:16]
-* DONE thundebird - локальная почта в maildir
-  CLOSED: [2018-11-30 Пт 12:31]
-* DONE состояние батареи KDE и XFCE
-  CLOSED: [2018-12-04 Вт 10:06]
-* DONE новые группы
-  CLOSED: [2018-12-04 Вт 22:29]
-* DONE policy новый способ обнаружения сервисов
-  CLOSED: [2018-12-04 Вт 22:44]
-* DONE пользовательская настройка networkmanager
-  CLOSED: [2018-12-04 Вт 22:44]
-* DONE gnome-minimal
-  CLOSED: [2018-12-04 Вт 14:13]
-* DONE лишние сервисы
-  CLOSED: [2018-12-05 Ср 11:08]
-* DONE проверить возможность использования KDE приложений:
-** DONE сканирование - skanlite
-** DONE web-камера - kamerka
-** DONE музыка audacious + gstreamer1.0-libav
-** DONE midi-клавиатура qsynth
-** DONE фильмы - dragonplayer + mplayer
-** DONE просмотр фотографий и видеороликов - showfoto, digikam
-* DONE подключение телефона
-  CLOSED: [2018-12-17 Пн 09:32]
-* DONE подключение фотоаппарата
-  CLOSED: [2018-12-17 Пн 09:32]
-* DONE USB сканер
-  CLOSED: [2018-12-04 Вт 09:23]
-* DONE оставить thunar и xfce-приложения только в xfce-варианте
-  CLOSED: [2018-12-17 Пн 09:36]
-* DONE настройка политик для networkmanager - разрешить настраивать WIFI и модем
-  CLOSED: [2018-12-17 Пн 10:35]
-* DONE настройка типа пользовательской сессии независимо от выбора в lightdm
-  CLOSED: [2018-12-17 Пн 10:35]
-* DONE предпросмотр фотографий в dolphin
-  CLOSED: [2018-12-18 Вт 06:30]
-* DONE KDE + архиватор
-  CLOSED: [2018-12-18 Вт 11:12]
-* DONE просмотр fb2 по умолчанию в KDE
-  CLOSED: [2018-12-19 Ср 07:16]
-* DONE просмотр фотографий по умолчанию в KDE
-  CLOSED: [2018-12-19 Ср 07:16]
-* DONE глобальное меню
-  CLOSED: [2018-12-19 Ср 07:16]
-* DONE игры: doom, quake1-3, openarena
-  CLOSED: [2018-12-19 Ср 14:35]
-* DONE krita
-  CLOSED: [2018-12-21 Пт 10:16]
-* TODO откуда взялось: apparmor, mysql, akonadi
+* TODO Xresources для emacs и xterm
+* TODO проблемы KDE
+** TODO как настроить быстрый запуск приложений по нажатию кнопок
+** TODO подключение DVD/CD
+** TODO замена виджета <меню запуска приложений> не сохраняет избранные приложения
+** TODO если после нажатия на меню  <K> нажвть виджет <Рабочие столы>, то меню <K> больше не вызывается
+* TODO общая тема XFCE, KDE, gtk и qt
 * TODO hybernate
-* ---
 * TODO настройка KDE без "перделок" по умолчанию
 * TODO настройка XFCE без "перделок" по умолчанию
-* TODO общая тема XFCE, KDE, gtk и qt
-* TODO git
 * --- server ---
 * TODO jenkins + дополнения
 * TODO github сервер
