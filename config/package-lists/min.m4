@@ -85,7 +85,11 @@ mdadm
 udhcpc
 cryptmount
 cryptsetup
+
+#if DISTRIBUTION wheezy jessie stretch
 ecryptfs-utils
+#endif
+
 info
 exfat-fuse
 exfat-utils

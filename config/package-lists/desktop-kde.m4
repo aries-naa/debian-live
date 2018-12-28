@@ -13,6 +13,8 @@ plasma-pa
 plasma-nm
 powerdevil
 ksaneplugin
+kde-config-screenlocker
+khotkeys
 plasma-widgets-addons
 polkit-kde-agent-1
 kdf
