@@ -1,1 +1,1 @@
-deb http://localhost:8081 buster annex
+deb http://localhost:8081 stretch annex
