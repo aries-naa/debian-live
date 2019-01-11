@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# В KDE кто-то балует с X-ресурсами.
+# Необходимо для восстановления состояния после запуска.
+# Предпологаемая нехорошесть в /usr/bin/startkde :
+# LD_BIND_NOW=true /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit_wrapper --kded +kcminit_startup
+
+SYSRESOURCES=/etc/X11/Xresources
+
+if [ -d "$SYSRESOURCES" ]; then
+  RESOURCEFILES=$(run-parts --list $SYSRESOURCES)
+  if [ -n "$RESOURCEFILES" ]; then
+    for RESOURCEFILE in $RESOURCEFILES; do
+      xrdb -merge -quiet $RESOURCEFILE
+    done
+  fi
+fi

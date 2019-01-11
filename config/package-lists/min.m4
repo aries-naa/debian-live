@@ -1,15 +1,9 @@
-#if DISTRIBUTION wheezy
-sysvinit
-#endif
+include(`init-sysv.m4')
+#include(`init-systemd.m4')
 
-#if DISTRIBUTION jessie stretch
-sysvinit-core
-#endif
-
-sysvinit-utils
 live-boot
 live-config
-live-config-sysvinit
+
 aptitude
 acpid
 acpi-support-base

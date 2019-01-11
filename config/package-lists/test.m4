@@ -1,6 +1,8 @@
 # LB_TASK="server"
 
-include(`base.m4')
+include(`min.m4')
+
+udisks2
 
 ##daemon
 ##openjdk-8-jre
@@ -21,4 +23,4 @@ include(`base.m4')
 #kio-extras
 #kio-mtp
 
-strace
+#strace

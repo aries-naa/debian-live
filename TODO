@@ -1,24 +1,13 @@
 -*- mode: org -*-
-* DONE Xresources для emacs и xterm
-  CLOSED: [2018-12-29 Сб 07:26]
-* DONE java для jenkins
-  CLOSED: [2018-12-29 Сб 07:27]
 * TODO что такое <Бумажник KDE>
-* TODO проблемы KDE
-** DONE как настроить быстрый запуск приложений по нажатию кнопок
-   CLOSED: [2018-12-29 Сб 07:26]
-** DONE замена виджета <меню запуска приложений> не сохраняет избранные приложения
-   CLOSED: [2018-12-29 Сб 07:26]
-** DONE если после нажатия на меню  <K> нажвть виджет <Рабочие столы>, то меню <K> больше не вызывается
-   CLOSED: [2018-12-29 Сб 07:26]
-** TODO подключение DVD/CD
-* TODO общая тема XFCE, KDE, gtk и qt
+* TODO поддержка sysvinit и systemd
+* TODO общая тема XFCE, KDE, gtk и qt (имитация W10 Windows - 10 Transformation Pack B00merang-Project)
 * TODO hybernate
 * TODO настройка KDE без "перделок" по умолчанию
 * TODO настройка XFCE без "перделок" по умолчанию
 * --- server ---
 * TODO jenkins + дополнения
-* TODO github сервер
+* TODO git сервер
 * TODO zabbix
 * --- новая версия образов ---
 * TODO заскриптовать настройки
