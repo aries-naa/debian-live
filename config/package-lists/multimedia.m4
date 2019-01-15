@@ -1,18 +1,16 @@
 gphoto2
 gphotofs
 mtp-tools
-jmtpfs
+#jmtpfs
 mplayer2
 ffmpeg
 ffmpeg-doc
 ffmpeg2theora
-xine-ui
-xine-console
-libxine2-plugins
-gphoto2
-gphotofs
-mtp-tools
-geeqie
+#xine-ui
+#xine-console
+#libxine2-plugins
+#gphotofs
+#geeqie
 
 imagemagick
 imagemagick-doc

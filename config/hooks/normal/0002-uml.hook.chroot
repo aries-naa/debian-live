@@ -10,6 +10,10 @@ if [ -x /etc/init.d/uml-utilities ]; then
     update-rc.d uml-utilities disable
 fi
 
+if [ -e /lib/systemd/system/uml-utilities.service ]; then
+    systemctl disable uml-utilities
+fi
+
 if [ -w /etc/default/uml-utilities ]; then
     sed -i 's/#[[:space:]]*UML_SWITCH_START.*$/UML_SWITCH_START="false"/g' /etc/default/uml-utilities
 fi

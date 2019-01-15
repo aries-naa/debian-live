@@ -10,4 +10,8 @@ if [ -x /etc/init.d/winbind ]; then
     update-rc.d winbind disable
 fi
 
+if [ -e /lib/systemd/system/winbind.service ]; then
+    systemctl disable winbind
+fi
+
 exit 0

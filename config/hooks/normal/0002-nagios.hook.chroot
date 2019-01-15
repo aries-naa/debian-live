@@ -10,6 +10,10 @@ if [ -x /etc/init.d/nagios3 ]; then
     update-rc.d nagios3 disable
 fi
 
+if [ -e /lib/systemd/system/nagios3.service ]; then
+    systemctl disable nagios3
+fi
+
 if [ -w /etc/default/nagios3 ]; then
     sed -i 's/^ENABLED=.*/ENABLED="no"/g' /etc/default/nagios3
 fi

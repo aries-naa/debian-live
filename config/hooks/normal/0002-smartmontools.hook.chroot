@@ -10,4 +10,8 @@ if [ -x /etc/init.d/smartmontools ]; then
     update-rc.d smartmontools disable
 fi
 
+if [ -e /lib/systemd/system/smartmontools.service ]; then
+    systemctl disable smartmontools
+fi
+
 exit 0

@@ -25,4 +25,8 @@ if [ -x /etc/init.d/laptop-mode ]; then
     update-rc.d laptop-mode disable
 fi
 
+if [ -e /lib/systemd/system/laptop-mode.service ]; then
+    systemctl disable laptop-mode
+fi
+
 exit 0

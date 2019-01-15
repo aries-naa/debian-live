@@ -10,4 +10,8 @@ if [ -x /etc/init.d/clamav-freshclam ]; then
     update-rc.d clamav-freshclam disable
 fi
 
+if [ -e /lib/systemd/system/clamav-freshclam.service ]; then
+    systemctl disable clamav-freshclam
+fi
+
 exit 0

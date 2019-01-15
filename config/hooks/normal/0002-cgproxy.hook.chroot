@@ -10,4 +10,8 @@ if [ -x /etc/init.d/cgproxy ]; then
     update-rc.d cgproxy disable
 fi
 
+if [ -e /lib/systemd/system/cgproxy.service ]; then
+    systemctl disable cgproxy
+fi
+
 exit 0

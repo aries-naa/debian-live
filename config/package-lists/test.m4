@@ -1,8 +1,6 @@
 # LB_TASK="server"
 
-include(`min.m4')
-
-udisks2
+include(`base.m4')
 
 ##daemon
 ##openjdk-8-jre

@@ -10,6 +10,10 @@ if [ -x /etc/init.d/icinga ]; then
     update-rc.d icinga disable
 fi
 
+if [ -e /lib/systemd/system/icinga.service ]; then
+    systemctl disable icinga
+fi
+
 if [ -w /etc/icinga/apache2.conf ]; then
 
     cat > /etc/icinga/apache2.conf << EOF

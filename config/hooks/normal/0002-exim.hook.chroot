@@ -129,4 +129,8 @@ if [ -f /etc/init.d/exim4 ]; then
     update-rc.d -f exim4 disable
 fi
 
+if [ -e /lib/systemd/system/exim4.service ]; then
+    systemctl disable exim4
+fi
+
 exit 0

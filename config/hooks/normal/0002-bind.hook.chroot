@@ -10,4 +10,8 @@ if [ -x /etc/init.d/bind9 ]; then
     update-rc.d bind9 disable
 fi
 
+if [ -e /lib/systemd/system/bind9.service ]; then
+    systemctl disable bind9
+fi
+
 exit 0

@@ -1,6 +1,3 @@
-include(`init-sysv.m4')
-#include(`init-systemd.m4')
-
 live-boot
 live-config
 
@@ -87,5 +84,3 @@ ecryptfs-utils
 info
 exfat-fuse
 exfat-utils
-
-#aufs-dkms

@@ -384,7 +384,9 @@ EOF
 
     # local includes
     mkdir -p ../chroot.${image}
-    tar -cvf - -C ../config/includes.chroot.${image} . | sudo tar -xvf - --no-same-owner -C ../chroot.${image}
+    if [ -d ../config/includes.chroot.${image} ]; then
+	tar -cvf - -C ../config/includes.chroot.${image} . | sudo tar -xvf - --no-same-owner -C ../chroot.${image}
+    fi
 
     # proc-usb
     if [ -d ../chroot/etc/modules-load.d ]; then

@@ -1,5 +1,8 @@
 # LB_TASK="gdata esk"
 
+include(`init-sysv.m4')
+#include(`init-systemd.m4')
+
 include(`desktop.m4')
 include(`esk.m4')
 include(`rescue.m4')

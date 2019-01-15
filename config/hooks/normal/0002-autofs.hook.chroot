@@ -10,4 +10,8 @@ if [ -x /etc/init.d/autofs ]; then
     update-rc.d autofs disable
 fi
 
+if [ -e /lib/systemd/system/autofs.service ]; then
+    systemctl disable autofs
+fi
+
 exit 0

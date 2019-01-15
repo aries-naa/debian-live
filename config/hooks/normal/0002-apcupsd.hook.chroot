@@ -19,4 +19,8 @@ if [ -x /etc/init.d/apcupsd ]; then
     update-rc.d apcupsd disable
 fi
 
+if [ -e /lib/systemd/system/apcupsd.service ]; then
+    systemctl disable apcupsd
+fi
+
 exit 0

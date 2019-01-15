@@ -10,4 +10,8 @@ if [ -x /etc/init.d/ntp ]; then
     update-rc.d ntp disable
 fi
 
+if [ -e /lib/systemd/system/ntp.service ]; then
+    systemctl disable ntp
+fi
+
 exit 0

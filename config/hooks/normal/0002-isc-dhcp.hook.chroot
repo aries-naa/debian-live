@@ -10,8 +10,16 @@ if [ -x /etc/init.d/isc-dhcp-relay ]; then
     update-rc.d isc-dhcp-relay disable
 fi
 
+if [ -e /lib/systemd/system/isc-dhcp-relay.service ]; then
+    systemctl disable isc-dhcp-relay
+fi
+
 if [ -x /etc/init.d/isc-dhcp-server ]; then
     update-rc.d isc-dhcp-server disable
+fi
+
+if [ -e /lib/systemd/system/isc-dhcp-server.service ]; then
+    systemctl disable isc-dhcp-server
 fi
 
 exit 0

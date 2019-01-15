@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+echo "I: systemd"
+
+umask 022
+
+if [ -w /lib/systemd/system-generators/live-config-getty-generator ]; then
+
+    cat << EOF > /lib/systemd/system-generators/live-config-getty-generator
+#!/bin/sh
+
+exit 0
+EOF
+
+fi
+
+exit 0

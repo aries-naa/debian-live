@@ -18,12 +18,24 @@ if [ -x /etc/init.d/snmpd ]; then
     update-rc.d snmpd disable
 fi
 
+if [ -e /lib/systemd/system/snmpd.service ]; then
+    systemctl disable snmpd
+fi
+
 if [ -x /etc/init.d/snmptrapd ]; then
     update-rc.d snmptrapd disable
 fi
 
+if [ -e /lib/systemd/system/snmptrapd.service ]; then
+    systemctl disable snmptrapd
+fi
+
 if [ -x /etc/init.d/snmptrapfmt ]; then
     update-rc.d snmptrapfmt disable
+fi
+
+if [ -e /lib/systemd/system/snmptrapfmt.service ]; then
+    systemctl disable snmptrapfmt
 fi
 
 if [ -w /etc/snmp/snmpd.conf ]; then
@@ -31,7 +43,7 @@ if [ -w /etc/snmp/snmpd.conf ]; then
     cat > /etc/snmp/snmpd.conf << EOF
 rocommunity public
 EOF
-    
+
 fi
 
 exit 0

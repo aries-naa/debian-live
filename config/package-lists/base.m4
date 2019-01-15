@@ -3,10 +3,6 @@ include(`min.m4')
 sudo
 xfonts-75dpi
 xfonts-100dpi
-#xfonts-bolkhov-75dpi
-#xfonts-bolkhov-cp1251-75dpi
-#xfonts-bolkhov-isocyr-75dpi
-#xfonts-bolkhov-koi8r-75dpi
 xfonts-terminus
 xfonts-terminus-dos
 xfonts-terminus-oblique
@@ -79,6 +75,8 @@ bc
 dialog
 eject
 snmpd
+lshw
+exim4-daemon-light
 
 #if DISTRIBUTION jessie stretch
 snmptrapd
@@ -109,6 +107,3 @@ mscompress
 xz-utils
 sharutils
 sharutils-doc
-
-lshw
-exim4-daemon-light

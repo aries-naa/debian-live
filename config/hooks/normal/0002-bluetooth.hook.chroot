@@ -14,4 +14,8 @@ if [ -x /etc/init.d/bluetooth ]; then
     update-rc.d bluetooth disable
 fi
 
+if [ -e /lib/systemd/system/bluetooth.service ]; then
+    systemctl disable bluetooth
+fi
+
 exit 0

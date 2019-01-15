@@ -1,6 +1,5 @@
 include(`base.m4')
 
-#autofs
 squashfs-tools
 ldap-utils
 libsasl2-modules-gssapi-mit
@@ -19,10 +18,6 @@ xfsdump
 rsyslog-doc
 rsync
 scrot
-#sqlite
-#sqlite-doc
-#sqlite3
-#sqlite3-doc
 ldap2dns
 alien
 rpm

@@ -10,4 +10,8 @@ if [ -x /etc/init.d/sysstat ]; then
     update-rc.d sysstat disable
 fi
 
+if [ -e /lib/systemd/system/sysstat.service ]; then
+    systemctl disable sysstat
+fi
+
 exit 0

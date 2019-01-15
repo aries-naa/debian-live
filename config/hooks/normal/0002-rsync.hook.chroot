@@ -10,4 +10,8 @@ if [ -x /etc/init.d/rsync ]; then
     update-rc.d rsync disable
 fi
 
+if [ -e /lib/systemd/system/rsync.service ]; then
+    systemctl disable rsync
+fi
+
 exit 0

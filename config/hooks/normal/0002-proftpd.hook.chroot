@@ -34,6 +34,10 @@ EOF
 	update-rc.d proftpd disable
     fi
 
+    if [ -e /lib/systemd/system/proftpd.service ]; then
+	systemctl disable proftpd
+    fi
+
     if [ -w /etc/proftpd/proftpd.conf ]; then
 	
 	cat > /etc/proftpd/proftpd.conf << EOF
@@ -89,7 +93,7 @@ SystemLog   /var/log/proftpd/proftpd.log
 
 Include /etc/proftpd/conf.d/
 EOF
-	
+
     fi
 
 fi

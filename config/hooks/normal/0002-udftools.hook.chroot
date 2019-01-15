@@ -10,4 +10,8 @@ if [ -x /etc/init.d/udftools ]; then
     update-rc.d udftools disable
 fi
 
+if [ -e /lib/systemd/system/udftools.service ]; then
+    systemctl disable udftools
+fi
+
 exit 0

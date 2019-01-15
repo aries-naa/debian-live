@@ -10,13 +10,25 @@ if [ -x /etc/init.d/nmbd ]; then
     update-rc.d nmbd disable
 fi
 
+if [ -e /lib/systemd/system/nmbd.service ]; then
+    systemctl disable nmbd
+fi
+
 if [ -x /etc/init.d/smbd ]; then
     update-rc.d smbd disable
     mkdir -p /srv/samba
 fi
 
+if [ -e /lib/systemd/system/smbd.service ]; then
+    systemctl disable smbd
+fi
+
 if [ -x /etc/init.d/samba-ad-dc ]; then
     update-rc.d samba-ad-dc disable
+fi
+
+if [ -e /lib/systemd/system/samba-ad-dc.service ]; then
+    systemctl disable samba-ad-dc
 fi
 
 exit 0

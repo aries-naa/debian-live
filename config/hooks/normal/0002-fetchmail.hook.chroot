@@ -10,4 +10,8 @@ if [ -x /etc/init.d/fetchmail ]; then
     update-rc.d fetchmail disable
 fi
 
+if [ -e /lib/systemd/system/fetchmail.service ]; then
+    systemctl disable fetchmail
+fi
+
 exit 0

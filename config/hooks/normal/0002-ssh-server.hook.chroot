@@ -29,7 +29,11 @@ EOF
     if [ -x /etc/init.d/ssh ]; then
 	update-rc.d ssh disable
     fi
-    
+
+    if [ -e /lib/systemd/system/ssh.service ]; then
+	systemctl disable ssh
+    fi
+
     if [ -w /etc/ssh/sshd_config ]; then
 	sed -i 's/^\(PermitRootLogin.*\)/# LIVE\n# change to yes for password login\n\1/g' /etc/ssh/sshd_config
 	sed -i 's/\(.*PasswordAuthentication.*\)/# LIVE \n# change to yes for password login\n\1/g' /etc/ssh/sshd_config

@@ -10,4 +10,8 @@ if [ -x /etc/init.d/saned ]; then
     update-rc.d saned disable
 fi
 
+if [ -e /lib/systemd/system/saned.service ]; then
+    systemctl disable saned
+fi
+
 exit 0

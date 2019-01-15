@@ -10,4 +10,8 @@ if [ -x /etc/init.d/drweb-configd ]; then
     update-rc.d drweb-configd disable
 fi
 
+if [ -e /lib/systemd/system/drweb-configd.service ]; then
+    systemctl disable drweb-configd
+fi
+
 exit 0

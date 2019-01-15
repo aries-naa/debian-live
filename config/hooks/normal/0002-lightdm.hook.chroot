@@ -22,9 +22,6 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
 	
     fi
 
-    #sed -i 's/#greeter-user=.*/greeter-user=root/g' /etc/lightdm/lightdm.conf
-    #sed -i 's/#display-setup-script=.*/display-setup-script=\/etc\/X11\/xinit\/xinit-display/g' /etc/lightdm/lightdm.conf
-
 fi
 
 if dpkg -s lightdm | grep '^Status:.*[^-]installed$'; then

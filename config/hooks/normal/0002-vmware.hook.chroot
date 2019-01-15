@@ -10,4 +10,8 @@ if [ -x /etc/init.d/open-vm-tools ]; then
     update-rc.d open-vm-tools disable
 fi
 
+if [ -e /lib/systemd/system/open-vm-tools.service ]; then
+    systemctl disable open-vm-tools
+fi
+
 exit 0

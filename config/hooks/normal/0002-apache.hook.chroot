@@ -10,4 +10,8 @@ if [ -x /etc/init.d/apache2 ]; then
     update-rc.d apache2 disable
 fi
 
+if [ -e /lib/systemd/system/apache2.service ]; then
+    systemctl disable apache2
+fi
+
 exit 0
