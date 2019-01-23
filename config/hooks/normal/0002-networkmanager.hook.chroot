@@ -19,4 +19,16 @@ EOF
 
 fi
 
+if [ -e /lib/systemd/system/NetworkManager.service ]; then
+    systemctl disable NetworkManager
+fi
+
+if [ -e /lib/systemd/system/NetworkManager-wait-online.service ]; then
+    systemctl disable NetworkManager-wait-online
+fi
+
+if [ -e /lib/systemd/system/NetworkManager-dispatcher.service ]; then
+    systemctl disable NetworkManager-dispatcher
+fi
+
 exit 0

@@ -403,11 +403,17 @@ exit 0
 EOF
 
     chown -R root:root ../chroot.${image}/*
-    chmod -R go-rwx ../chroot.${image}/root
-    chown -R root:staff ../chroot.${image}/usr/local/*
-    chmod go-rwx ../chroot.${image}/var/autofs/cifs-root
-    find ../chroot.${image}/usr/local -type d -exec chmod g+rws {} \;
-    find ../chroot.${image}/usr/local -type f -exec chmod g+rw  {} \;
+    if [ -e ../chroot.${image}/root ]; then
+	chmod -R go-rwx ../chroot.${image}/root
+    fi
+    if [ -e ../chroot.${image}/usr/local ]; then
+	chown -R root:staff ../chroot.${image}/usr/local/*
+	find ../chroot.${image}/usr/local -type d -exec chmod g+rws {} \;
+	find ../chroot.${image}/usr/local -type f -exec chmod g+rw  {} \;
+    fi
+    if [ -e ../chroot.${image}/var/autofs/cifs-root ]; then
+	chmod go-rwx ../chroot.${image}/var/autofs/cifs-root
+    fi
 
     mksquashfs ../chroot.${image} live/${image_name}
     chmod a-x live/${image_name}

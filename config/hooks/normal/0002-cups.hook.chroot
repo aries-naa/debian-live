@@ -6,6 +6,14 @@ echo "I: cups"
 
 umask 022
 
+if [ -x /etc/init.d/cups ]; then
+    update-rc.d cups disable
+fi
+
+if [ -e /lib/systemd/system/cups.service ]; then
+    systemctl disable cups
+fi
+
 if [ -w /etc/cups/cupsd.conf ]; then
 
     sed -i 's/^Listen localhost/#Listen localhost/g' /etc/cups/cupsd.conf

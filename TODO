@@ -1,7 +1,12 @@
 -*- mode: org -*-
-* TODO cron и | или anacron
+* DONE отключение systemd сервисов: networkmanager, kesl, klnagent ...
+  CLOSED: [2019-01-23 Ср 14:33]
+* TODO KDE + gpg
+* TODO KDE + dolphin + контекстное меню для установки фона экрана
+* TODO KDE + kwin + перетаскивание окон без содержимого
+* TODO KDE + тема без прозрачностей и разных эффектов
 * TODO что такое <Бумажник KDE>
-* TODO поддержка sysvinit и systemd
+* TODO NetworkManager - возможность применения в rescue и в осносном образе
 * TODO общая тема XFCE, KDE, gtk и qt (имитация W10 Windows - 10 Transformation Pack B00merang-Project)
 * TODO hybernate
 * TODO настройка KDE без "перделок" по умолчанию

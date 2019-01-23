@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+
+echo "I: kaspersky"
+
+umask 022
+
+if [ -x /etc/init.d/kesl-supervisor ]; then
+    update-rc.d kesl-supervisor disable
+fi
+
+if [ -e /lib/systemd/system/kesl-supervisor.service ]; then
+    systemctl disable kesl-supervisor
+fi
+
+if [ -x /etc/init.d/klnagent64 ]; then
+    update-rc.d klnagent64 disable
+fi
+
+if [ -e /lib/systemd/system/klnagent64 ]; then
+    systemctl disable klnagent64
+fi
+
+if [ -x /etc/init.d/klnagent ]; then
+    update-rc.d klnagent disable
+fi
+
+if [ -e /lib/systemd/system/klnagent ]; then
+    systemctl disable klnagent
+fi
+
+exit 0
