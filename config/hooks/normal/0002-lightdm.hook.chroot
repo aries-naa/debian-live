@@ -24,7 +24,15 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
 
 fi
 
-if dpkg -s lightdm | grep '^Status:.*[^-]installed$'; then
+if [ -x /etc/init.d/lightdm ]; then
+    update-rc.d lightdm enable
+fi
+
+if [ -e /lib/systemd/system/lightdm.service ]; then
+    systemctl enable lightdm
+fi
+
+if [ -x /etc/init.d/lightdm ]; then
     update-rc.d -f lightdm disable 2
 fi
 

@@ -12,7 +12,7 @@ print-manager
 plasma-pa
 plasma-nm
 powerdevil
-ksaneplugin
+#ksaneplugin
 kde-config-screenlocker
 khotkeys
 plasma-widgets-addons
@@ -25,7 +25,7 @@ ark
 krusader
 dolphin
 kio-extras
-kio-mtp
+#kio-mtp
 
 qsynth
 vmpk
@@ -45,10 +45,13 @@ fbreader
 libzlui-qt4
 
 dragonplayer
-mplayer2
+#mplayer2
 
 showfoto
 digikam
+
+krita
+krita-l10n
 
 # kde - игры.
 klickety

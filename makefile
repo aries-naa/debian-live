@@ -46,9 +46,11 @@ else
 	distribution=stretch
 endif
 annex_repo="deb http://localhost:8081 $(distribution) annex"
-ifeq ($(distribution), stretch)
-	overlay_fs=overlay
-else
+overlay_fs=overlay
+ifeq ($(distribution), jessie)
+	overlay_fs=aufs
+endif
+ifeq ($(distribution), wheezy)
 	overlay_fs=aufs
 endif
 

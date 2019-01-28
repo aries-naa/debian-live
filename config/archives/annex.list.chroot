@@ -1,1 +1,1 @@
-deb http://localhost:8081 stretch annex
+deb http://localhost:8081 sid annex
