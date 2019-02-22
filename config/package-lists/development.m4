@@ -47,7 +47,7 @@ mercurial
 ghc
 ghc-doc
 ghc-ghci
-ghc-mod
+#ghc-mod
 ghc-prof
 ghc-testsuite
 cabal-install

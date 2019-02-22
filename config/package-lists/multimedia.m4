@@ -2,7 +2,7 @@ gphoto2
 gphotofs
 mtp-tools
 #jmtpfs
-mplayer2
+mpv
 ffmpeg
 ffmpeg-doc
 ffmpeg2theora

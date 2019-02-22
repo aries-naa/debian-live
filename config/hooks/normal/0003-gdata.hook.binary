@@ -34,21 +34,22 @@ if [ -n "$index" ]; then
     mkdir -p ../chroot.${image}/usr/lib/ioquake3/baseq3
     if [ -d /home/${USER}/.q3a/baseq3 ]; then
 
-	cp -ar /home/${USER}/.q3a/baseq3/*.pk3 ../chroot.${image}/usr/lib/ioquake3/baseq3
-	cp -ar /home/${USER}/.q3a/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
-	
-	chown root:root ../chroot.${image}/usr/lib/ioquake3/baseq3/*
-	chmod a+r ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+	find /home/${USER}/.q3a/baseq3 -name "*.pk3" -exec cp -ar {} ../chroot.${image}/usr/lib/ioquake3/baseq3 \;
+	if [ -f /home/${USER}/.q3a/baseq3/q3key ]; then
+	    cp -ar /home/${USER}/.q3a/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
+	fi
 
     elif [ -d /usr/lib/ioquake3/baseq3 ]; then
- 
-	cp -ar /usr/lib/ioquake3/baseq3/*.pk3 ../chroot.${image}/usr/lib/ioquake3/baseq3
-	cp -ar /usr/lib/ioquake3/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
-	
-	chown root:root ../chroot.${image}/usr/lib/ioquake3/baseq3/*
-	chmod a+r ../chroot.${image}/usr/lib/ioquake3/baseq3/*
+
+	find /usr/lib/ioquake3/baseq3 -name "*.pk3" -exec cp {-ar } ../chroot.${image}/usr/lib/ioquake3/baseq3 \;
+	if [ -f /usr/lib/ioquake3/baseq3/q3key ]; then
+	    cp -ar /usr/lib/ioquake3/baseq3/q3key ../chroot.${image}/usr/lib/ioquake3/baseq3
+	fi
 
     fi
+
+    chown -R root:root ../chroot.${image}/usr/lib/ioquake3/baseq3/
+    chmod -R a+r ../chroot.${image}/usr/lib/ioquake3/baseq3/
 
     mksquashfs ../chroot.${image} live/${image_name}
     chmod a-x live/${image_name}

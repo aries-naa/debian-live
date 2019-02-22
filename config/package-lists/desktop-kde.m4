@@ -19,7 +19,12 @@ plasma-widgets-addons
 polkit-kde-agent-1
 kdf
 kde-l10n-ru
+kmenuedit
+
 kmail
+akonadi-server
+akonadi-backend-sqlite
+
 ark
 
 krusader
@@ -45,7 +50,7 @@ fbreader
 libzlui-qt4
 
 dragonplayer
-#mplayer2
+mpv
 
 showfoto
 digikam

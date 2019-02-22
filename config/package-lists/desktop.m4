@@ -41,11 +41,9 @@ xscreensaver
 xscreensaver-data-extra
 xscreensaver-gl
 xscreensaver-gl-extra
-evince-gtk
 libreoffice
 libreoffice-l10n-ru
 libreoffice-help-ru
-libreoffice-gtk
 haskell-mode
 ocaml-mode
 js2-mode
@@ -86,7 +84,9 @@ thunderbird-l10n-all
 
 chromium
 chromium-l10n
+#if DISTRIBUTION stretch
 chromium-widevine
+#endif
 
 # annex
 

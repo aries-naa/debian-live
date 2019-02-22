@@ -106,8 +106,8 @@ all:
 	@echo "  make rescue-net,  make rescue-iso,"
 	@echo "  make desktop-net, make desktop-iso,"
 	@echo "  make server-iso,  make server-hdd,"
-	@echo "  make live-iso,"
-	@echo "  make xen-iso, xen-hdd"
+	@echo "  make live-iso,    make live-hdd,"
+	@echo "  make xen-iso,     make xen-hdd"
 	@echo
 	@echo "Переменные:"
 	@echo "  arch   - используемая архитектура"
@@ -116,8 +116,7 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-#boot_append=boot=live components quiet nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume)
-boot_append=boot=live components quiet nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) persistence
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) persistence
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot
@@ -142,14 +141,14 @@ xen-iso xen-hdd: image_name=xen
 xen-iso xen-hdd: boot_append+=persistence
 xen-iso xen-hdd: boot_append_failsafe+=persistence
 
-live-iso: image_name=live
-live-iso: boot_append+=persistence
-live-iso: boot_append_failsafe+=persistence
-live-iso: LB_TASK ?= gdata
+live-iso live-hdd: image_name=live
+live-iso live-hdd: boot_append+=persistence
+live-iso live-hdd: boot_append_failsafe+=persistence
+live-iso live-hdd: LB_TASK ?= gdata
 
 rescue-iso desktop-iso server-iso live-iso xen-iso: iso
 rescue-net desktop-net server-net live-net: net
-server-hdd xen-hdd: hdd
+server-hdd live-hdd xen-hdd: hdd
 
 install .build/binary_iso .build/binary_netboot .build/binary_hdd: build_image_name=$(if $(image_name),$(image_name),debian-live)
 

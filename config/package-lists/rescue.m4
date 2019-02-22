@@ -3,8 +3,10 @@ dosfstools
 cifs-utils
 parted
 parted-doc
+#if DISTRIBUTION jessie stretch
 partimage
 partimage-doc
+#endif
 gddrescue
 gddrescue
 myrescue

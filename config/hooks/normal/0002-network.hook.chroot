@@ -9,7 +9,7 @@ echo "I: network"
 umask 022
 
 # устанавливается при конфигурировании образа.
-image_type=iso-hybrid
+image_type=hdd
 
 if [ -w /etc/network/interfaces ]; then
 

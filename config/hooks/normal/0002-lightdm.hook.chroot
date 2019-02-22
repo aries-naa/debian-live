@@ -24,16 +24,23 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
 
 fi
 
-if [ -x /etc/init.d/lightdm ]; then
-    update-rc.d lightdm enable
-fi
+#if [ -x /etc/init.d/lightdm ]; then
+#    update-rc.d lightdm enable
+#fi
 
-if [ -e /lib/systemd/system/lightdm.service ]; then
-    systemctl enable lightdm
-fi
+#if [ -w /lib/systemd/system/lightdm.service ]; then
+#
+#    cat >> /lib/systemd/system/lightdm.service << EOF
+#
+#[Install]
+#WantedBy=multi-user.target
+#EOF
+#
+#    systemctl enable lightdm
+#fi
 
-if [ -x /etc/init.d/lightdm ]; then
-    update-rc.d -f lightdm disable 2
-fi
+#if [ -x /etc/init.d/lightdm ]; then
+#    update-rc.d -f lightdm disable 2
+#fi
 
 exit 0
