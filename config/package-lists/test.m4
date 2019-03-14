@@ -1,9 +1,7 @@
-# LB_TASK="server"
+# LB_TASK="gdata"
 
-include(`min.m4')
-#include(`live.m4')
-#include(`desktop-kde.m4')
+#include(`init-sysv.m4')
+include(`init-systemd.m4')
 
-#gtk3-engines-breeze
-
-include(`firmware.m4')
+include(`desktop.m4')
+include(`internet.m4')

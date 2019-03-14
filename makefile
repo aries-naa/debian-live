@@ -97,7 +97,8 @@ else
 endif
 
 # live_volume
-live_volume="aries-live"
+#live_volume="aries-live"
+live_volume=l$(shell date "+%Y%m%d%H%S")
 
 .PHONY : all clean clean-all iso hdd net configure build install install-desktop install-rescue annex
 
@@ -116,7 +117,7 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) persistence
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume)
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot
@@ -142,8 +143,8 @@ xen-iso xen-hdd: boot_append+=persistence
 xen-iso xen-hdd: boot_append_failsafe+=persistence
 
 live-iso live-hdd: image_name=live
-live-iso live-hdd: boot_append+=persistence
-live-iso live-hdd: boot_append_failsafe+=persistence
+live-iso live-hdd: boot_append+=persistence persistence-label=xx-persistence
+live-iso live-hdd: boot_append_failsafe+=persistence persistence-label=xx-persistence
 live-iso live-hdd: LB_TASK ?= gdata
 
 rescue-iso desktop-iso server-iso live-iso xen-iso: iso
@@ -174,7 +175,7 @@ annex:
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot
-	@lb config \
+	lb config \
 	--binary-images $(image_type) \
 	--distribution $(distribution) \
 	--parent-distribution $(distribution) \

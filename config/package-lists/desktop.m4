@@ -32,6 +32,11 @@ hyphen-ru
 emacs24-lucid
 #endif
 
+#if DISTRIBUTION buster
+hyphen-ru
+emacs-gtk
+#endif
+
 #if DISTRIBUTION jessie stretch
 i3blocks
 openbox-menu
@@ -86,6 +91,9 @@ chromium
 chromium-l10n
 #if DISTRIBUTION stretch
 chromium-widevine
+#endif
+#if DISTRIBUTION buster
+chromium-sandbox
 #endif
 
 # annex

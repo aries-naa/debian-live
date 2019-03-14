@@ -30,6 +30,7 @@ xdg-user-dirs
 # печать
 cups
 cups-filters
+cups-pk-helper
 openprinting-ppds
 foomatic-db
 printer-driver-gutenprint

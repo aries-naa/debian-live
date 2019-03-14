@@ -54,7 +54,6 @@ pppoeconf
 wireless-tools
 wpasupplicant
 lm-sensors
-apcupsd
 snmp
 i2c-tools
 pmount
@@ -77,6 +76,7 @@ eject
 snmpd
 lshw
 exim4-daemon-light
+iotop
 
 #if DISTRIBUTION jessie stretch
 snmptrapd
@@ -107,3 +107,12 @@ mscompress
 xz-utils
 sharutils
 sharutils-doc
+
+# настройка сети.
+network-manager
+network-manager-openvpn
+network-manager-pptp
+network-manager-ssh
+modemmanager
+modemmanager-doc
+usb-modeswitch

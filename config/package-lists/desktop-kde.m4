@@ -12,7 +12,6 @@ print-manager
 plasma-pa
 plasma-nm
 powerdevil
-#ksaneplugin
 kde-config-screenlocker
 khotkeys
 plasma-widgets-addons
@@ -30,7 +29,6 @@ ark
 krusader
 dolphin
 kio-extras
-#kio-mtp
 
 qsynth
 vmpk
@@ -53,7 +51,7 @@ dragonplayer
 mpv
 
 showfoto
-digikam
+#digikam
 
 krita
 krita-l10n
@@ -81,3 +79,9 @@ gtk2-engines-oxygen
 # для минимальной установки.
 upower
 udisks2
+
+# kwallet.
+kwalletmanager
+kwalletcli
+libpam-kwallet5
+kgpg

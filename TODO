@@ -1,16 +1,26 @@
 -*- mode: org -*-
 * DONE отключение systemd сервисов: networkmanager, kesl, klnagent ...
   CLOSED: [2019-01-23 Ср 14:33]
-* TODO buster + pulseaudio
-* TODO buster + systemd
-* TODO buster + live-boot
-* TODO образ buster или обновление kde
+* DONE live_volume уникольный для каждой сборки.
+  CLOSED: [2019-03-04 Пн 10:33]
+* DONE buster + сканирование от имени обычного пользователя.
+  CLOSED: [2019-03-11 Пн 20:19]
+* DONE buster + настройка принтера от имени обычного пользователя.
+  CLOSED: [2019-03-11 Пн 20:20]
+* DONE buster + pulseaudio
+  CLOSED: [2019-03-11 Пн 20:20]
+* DONE buster + systemd
+  CLOSED: [2019-03-11 Пн 20:20]
+* DONE buster + live-boot
+  CLOSED: [2019-03-11 Пн 20:20]
+* DONE что такое <Бумажник KDE>
+  CLOSED: [2019-03-14 Чт 23:58]
+* TODO systemctl - сбой службы
+* TODO NetworkManager - возможность применения в rescue и в осносном образе
 * TODO KDE + gpg
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
 * TODO KDE + kwin + перетаскивание окон без содержимого
 * TODO KDE + тема без прозрачностей и разных эффектов
-* TODO что такое <Бумажник KDE>
-* TODO NetworkManager - возможность применения в rescue и в осносном образе
 * TODO общая тема XFCE, KDE, gtk и qt (имитация W10 Windows - 10 Transformation Pack B00merang-Project)
 * TODO hybernate
 * TODO настройка KDE без "перделок" по умолчанию
