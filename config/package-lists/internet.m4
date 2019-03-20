@@ -15,3 +15,5 @@ cadaver
 google-earth-pro-stable
 libgl1-mesa-dri
 xdg-utils
+
+viber

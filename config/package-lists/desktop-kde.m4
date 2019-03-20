@@ -23,6 +23,7 @@ kmenuedit
 kmail
 akonadi-server
 akonadi-backend-sqlite
+akonadiconsole
 
 ark
 
