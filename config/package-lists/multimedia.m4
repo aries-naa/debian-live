@@ -1,14 +1,11 @@
 gphoto2
 gphotofs
 mtp-tools
-#jmtpfs
 mpv
+mplayer
 ffmpeg
 ffmpeg-doc
 ffmpeg2theora
-#xine-ui
-#xine-console
-#libxine2-plugins
 #gphotofs
 #geeqie
 
@@ -19,7 +16,6 @@ ghostscript
 xdg-utils
 libglu1-mesa
 stellarium
-stellarium-data
 audacious
 audacious-plugins
 audacious-plugins-data
