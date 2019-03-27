@@ -1,10 +1,13 @@
 -*- mode: org -*-
-* TODO systemd.swap - отключить и создать свой unit
+* TODO systemd.swap - отключить и создать свой unit - fstab-swap.service и fstab-mount.service
 * TODO logrotate - настроить и проверить работу
-* TODO wpa_supplicant отключить
 * TODO ModemManager отключить
-* TODO нрастройка раскладки клавиатуры
-* TODO настройка системного лотка - почему не всё показывает ?
+* TODO замена xinetd, cron и at на systemd
+* TODO systemd и rsyslogd
+* DONE нрастройка раскладки клавиатуры
+  CLOSED: [2019-03-27 Ср 09:47]
+* DONE настройка системного лотка - почему не всё показывает ?
+  CLOSED: [2019-03-27 Ср 09:46]
 * --- новая версия образов ---
 * TODO NetworkManager - возможность применения в rescue и в осносном образе
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
