@@ -25,9 +25,9 @@ x11-apps
 console-terminus
 menu
 menu-l10n
-xinetd
-laptop-detect
-laptop-mode-tools
+#xinetd
+#laptop-detect
+#laptop-mode-tools
 procps
 pm-utils
 hdparm
@@ -92,7 +92,7 @@ sysstat
 ifstat
 ddccontrol
 ntp
-anacron
+#anacron
 logrotate
 vim-nox
 vim-doc

@@ -72,6 +72,7 @@ alsa-utils
 console-setup
 acl
 attr
+cgroup-tools
 mdadm
 udhcpc
 cryptmount

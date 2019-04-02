@@ -129,18 +129,18 @@ rescue-iso rescue-net: boot_append_failsafe += nopersistence 2
 rescue-iso rescue-net: LB_TASK ?= rescue
 
 install-desktop desktop-iso desktop-net: image_name=desktop
-desktop-iso desktop-net: boot_append+=persistence persistence-label=esk
-desktop-iso desktop-net: boot_append_failsafe+=persistence persistence-label=esk
+desktop-iso desktop-net: boot_append+=persistence persistence-label=srv-persistence
+desktop-iso desktop-net: boot_append_failsafe+=persistence persistence-label=srv-persistence
 desktop-iso desktop-net: LB_TASK ?= gdata esk
 
 server-iso server-hdd: image_name=server
-server-iso server-hdd: boot_append+=persistence persistence-label=esk 2
-server-iso server-hdd: boot_append_failsafe+=persistence persistence-label=esk 2
+server-iso server-hdd: boot_append+=persistence persistence-label=srv-persistence 2
+server-iso server-hdd: boot_append_failsafe+=persistence persistence-label=srv-persistence 2
 server-iso server-hdd: LB_TASK ?= esk
 
 xen-iso xen-hdd: image_name=xen
-xen-iso xen-hdd: boot_append+=persistence
-xen-iso xen-hdd: boot_append_failsafe+=persistence
+xen-iso xen-hdd: boot_append+=persistence  persistence-label=srv-persistence
+xen-iso xen-hdd: boot_append_failsafe+=persistence  persistence-label=srv-persistence
 
 live-iso live-hdd: image_name=live
 live-iso live-hdd: boot_append+=persistence persistence-label=xx-persistence

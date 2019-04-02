@@ -4,6 +4,7 @@
 * TODO ModemManager отключить
 * TODO замена xinetd, cron и at на systemd
 * TODO systemd и rsyslogd
+* TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
 * DONE нрастройка раскладки клавиатуры
   CLOSED: [2019-03-27 Ср 09:47]
 * DONE настройка системного лотка - почему не всё показывает ?

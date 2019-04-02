@@ -107,6 +107,7 @@ group_mod drweb             134
 group_mod scanner           135
 group_mod saned             136
 group_mod hplip             137
+group_mod systemd-coredump  138
 
 user_mod systemd-timesync  100
 user_mod systemd-network   101
@@ -131,6 +132,8 @@ user_mod proftpd           119
 user_mod drweb             120
 user_mod saned             121
 user_mod hplip             122
+user_mod systemd-coredump  123
+user_mod _apt              124
 
 if [ -e /run/network ]; then
     if getent group netdev 2>&1 > /dev/null; then

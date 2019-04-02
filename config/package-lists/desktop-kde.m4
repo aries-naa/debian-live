@@ -19,6 +19,7 @@ polkit-kde-agent-1
 kdf
 kde-l10n-ru
 kmenuedit
+kuser
 
 kmail
 akonadi-server
