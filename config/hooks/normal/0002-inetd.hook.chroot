@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: inetd"
+
+umask 022
+
+if [ -e /lib/systemd/system/inetd.service ]; then
+    systemctl disable inetd
+fi
+
+exit 0

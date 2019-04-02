@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: wpa_supplicant"
+
+umask 022
+
+if [ -e /lib/systemd/system/wpa_supplicant.service ]; then
+    systemctl disable wpa_supplicant
+fi
+
+exit 0

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+echo "I: modem manager"
+
+umask 022
+
+if [ -e /lib/systemd/system/ModemManager.service ]; then
+    systemctl disable ModemManager
+fi
+
+exit 0
