@@ -7,12 +7,52 @@ echo "I: systemd"
 umask 022
 
 if [ -w /lib/systemd/system-generators/live-config-getty-generator ]; then
+    mkdir -p /etc/systemd/system-generators
+    ln -sf /dev/null /etc/systemd/system-generators/live-config-getty-generator
+fi
 
-    cat << EOF > /lib/systemd/system-generators/live-config-getty-generator
-#!/bin/sh
+if [ -w /lib/systemd/system-generators/systemd-fstab-generator ]; then
+    mkdir -p /etc/systemd/system-generators
+    ln -sf /dev/null /etc/systemd/system-generators/systemd-fstab-generator
+fi
 
-exit 0
+if [ -d /etc/systemd/system ]; then
+
+    # mount
+    cat > /etc/systemd/system/fstab-mount.service << EOF
+[Unit]
+Description=Local Mount
+Documentation=man:mount(8)
+After=local-fs-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/bin/mount -a
+ExecStop=-/bin/mount -a
+
+[Install]
+WantedBy=local-fs.target
 EOF
+    systemctl enable fstab-mount.service
+
+    # swap
+    cat > /etc/systemd/system/fstab-swap.service << EOF
+[Unit]
+Description=Local Swap
+Documentation=man:mount(8)
+After=local-fs-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/sbin/swapon -a
+ExecStop=-/sbin/swapoff -a
+
+[Install]
+WantedBy=local-fs.target
+EOF
+    systemctl enable fstab-swap.service
 
 fi
 
