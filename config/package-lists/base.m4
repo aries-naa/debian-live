@@ -77,6 +77,9 @@ snmpd
 lshw
 exim4-daemon-light
 iotop
+stunnel
+socat
+netcat-openbsd
 
 #if DISTRIBUTION jessie stretch
 snmptrapd
@@ -92,7 +95,6 @@ sysstat
 ifstat
 ddccontrol
 ntp
-#anacron
 logrotate
 vim-nox
 vim-doc
