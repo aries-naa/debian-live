@@ -6,9 +6,18 @@ echo "I: tftpd"
 
 umask 022
 
+
 if [ -x /usr/sbin/in.tftpd ]; then
 
     mkdir -p /srv/tftp
+
+    if [ -x /etc/init.d/tftpd-hpa ]; then
+	update-rc.d tftpd-hpa disable
+    fi
+
+    if [ -e /lib/systemd/system/tftp.service ]; then
+	systemctl disable tftp
+    fi
 
     if [ -d /etc/xinetd.d ]; then
 
@@ -26,6 +35,39 @@ service tftp
 
 EOF
     fi
+
+fi
+
+if [ -d /etc/systemd/system ]; then
+
+    cat > /etc/systemd/system/tftpd.socket << EOF
+[Unit]
+Description=Tftpd server socket
+
+[Socket]
+ListenDatagram=0.0.0.0:69
+
+[Install]
+WantedBy=sockets.target
+EOF
+
+    cat > /etc/systemd/system/tftpd.service << EOF
+[Unit]
+Description=Tftpd server
+Documentation=man:tftpd(8)
+Requires=tftpd.socket
+
+[Service]
+ExecStart=/usr/sbin/in.tftpd -s /srv/tftp
+StandardInput=socket
+User=tftp
+Group=tftp
+
+[Install]
+Also=tftpd.socket
+EOF
+
+    systemctl disable tftpd.socket
 
 fi
 

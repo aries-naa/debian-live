@@ -40,5 +40,36 @@ EOF
 
 fi
 
+if [ -d /etc/systemd/system ]; then
+
+    cat > /etc/systemd/system/dictd.socket << EOF
+[Unit]
+Description=Dictionary server socket
+Before=dictd.service
+Conflicts=dictd.service
+
+[Socket]
+ListenStream=127.0.0.1:2628
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
+EOF
+
+    cat > /etc/systemd/system/dictd@.service << EOF
+[Unit]
+Description=Dictionary server socket
+Documentation=man:dictd(8)
+After=auditd.service
+
+[Service]
+ExecStart=-/usr/sbin/dictd -i --locale en_US.UTF-8
+User=dictd
+StandardInput=socket
+EOF
+
+    systemctl disable dictd.socket
+
+fi
 
 exit 0

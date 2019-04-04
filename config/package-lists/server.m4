@@ -1,4 +1,5 @@
-tftpd
+#tftpd
+tftpd-hpa
 proftpd
 proftpd-doc
 apache2

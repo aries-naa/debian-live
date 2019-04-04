@@ -8,8 +8,6 @@ umask 022
 
 if [ -x /usr/sbin/proftpd ]; then
 
-    mkdir -p /var/ftp
-
     if [ -d /etc/xinetd.d ]; then
 
 	cat > /etc/xinetd.d/proftpd << EOF
@@ -95,6 +93,37 @@ Include /etc/proftpd/conf.d/
 EOF
 
     fi
+
+fi
+
+if [ -d /etc/systemd/system ]; then
+
+    cat > /etc/systemd/system/proftpd.socket << EOF
+[Unit]
+Description=Proftpd server socket
+Before=proftpd.service
+Conflicts=proftpd.service
+
+[Socket]
+ListenStream=0.0.0.0:21
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
+EOF
+
+    cat > /etc/systemd/system/proftpd@.service << EOF
+[Unit]
+Description=Proftpd server
+Documentation=man:proftpd(8)
+After=auditd.service
+
+[Service]
+ExecStart=-/usr/sbin/proftpd
+StandardInput=socket
+EOF
+
+    systemctl disable proftpd.socket
 
 fi
 
