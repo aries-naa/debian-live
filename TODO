@@ -1,16 +1,28 @@
 -*- mode: org -*-
-* TODO systemd.swap - отключить и создать свой unit - fstab-swap.service и fstab-mount.service
-* TODO logrotate - настроить и проверить работу
-* TODO ModemManager отключить
-* TODO замена xinetd, cron и at на systemd
-* TODO systemd и rsyslogd
-* TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
 * DONE нрастройка раскладки клавиатуры
   CLOSED: [2019-03-27 Ср 09:47]
 * DONE настройка системного лотка - почему не всё показывает ?
   CLOSED: [2019-03-27 Ср 09:46]
+* DONE systemd.swap - отключить и создать свой unit - fstab-swap.service и fstab-mount.service
+  CLOSED: [2019-04-04 Чт 15:42]
+* DONE ModemManager отключить
+  CLOSED: [2019-04-04 Чт 15:42]
+* DONE замена xinetd, cron и at на systemd
+  CLOSED: [2019-04-04 Чт 15:43]
+* TODO systemd + wifi
+* TODO systemd + bridge
+* TODO systemd + bonding
+* TODO systemd + tun/tap
+* TODO systemd-networkd или NetworkManager или оба сразу
+Как вариант:
+  - настройка через systemd;
+  - через NetworkManager доступно только отключение/включение интерфейса и то не каждого
+* TODO logrotate - настроить и проверить работу
+* TODO systemd и rsyslogd
+* TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
 * --- новая версия образов ---
-* TODO NetworkManager - возможность применения в rescue и в осносном образе
+* DONE NetworkManager - возможность применения в rescue и в осносном образе
+  CLOSED: [2019-04-04 Чт 15:43]
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
 * TODO KDE + kwin + перетаскивание окон без содержимого
 * TODO hybernate
