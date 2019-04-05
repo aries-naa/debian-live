@@ -9,14 +9,21 @@
   CLOSED: [2019-04-04 Чт 15:42]
 * DONE замена xinetd, cron и at на systemd
   CLOSED: [2019-04-04 Чт 15:43]
-* TODO systemd + wifi
-* TODO systemd + bridge
-* TODO systemd + bonding
-* TODO systemd + tun/tap
-* TODO systemd-networkd или NetworkManager или оба сразу
+* DONE systemd + bridge
+  CLOSED: [2019-04-05 Пт 10:33]
+* DONE systemd + bonding
+  CLOSED: [2019-04-05 Пт 10:33]
+* DONE systemd + tun/tap
+  CLOSED: [2019-04-05 Пт 10:33]
+* DONE systemd + networkd + issue
+  CLOSED: [2019-04-05 Пт 11:18]
+* DONE systemd-networkd или NetworkManager или оба сразу
+  CLOSED: [2019-04-05 Пт 14:55]
 Как вариант:
   - настройка через systemd;
-  - через NetworkManager доступно только отключение/включение интерфейса и то не каждого
+  - через NetworkManager доступно только отключение/включение интерфейса и то не каждого;
+  - issue меняется при изменении состояния интерфейсов.
+* TODO systemd + wifi
 * TODO logrotate - настроить и проверить работу
 * TODO systemd и rsyslogd
 * TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs

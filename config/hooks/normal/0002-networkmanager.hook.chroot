@@ -19,10 +19,6 @@ EOF
 
 fi
 
-#if [ -e /lib/systemd/system/NetworkManager.service ]; then
-#    systemctl disable NetworkManager
-#fi
-
 if [ -e /lib/systemd/system/NetworkManager-wait-online.service ]; then
     systemctl disable NetworkManager-wait-online
 fi
@@ -36,6 +32,44 @@ if [ -e /lib/systemd/system/networking.service ]; then
 fi
 if [ -e /lib/systemd/system/NetworkManager.service ]; then
     systemctl enable NetworkManager
+fi
+
+if [ -f /etc/ NetworkManager/dispatcher.d/01-ifupdown ]; then
+    cat > /etc/ NetworkManager/dispatcher.d/01-ifupdown << EOF
+#!/bin/sh -e
+exit 0
+EOF
+    chmod a+x /etc/ NetworkManager/dispatcher.d/01-ifupdown
+fi
+
+if [ -f /etc/ NetworkManager/dispatcher.d/ntp ]; then
+    cat > /etc/ NetworkManager/dispatcher.d/ntp << EOF
+#!/bin/sh -e
+exit 0
+EOF
+    chmod a+x /etc/ NetworkManager/dispatcher.d/ntp
+fi
+
+if [ -f /etc/ NetworkManager/dispatcher.d/issue ]; then
+    cat > /etc/ NetworkManager/dispatcher.d/issue << EOF
+#!/bin/sh
+
+iface=$1
+action=$2
+
+if [ "$action" = "hostname" ]; then
+    /usr/local/sbin/issue-clean
+fi
+
+if [ "$action" = "up" ]; then
+    /usr/local/sbin/issue-add $iface
+fi
+
+if [ "$action" = "down" ]; then
+    /usr/local/sbin/issue-delete $iface
+fi
+EOF
+    chmod a+x /etc/ NetworkManager/dispatcher.d/issue
 fi
 
 exit 0

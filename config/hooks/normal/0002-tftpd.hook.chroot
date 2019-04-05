@@ -60,8 +60,8 @@ Requires=tftpd.socket
 [Service]
 ExecStart=/usr/sbin/in.tftpd -s /srv/tftp
 StandardInput=socket
-User=tftp
-Group=tftp
+#User=tftp
+#Group=tftp
 
 [Install]
 Also=tftpd.socket
