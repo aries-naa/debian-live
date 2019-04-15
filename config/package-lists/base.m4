@@ -25,7 +25,6 @@ x11-apps
 console-terminus
 menu
 menu-l10n
-#xinetd
 #laptop-detect
 #laptop-mode-tools
 procps
