@@ -1,0 +1,29 @@
+service http
+{
+    disable     = no
+    type        = UNLISTED
+    port        = 8080
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    cps         = 0 0
+    server      = /usr/sbin/micro-httpd
+    server_args = /mnt/storage/debian
+    bind        = localhost
+}
+
+service http
+{
+    disable     = no
+    type        = UNLISTED
+    port        = 8081
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    cps         = 0 0
+    server      = /usr/sbin/micro-httpd
+    server_args = /home/alex/debian
+    bind        = localhost
+}

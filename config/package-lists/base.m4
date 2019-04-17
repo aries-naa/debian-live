@@ -93,7 +93,6 @@ open-vm-tools
 sysstat
 ifstat
 ddccontrol
-ntp
 logrotate
 vim-nox
 vim-doc

@@ -56,92 +56,18 @@ EOF
 
 fi
 
-# systemd-networkd
-if [ -d /etc/systemd/network ]; then
+# systemd-timesyncd
+if [ -f /etc/systemd/timesyncd.conf ]; then
 
-    mkdir -p /etc/systemd/network/examples
-
-    cat > /etc/systemd/network/wired.network << EOF
-[Match]
-Type=!?*
-Name=!lo
-
-[Network]
-DHCP=yes
+    cat > /etc/systemd/timesyncd.conf << EOF
+[Time]
+NTP=
+FallbackNTP=0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org 3.debian.pool.ntp.org
+RootDistanceMaxSec=5
+PollIntervalMinSec=32
+PollIntervalMaxSec=2048
 EOF
 
-        cat > /etc/systemd/network/examples/wired.network << EOF
-[Match]
-Type=!?*
-Name=!lo
-
-[Network]
-DHCP=yes
-EOF
-
-	cat > /etc/systemd/network/examples/bond-wired.network << EOF
-[Match]
-Type=!?*
-Name=!lo
-
-[Network]
-Bond=bond-0
-EOF
-
-	cat > /etc/systemd/network/examples/bond.netdev << EOF
-[NetDev]
-Name=bond-0
-Kind=bond
-
-[Bond]
-Mode=active-backup
-EOF
-
-	cat > /etc/systemd/network/examples/bond.network << EOF
-[Match]
-Name=bond-0
-
-[Network]
-DHCP=yes
-EOF
-
-	cat > /etc/systemd/network/examples/bridge-wired.network << EOF
-[Match]
-Type=!?*
-Name=!lo
-
-[Network]
-Bridge=bridge-0
-EOF
-
-	cat > /etc/systemd/network/examples/bridge.netdev << EOF
-[NetDev]
-Name=bridge-0
-Kind=bridge
-EOF
-
-	cat > /etc/systemd/network/examples/bridge.network << EOF
-[Match]
-Name=bridge-0
-
-[Network]
-DHCP=yes
-EOF
-
-	cat > /etc/systemd/network/examples/tap-1.netdev << EOF
-[NetDev]
-Name=tap-1
-Kind=tap
-EOF
-
-	cat > /etc/systemd/network/examples/tap-1.network << EOF
-[Match]
-Name=tap-1
-
-[Network]
-Bridge=bridge-0
-EOF
-	
 fi
 
 exit 0

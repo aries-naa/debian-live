@@ -61,6 +61,7 @@ xterm
 lightdm
 lightdm-gtk-greeter
 gnome-icon-theme
+breeze-gtk-theme
 openbox
 x11-utils
 x11-xserver-utils

@@ -1,0 +1,15 @@
+firefox:
+    - adblock
+    - torswitch
+    - popup video
+
+    - stylish
+    - noscript
+    - easy video downloader
+
+chromium:
+    - adblock
+
+    - scriptsafe
+    - stylish
+    - download with flashget

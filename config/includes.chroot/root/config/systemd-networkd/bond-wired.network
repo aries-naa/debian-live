@@ -1,0 +1,6 @@
+[Match]
+Type=!?*
+Name=!lo
+
+[Network]
+Bond=bond-0

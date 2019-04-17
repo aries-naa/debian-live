@@ -15,7 +15,7 @@ if [ "${LIVE_IMAGE_TYPE}" = "netboot" ]; then
     m_conf=pxelinux.cfg
 elif [ "${LIVE_IMAGE_TYPE}" = "hdd" ]; then
     boot_dir=../binary/boot/extlinux
-    m_conf=extlinux.cfg
+    m_conf=extlinux.conf
 else
     boot_dir=../binary/isolinux
     m_conf=isolinux.cfg

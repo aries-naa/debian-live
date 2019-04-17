@@ -74,7 +74,6 @@ oxygen-sounds
 # для GTK.
 kde-config-gtk-style
 kde-config-gtk-style-preview
-gtk3-engines-breeze
 gtk2-engines-oxygen
 
 # для минимальной установки.

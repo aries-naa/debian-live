@@ -11,7 +11,6 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
     lightdm_ver=$(dpkg -l lightdm | grep '^ii' | awk '{print $3}')
 
     if dpkg --compare-versions "$lightdm_ver" lt "1.10.3"; then
-
 	sed -i 's/#greeter-user=.*/greeter-user=root/g' /etc/lightdm/lightdm.conf
 	sed -i 's/#log-directory=.*/log-directory=\/var\/log\/lightdm/g' /etc/lightdm/lightdm.conf
 	sed -i 's/#run-directory=.*/run-directory=\/var\/run\/lightdm/g' /etc/lightdm/lightdm.conf
@@ -24,20 +23,26 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
 
 fi
 
-#if [ -x /etc/init.d/lightdm ]; then
-#    update-rc.d lightdm enable
-#fi
+if [ -w /etc/lightdm/lightdm-gtk-greeter.conf ]; then
 
-#if [ -w /lib/systemd/system/lightdm.service ]; then
-#
-#    cat >> /lib/systemd/system/lightdm.service << EOF
-#
-#[Install]
-#WantedBy=multi-user.target
-#EOF
-#
-#    systemctl enable lightdm
-#fi
+    if [ -d /usr/share/icons/Adwaita/cursors/ ]; then
+	echo cursor-theme-name=Adwaita >> /etc/lightdm/lightdm-gtk-greeter.conf
+    fi
+
+    if [ -d /usr/share/themes/Breeze ]; then
+	sed -i 's/#theme-name=.*/theme-name=Breeze/g' /etc/lightdm/lightdm-gtk-greeter.conf
+	sed -i 's/#icon-theme-name=.*/icon-theme-name=Breeze/g' /etc/lightdm/lightdm-gtk-greeter.conf
+    fi
+
+fi
+
+if [ -x /etc/init.d/lightdm ]; then
+    update-rc.d lightdm enable
+fi
+
+if [ -f /lib/systemd/system/lightdm.service ]; then
+    systemctl enable lightdm
+fi
 
 #if [ -x /etc/init.d/lightdm ]; then
 #    update-rc.d -f lightdm disable 2

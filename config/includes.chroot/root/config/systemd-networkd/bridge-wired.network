@@ -1,0 +1,6 @@
+[Match]
+Type=!?*
+Name=!lo
+
+[Network]
+Bridge=bridge-0

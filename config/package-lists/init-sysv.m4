@@ -8,5 +8,7 @@ sysvinit-core
 
 sysvinit-utils
 live-config-sysvinit
+
 xinetd
 anacron
+ntp

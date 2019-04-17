@@ -129,8 +129,8 @@ rescue-iso rescue-net: boot_append_failsafe += nopersistence 2
 rescue-iso rescue-net: LB_TASK ?= rescue
 
 install-desktop desktop-iso desktop-net: image_name=desktop
-desktop-iso desktop-net: boot_append+=persistence persistence-label=srv-persistence
-desktop-iso desktop-net: boot_append_failsafe+=persistence persistence-label=srv-persistence
+desktop-iso desktop-net: boot_append+=persistence persistence-label=org-persistence
+desktop-iso desktop-net: boot_append_failsafe+=persistence persistence-label=org-persistence
 desktop-iso desktop-net: LB_TASK ?= gdata esk
 
 server-iso server-hdd: image_name=server

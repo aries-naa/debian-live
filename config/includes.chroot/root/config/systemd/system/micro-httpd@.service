@@ -1,0 +1,8 @@
+[Unit]
+Description=Micro httpd service
+Documentation=man:micro-httpd(8)
+After=auditd.service
+
+[Service]
+ExecStart=-/usr/sbin/micro-httpd /home/alex/debian
+StandardInput=socket

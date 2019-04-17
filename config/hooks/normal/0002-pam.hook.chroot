@@ -12,4 +12,21 @@ if [ -d /etc/pam.d ]; then
     rm -f /etc/pam.d/*.pam-old
 fi
 
+if [ -w /etc/pam.d/common-session ]; then
+
+    if [ -f /usr/lib/*-linux-gnu/security/pam_loginuid.so ]; then
+	cat >> /etc/pam.d/common-session << EOF
+
+session   optional pam_loginuid.so
+EOF
+    fi
+
+    if [ -f /usr/lib/*-linux-gnu/security/pam_systemd.so ]; then
+	cat >> /etc/pam.d/common-session << EOF
+session   optional pam_systemd.so
+EOF
+    fi
+
+fi
+
 exit 0

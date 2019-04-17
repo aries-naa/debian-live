@@ -20,7 +20,6 @@ thunar
 thunar-volman
 gvfs
 dbus-x11
-gtk3-engines-breeze
 breeze-icon-theme
 breeze-cursor-theme
 xfwm4-theme-breeze

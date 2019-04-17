@@ -1,0 +1,5 @@
+[Match]
+Name=bridge-0
+
+[Network]
+DHCP=yes
