@@ -61,10 +61,20 @@ xterm
 lightdm
 lightdm-gtk-greeter
 gnome-icon-theme
+
+#if DISTRIBUTION buster
 breeze-gtk-theme
+#endif
+
+#if DISTRIBUTION stretch
+gtk3-engines-breeze
+#endif
+
 openbox
 x11-utils
 x11-xserver-utils
+xinput
+xvkbd
 ntfs-3g
 rsyslog
 vim

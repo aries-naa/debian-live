@@ -56,7 +56,6 @@ lua-mode
 org-mode
 python-mode
 sml-mode
-
 xli
 xloadimage
 alsamixergui
@@ -69,6 +68,9 @@ awesome-extra
 fbreader
 fbautostart
 fbpager
+tcl
+tk
+tcllib
 
 # сканирование
 sane

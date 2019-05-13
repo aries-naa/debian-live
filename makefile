@@ -45,7 +45,7 @@ ifdef distr
 else
 	distribution=stretch
 endif
-annex_repo="deb http://localhost:8081 $(distribution) annex"
+annex_repo="deb http://localhost:8080 $(distribution) annex"
 overlay_fs=overlay
 ifeq ($(distribution), jessie)
 	overlay_fs=aufs
@@ -85,7 +85,7 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-#linux_version="-4.9.0-0.bpo.5"
+#linux_version="-4.9.0-9"
 ifdef linux
     linux_packages="linux-image$(linux)"
 endif
@@ -117,7 +117,8 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor persistence persistence-label=xx-persistence
+#boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot
