@@ -85,10 +85,11 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-#linux_version="-4.9.0-9"
+#linux="-4.9.0-9"
 ifdef linux
     linux_packages="linux-image$(linux)"
 endif
+#linux_packages="linux-image-4.9.0-9 linux-image-4.19.0-4"
 
 ifeq ($(architecture), i386)
 	linux_flavours="686-pae"

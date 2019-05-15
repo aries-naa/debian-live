@@ -39,6 +39,7 @@ fluid-soundfont-gs
 opl3-soundfont
 timgm6mb-soundfont
 fluidsynth
+kmidimon
 
 skanlite
 kamerka

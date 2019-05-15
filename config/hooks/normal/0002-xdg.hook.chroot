@@ -33,10 +33,16 @@ if [ -d /etc/xdg ]; then
     fi
 
     if [ -f /usr/share/applications/kde4/okular.desktop ]; then
-	register_xdg_mime application/pdf               okular.desktop
-	register_xdg_mime application/x-bzpdf           okular.desktop
-	register_xdg_mime application/x-gzpdf           okular.desktop
-	register_xdg_mime application/x-xzpdf           okular.desktop
+	register_xdg_mime application/pdf     okular.desktop
+	register_xdg_mime application/x-bzpdf okular.desktop
+	register_xdg_mime application/x-gzpdf okular.desktop
+	register_xdg_mime application/x-xzpdf okular.desktop
+    elif [ -f /usr/share/applications/okularApplication_pdf.desktop ]; then
+	register_xdg_mime application/pdf     okularApplication_pdf.desktop
+	register_xdg_mime application/x-bzpdf okularApplication_pdf.desktop
+	register_xdg_mime application/x-gzpdf okularApplication_pdf.desktop
+	register_xdg_mime application/x-xzpdf okularApplication_pdf.desktop
+	sed -i 's/^MimeType=.*/MimeType=application\/pdf;application\/x-gzpdf;application\/x-bzpdf;application\/x-xzpdf;application\/x-wwf;/g' /usr/share/applications/okularApplication_pdf.desktop
     elif [ -f /usr/share/applications/evince.desktop ]; then
 	register_xdg_mime application/pdf evince.desktop
     fi

@@ -1,4 +1,17 @@
 -*- mode: org -*-
+* DONE включить systemd-timesyncd
+  CLOSED: [2019-05-14 Вт 19:48]
+* DONE глобальная тема курсоров в lightdm
+  CLOSED: [2019-05-14 Вт 20:23]
+* DONE kmidimon
+  CLOSED: [2019-05-14 Вт 20:28]
+* DONE выключить lighttpd
+  CLOSED: [2019-05-14 Вт 21:15]
+* DONE google-earth - LC_NUMERIC
+  CLOSED: [2019-05-14 Вт 22:23]
+* DONE просмотр pdf, pdf.xz, pdf.gz ...
+  CLOSED: [2019-05-15 Ср 18:29]
+* --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
 * TODO jenkins + дополнения
 * TODO git сервер
@@ -6,11 +19,7 @@
 * TODO mssql и mssql client
 * TODO примеры настроек NetworkManager - bonding, bridge, tun/tap, wifi
 * --- server: новая версия образов ---
-* TODO включить systemd-timesyncd
-* TODO выключить lighttpd
-* TODO kmidimon
 * TODO kdepasswd
-* TODO глобальная тема курсоров в lightdm
 * TODO общесистемная установка расширений для firefox, chromium
 * TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
