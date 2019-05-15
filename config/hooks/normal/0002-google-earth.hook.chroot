@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+echo "I: google-earth"
+
+umask 022
+
+if [ -w /opt/google/earth/pro/googleearth ]; then
+
+    sed -i 's/^LD_LIBRARY_PATH/LC_NUMERIC=en_US.UTF-8 LD_LIBRARY_PATH/g' /opt/google/earth/pro/googleearth
+
+fi
+
+exit 0
