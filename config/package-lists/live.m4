@@ -26,6 +26,7 @@ clamav-base
 clamav-docs
 smbclient
 xdg-user-dirs
+usermode
 
 # печать
 cups
