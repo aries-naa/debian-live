@@ -20,6 +20,7 @@ kdf
 kde-l10n-ru
 kmenuedit
 qtvirtualkeyboard-plugin
+ktorrent
 
 kmail
 akonadi-server
