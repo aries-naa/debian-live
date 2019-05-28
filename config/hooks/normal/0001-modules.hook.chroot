@@ -3,6 +3,7 @@
 set -e
 
 echo "I: update and build modules"
+pwd
 
 dkms_modules=$(ls /usr/src | awk '{if (index($1, "linux-") != 1) print $0}' | sed 's/-\([^-]*\)$/\/\1/g')
 
