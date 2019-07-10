@@ -1,6 +1,8 @@
 include(`min.m4')
 
 sudo
+psmisc
+lsof
 xfonts-75dpi
 xfonts-100dpi
 xfonts-terminus

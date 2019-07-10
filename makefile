@@ -43,7 +43,7 @@ endif
 ifdef distr
 	distribution=$(distr)
 else
-	distribution=stretch
+	distribution=buster
 endif
 annex_repo="deb http://localhost:8080 $(distribution) annex"
 overlay_fs=overlay
@@ -84,12 +84,12 @@ else
 	image_suffix=$(shell date "+%Y%m%d")
 endif
 
-# linux - используемая версия ядра linux.
-linux="-4.19.44"
-ifdef linux
-    linux_packages="linux-image$(linux)"
-endif
-linux_packages="linux-image-4.19.0-5 linux-image-4.19.44"
+## linux - используемая версия ядра linux.
+#linux="-4.19.44"
+#ifdef linux
+#    linux_packages="linux-image$(linux)"
+#endif
+linux_packages="linux-image-5.1.16"
 
 ifeq ($(architecture), i386)
 	linux_flavours="686-pae"

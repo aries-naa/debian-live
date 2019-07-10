@@ -21,6 +21,7 @@ kde-l10n-ru
 kmenuedit
 qtvirtualkeyboard-plugin
 ktorrent
+knotes
 
 kmail
 akonadi-server
