@@ -11,7 +11,6 @@ cadaver
 # annex
 
 # зависимости для работы и установки.
-#google-earth-stable
 google-earth-pro-stable
 libgl1-mesa-dri
 xdg-utils

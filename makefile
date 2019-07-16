@@ -85,20 +85,19 @@ else
 endif
 
 ## linux - используемая версия ядра linux.
-#linux="-4.19.44"
-#ifdef linux
-#    linux_packages="linux-image$(linux)"
-#endif
-linux_packages="linux-image-5.1.16"
-
-ifeq ($(architecture), i386)
-	linux_flavours="686-pae"
-else
-	linux_flavours="$(architecture)"
+linux="-4.9.0-9"
+ifdef linux
+    linux_packages="linux-image$(linux)"
 endif
+##linux_packages="linux-image-4.9.0-9 linux-image-4.19.0-5"
+
+#ifeq ($(architecture), i386)
+#	linux_flavours="686-pae"
+#else
+#	linux_flavours="$(architecture)"
+#endif
 
 # live_volume
-#live_volume="aries-live"
 live_volume=l$(shell date "+%Y%m%d%H%S")
 
 .PHONY : all clean clean-all iso hdd net configure build install install-desktop install-rescue annex
@@ -173,7 +172,7 @@ net: .build/binary_netboot
 	@sudo touch -m $(build_image_name)-$(image_suffix)-$(architecture).*
 
 annex:
-	@echo $(annex_repo) > config/archives/annex.list.chroot
+	#@echo $(annex_repo) > config/archives/annex.list.chroot
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot
@@ -184,7 +183,6 @@ annex:
 	--parent-mirror-bootstrap $(repository) \
 	--updates $(updates) \
 	--linux-packages=$(linux_packages) \
-	--linux-flavours $(linux_flavours) \
 	--architecture $(architecture) \
 	--bootappend-live "$(boot_append) union=$(overlay_fs)" \
 	--bootappend-live-failsafe "$(boot_append_failsafe) union=$(overlay_fs)" \

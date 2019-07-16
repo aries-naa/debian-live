@@ -3,10 +3,9 @@
 set -e
 
 echo "I: boot menu"
-
 umask 022
 
-[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
+#[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
 . ../config/binary
 
 kernels=../binary/live

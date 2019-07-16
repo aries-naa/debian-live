@@ -13,8 +13,6 @@
   CLOSED: [2019-05-15 Ср 18:29]
 * DONE knotes
   CLOSED: [2019-07-10 Ср 11:47]
-* TODO buster: два ядра - 4.9 и 4.19 до решения проблемы suspend+keyboard
-* TODO kde + libreoffice - контекстное меню - создание документа
 * --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
 * TODO jenkins + дополнения
@@ -23,7 +21,8 @@
 * TODO mssql и mssql client
 * TODO примеры настроек NetworkManager - bonding, bridge, tun/tap, wifi
 * --- server: новая версия образов ---
-* TODO kdepasswd
+* TODO kde + libreoffice - контекстное меню - создание документа LibreOffice
+* TODO kde + смена пароля без запроса пароля админа (user-manager)
 * TODO общесистемная установка расширений для firefox, chromium
 * TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
@@ -36,7 +35,6 @@
 ** TODO lightdm - выбор из списка пользователей
 ** TODO добавление пользователей с группами и комментариями
 * TODO работа сценария gdata для установки игр
-* TODO установка фона рабочего стола из dolphin или krusader
 * TODO clamav + KDE
 * TODO можно ли обойтись без pulseaudio ?
 * TODO скрипт pm/pum, либо модуль для zsh - что ещё круче
@@ -51,10 +49,6 @@
 ** TODO ssh
 ** TODO добавление пользователей
 ** TODO .k5login
-* TODO засыпание
-** TODO cdrom может и не проснуться после засыпания
-** TODO hp d7800 не просыпается совсем
-** TODO закрытие крышки - засыпание если работает от батареи
 * TODO laptop-mode-tools
 ** TODO тонкая настройка сохраниния эненрии батареи
 ** TODO оповещение всех пользователей о низком заряде батареи

@@ -1,23 +1,8 @@
-# kde - полный набор.
-#task-kde-desktop
-
-# kde - минимальный набор.
-plasma-desktop
-kwin-x11
+include(`kde-min.m4')
 
 # kde - обязательный набор.
-systemsettings
-kscreen
-print-manager
-plasma-pa
-plasma-nm
-powerdevil
-kde-config-screenlocker
-khotkeys
 plasma-widgets-addons
-polkit-kde-agent-1
 kdf
-kde-l10n-ru
 kmenuedit
 qtvirtualkeyboard-plugin
 ktorrent
@@ -79,10 +64,6 @@ oxygen-sounds
 kde-config-gtk-style
 kde-config-gtk-style-preview
 gtk2-engines-oxygen
-
-# для минимальной установки.
-upower
-udisks2
 
 # kwallet.
 kwalletmanager

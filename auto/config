@@ -26,8 +26,8 @@ lb config noauto \
         --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
 "${@}"
 
-# image type
-image_type=$(awk -F ": " '/Type:/ {print $2}' config/build)
-sed -i 's/image_type=.*/image_type='${image_type}'/g' config/hooks/normal/0002-network.hook.chroot
+## image type
+#image_type=$(awk -F ": " '/Type:/ {print $2}' config/build)
+#sed -i 's/image_type=.*/image_type='${image_type}'/g' config/hooks/normal/0002-network.hook.chroot
 
 exit 0
