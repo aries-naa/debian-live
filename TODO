@@ -1,26 +1,15 @@
 -*- mode: org -*-
-* DONE включить systemd-timesyncd
-  CLOSED: [2019-05-14 Вт 19:48]
-* DONE глобальная тема курсоров в lightdm
-  CLOSED: [2019-05-14 Вт 20:23]
-* DONE kmidimon
-  CLOSED: [2019-05-14 Вт 20:28]
-* DONE выключить lighttpd
-  CLOSED: [2019-05-14 Вт 21:15]
-* DONE google-earth - LC_NUMERIC
-  CLOSED: [2019-05-14 Вт 22:23]
-* DONE просмотр pdf, pdf.xz, pdf.gz ...
-  CLOSED: [2019-05-15 Ср 18:29]
-* DONE knotes
-  CLOSED: [2019-07-10 Ср 11:47]
-* --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
 * TODO jenkins + дополнения
 * TODO git сервер
 * TODO zabbix
+* TODO docker (ee или ce)
 * TODO mssql и mssql client
 * TODO примеры настроек NetworkManager - bonding, bridge, tun/tap, wifi
 * --- server: новая версия образов ---
+* TODO chain.c32 + syslinux
+* TODO aufs-dkms
+* TODO яркость экрана в KDE
 * TODO kde + libreoffice - контекстное меню - создание документа LibreOffice
 * TODO kde + смена пароля без запроса пароля админа (user-manager)
 * TODO общесистемная установка расширений для firefox, chromium
