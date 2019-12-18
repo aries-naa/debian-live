@@ -45,5 +45,6 @@ midisport-firmware
 broadcom-sta-dkms
 
 ## при недоступности инета - скачать и положать в образ.
+
 firmware-b43-installer
 firmware-b43legacy-installer

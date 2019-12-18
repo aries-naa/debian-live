@@ -84,12 +84,12 @@ else
 	image_suffix=$(shell date "+%Y%m%d")
 endif
 
-## linux - используемая версия ядра linux.
-linux="-4.9.0-9"
+# linux - используемая версия ядра linux.
+linux="-4.9.0-11"
+#linux="-4.19.67-test"
 ifdef linux
     linux_packages="linux-image$(linux)"
 endif
-##linux_packages="linux-image-4.9.0-9 linux-image-4.19.0-5"
 
 #ifeq ($(architecture), i386)
 #	linux_flavours="686-pae"
@@ -117,8 +117,7 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor persistence persistence-label=xx-persistence
-#boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot

@@ -16,4 +16,4 @@ libgl1-mesa-dri
 xdg-utils
 
 viber
-opera-stable
+#opera-stable

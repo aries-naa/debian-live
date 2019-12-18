@@ -36,12 +36,15 @@ okular
 okular-extra-backends
 fbreader
 libzlui-qt4
+krdc
+kde-spectacle
 
 dragonplayer
 mpv
 
-showfoto
+#showfoto
 #digikam
+gwenview
 
 krita
 krita-l10n
@@ -70,3 +73,14 @@ kwalletmanager
 kwalletcli
 libpam-kwallet5
 kgpg
+
+# kdevelop
+kdevelop
+kdevelop-l10n
+kdevelop-pg-qt
+kdevelop-python
+kdevelop-python-l10n
+plasma-kdevelop
+
+# konqueror
+konqueror
