@@ -48,3 +48,6 @@ broadcom-sta-dkms
 
 firmware-b43-installer
 firmware-b43legacy-installer
+
+# annex
+broadcom-bt-firmware

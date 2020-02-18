@@ -85,10 +85,12 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-linux="-4.9.0-11"
-#linux="-4.19.67-test"
+linux="-4.19.98-noerror"
 ifdef linux
     linux_packages="linux-image$(linux)"
+endif
+ifndef linux_packages
+    linux_packages="linux-image-4.10.0-test linux-image-4.10.0-noerror linux-image-4.10.0-mutex linux-image-4.9.11-test"
 endif
 
 #ifeq ($(architecture), i386)
@@ -117,7 +119,7 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor persistence
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot

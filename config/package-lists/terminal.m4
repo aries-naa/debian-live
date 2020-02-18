@@ -14,6 +14,7 @@ remmina-plugin-rdp
 remmina-plugin-spice
 remmina-plugin-vnc
 remmina-plugin-xdmcp
+virt-viewer
 
 # annex
 

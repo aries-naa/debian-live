@@ -7,6 +7,8 @@ kmenuedit
 qtvirtualkeyboard-plugin
 ktorrent
 knotes
+bluedevil
+kppp
 
 kmail
 akonadi-server

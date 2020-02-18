@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+echo "I: linux kernels"
+
+umask 022
+
+
+LIVE_IMAGE_TYPE=$(cat ../config/build | awk '/^Type:/ {print $2}')
+[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
+. ../config/binary
+
+#kernels=../binary/live
+if [ "${LIVE_IMAGE_TYPE}" = "netboot" ]; then
+    boot_config=../tftpboot/live.cfg
+elif [ "${LIVE_IMAGE_TYPE}" = "hdd" ]; then
+    boot_config=../binary/boot/extlinux/live.cfg
+else
+    boot_config=../binary/isolinux/live.cfg
+fi
+
+if ! linux_kernels_list=$(ls ../binary/live/vmlinuz-*); then
+    exit 0
+fi
+
+default_summ=$(md5sum ../binary/live/vmlinuz | awk '{print $1}')
+for linux_kernel in ${linux_kernels_list}; do
+
+    summ=$(md5sum ${linux_kernel} | awk '{print $1}')
+    if [ "$summ" != "$default_summ" ]; then
+	kernel_name=$(basename ${linux_kernel})
+	kernel_version=${kernel_name#vmlinuz-}
+	initrd_name="initrd.img-${kernel_version}"
+
+	cat << EOF >> ${boot_config}
+
+label live-${kernel_version}
+	menu label ^Live (${kernel_version})
+	linux /live/vmlinuz-${kernel_version}
+	initrd /live/initrd.img-${kernel_version}
+	append ${LB_BOOTAPPEND_LIVE}
+EOF
+    fi
+
+done
+
+exit 0
