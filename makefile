@@ -119,7 +119,7 @@ all:
 	@echo "  suffix - часть имени образа"
 	@echo "  linux  - используемая версия ядра linux"
 
-boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor persistence
+boot_append=boot=live components nosplash nonetworking ip= nofstab live-media=/dev/disk/by-label/$(live_volume) acpi_backlight=vendor
 boot_append_failsafe=boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal nofstab live-media=/dev/disk/by-label/$(live_volume)
 
 netboot_base=~/.fs/netboot/netboot

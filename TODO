@@ -1,36 +1,36 @@
 -*- mode: org -*-
+* TODO sony + keyboard - проверить работу.
+* TODO suspend + persistence mount (errors=continue) - проверить работу.
+* TODO gwenview + KDE-systray - почему не даёт отключить устройство ?
+* TODO KDE + bluetooth + bt-модем + bt-гарнитура.
+* TODO chain.c32 + syslinux + загрузка Windows 10
+* TODO exfat_dkms - проверить работу.
+* --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
 * TODO jenkins + дополнения
 * TODO git сервер
+* TODO jfrog artifactory
 * TODO zabbix
 * TODO docker (ee или ce)
 * TODO mssql и mssql client
 * TODO примеры настроек NetworkManager - bonding, bridge, tun/tap, wifi
 * --- server: новая версия образов ---
-* TODO chain.c32 + syslinux
-* TODO aufs-dkms
-* TODO яркость экрана в KDE
-* TODO kde + libreoffice - контекстное меню - создание документа LibreOffice
-* TODO kde + смена пароля без запроса пароля админа (user-manager)
 * TODO общесистемная установка расширений для firefox, chromium
-* TODO /sys/module/block/parameters/events_dfl_poll_msecs, /sys/block/sr0/events_poll_msecs
+* TODO яркость экрана в KDE
+* TODO KDE + предупреждения и действия при разряде батареи.
+* TODO kde + libreoffice - контекстное меню - создание документа LibreOffice
 * TODO KDE + dolphin + контекстное меню для установки фона экрана
 * TODO KDE + kwin + перетаскивание окон без содержимого
 * TODO hybernate
 * TODO настройка KDE без "перделок" по умолчанию
 * --- live: новая версия образов ---
-* TODO заскриптовать настройки
-** TODO lightdm - список плльзователей для облегчения регистрации
-** TODO lightdm - выбор из списка пользователей
-** TODO добавление пользователей с группами и комментариями
 * TODO работа сценария gdata для установки игр
 * TODO clamav + KDE
 * TODO можно ли обойтись без pulseaudio ?
 * TODO скрипт pm/pum, либо модуль для zsh - что ещё круче
-* TODO стандартная раскраска xterm в KDE
-* TODO темы
-* TODO переключение: Прав.Ctrl+Shift -> eng, Лев.Ctrl+Shift -> rus
-* TODO console-setup - тонкая настройка: шрифт и раскладка: Прав.Ctrl+Shift -> eng, Лев.Ctrl+Shift -> rus
+* TODO стандартная раскраска xterm в KDE - почему и где перебиваются ресурсы xorg.
+* TODO console-setup - тонкая настройка: шрифт и раскладка: Caps -> eng, Shift+Caps -> rus
+* TODO темы - спокойная, непрозрачная, плоская, с минимальным потреблением пространства.
 * TODO Быстрая настройка компьютера с подключенным persistence резделом
 ** TODO проверка наличия persistence
 ** TODO hostname
