@@ -1,0 +1,17 @@
+- chain.32
+- дополнительные модули dkms
+- файлы firmware brcm
+- openarena
+- doom
+- firefox + yandex-video
+- chrome + yandex-video
+- chrome + tor
+- googleearth
+- viber
+- krita + выделение
+- kdevel
+- работа wifi
+- работа android usb-modem
+- bluetooth + modem + гарнитура
+- suspend + клавиатура
+- suspend + usb-boot

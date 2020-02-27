@@ -100,6 +100,8 @@ chromium-sandbox
 
 # annex
 
-flash-plugin
-flash-player-ppapi
-libgtk2.0-0
+#flash-plugin
+#flash-player-ppapi
+flashplayer-mozilla
+flashplayer-chromium
+#libgtk2.0-0

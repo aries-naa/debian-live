@@ -6,9 +6,27 @@ echo "I: syslinux"
 
 umask 022
 
-if [ -f /usr/lib/syslinux/modules/bios/mboot.c32 ]; then
-    if [ -d isolinux ]; then
-	cp /usr/lib/syslinux/modules/bios/mboot.c32 isolinux
+[ -n "${LIVE_IMAGE_TYPE}" ] || exit 0
+. ../config/binary
+
+kernels=../binary/live
+if [ "${LIVE_IMAGE_TYPE}" = "netboot" ]; then
+    boot_dir=../tftpboot/
+elif [ "${LIVE_IMAGE_TYPE}" = "hdd" ]; then
+    boot_dir=../binary/boot/extlinux/
+else
+    boot_dir=../binary/isolinux/
+fi
+
+#if [ -f /usr/lib/syslinux/modules/bios/mboot.c32 ]; then
+#    if [ -d "${boot_dir}" ]; then
+#	cp /usr/lib/syslinux/modules/bios/mboot.c32 "${boot_dir}"
+#    fi
+#fi
+
+if [ -f /usr/lib/syslinux/modules/bios/chain.c32 ]; then
+    if [ -d "${boot_dir}" ]; then
+	cp /usr/lib/syslinux/modules/bios/chain.c32 "${boot_dir}"
     fi
 fi
 

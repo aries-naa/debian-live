@@ -24,7 +24,7 @@
 #
 # Переменные для makefile:
 #   arch   = i386 | amd64
-#   distr  = jessie | stretch | sid | ...
+#   distr  = | stretch | buster | sid | ...
 #   repo   = local | net | inet
 #   suffix = name - "2018q1"
 #   linux  = kernel_version - "-4.9.0-0.bpo.5"
@@ -46,6 +46,9 @@ else
 	distribution=buster
 endif
 annex_repo="deb http://localhost:8080 $(distribution) annex"
+google_repo="deb http://dl.google.com/linux/earth/deb/ stable main"
+multimedia_repo="deb http://www.deb-multimedia.org $(distribution) main non-free"
+
 overlay_fs=overlay
 ifeq ($(distribution), jessie)
 	overlay_fs=aufs
@@ -90,7 +93,7 @@ ifdef linux
     linux_packages="linux-image$(linux)"
 endif
 ifndef linux_packages
-    linux_packages="linux-image-4.10.0-test linux-image-4.10.0-noerror linux-image-4.10.0-mutex linux-image-4.9.11-test"
+    linux_packages="linux-image-4.19.98-noerror"
 endif
 
 #ifeq ($(architecture), i386)
@@ -173,7 +176,9 @@ net: .build/binary_netboot
 	@sudo touch -m $(build_image_name)-$(image_suffix)-$(architecture).*
 
 annex:
-	#@echo $(annex_repo) > config/archives/annex.list.chroot
+	@echo $(annex_repo) > config/archives/annex.list.chroot
+	@echo $(google_repo) > config/archives/google-earth.list.chroot
+	@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot
@@ -201,8 +206,11 @@ clean:
 	@if [ -d chroot.gdata ];  then sudo rm -rf chroot.gdata; fi
 	@if [ -d chroot.test ];   then sudo rm -rf chroot.test; fi
 	@rm -rf .build
-	@if [ -f config/build ];                           then rm -f config/build; fi
-	@if [ -f config/package-lists/live.list.chroot ];  then rm -f config/package-lists/live.list.chroot; fi
+	@if [ -f config/build ];                                  then rm -f config/build; fi
+	@if [ -f config/package-lists/live.list.chroot ];         then rm -f config/package-lists/live.list.chroot; fi
+	@if [ -f config/archives/annex.list.chroot ];             then rm -f config/archives/annex.list.chroot; fi
+	@if [ -f config/archives/google-earth.list.chroot ];      then rm -f config/archives/google-earth.list.chroot; fi
+	@if [ -f config/archives/debian-multimedia.list.chroot ]; then rm -f config/archives/debian-multimedia.list.chroot; fi
 
 install:
 	mkdir -p $(image_path)

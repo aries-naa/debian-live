@@ -1,7 +1,13 @@
 -*- mode: org -*-
-* TODO sony + keyboard - проверить работу.
-* TODO suspend + persistence mount (errors=continue) - проверить работу.
-* TODO gwenview + KDE-systray - почему не даёт отключить устройство ?
+* DONE sony + keyboard - проверить работу.
+  CLOSED: [2020-02-27 Чт 08:51]
+* DONE suspend + persistence mount (errors=continue) - проверить работу.
+  CLOSED: [2020-02-27 Чт 08:51]
+* DONE gwenview + KDE-systray - почему не даёт отключить устройство ?
+  CLOSED: [2020-02-27 Чт 08:51]
+* TODO debootstrap + ubuntu
+* TODO использование kmail
+* TODO хранение и управление паролями.
 * TODO KDE + bluetooth + bt-модем + bt-гарнитура.
 * TODO chain.c32 + syslinux + загрузка Windows 10
 * TODO exfat_dkms - проверить работу.
