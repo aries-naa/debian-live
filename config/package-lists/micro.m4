@@ -16,7 +16,8 @@ rsyslog
 locales
 console-setup
 acpid
-acpi-support-base
+acpi-support
+#-base
 gpm
 ethtool
 cifs-utils

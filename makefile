@@ -23,27 +23,46 @@
 #   server-20160916-i386.hybrid.iso server-20160916-i386.vmdk 
 #
 # Переменные для makefile:
+#   mode   = debian | ubuntu
 #   arch   = i386 | amd64
-#   distr  = | stretch | buster | sid | ...
-#   repo   = local | net | inet
+#   distr  = stretch | buster | sid | eoan | ...
+#   repo   = url
 #   suffix = name - "2018q1"
 #   linux  = kernel_version - "-4.9.0-0.bpo.5"
 
 user_name=$(shell id -un)
 group_name=$(shell id -gn)
 
+# mode - тип дистрибутива: debian | ubuntu.
+ifndef mode
+    mode=debian
+endif
+
 # arch - используемая архитектура.
 ifdef arch
-	architecture=$(arch)
+    architecture=$(arch)
 else
-	architecture=amd64
+    architecture=amd64
+endif
+
+ifeq ($(mode), ubuntu)
+    areas=main restricted universe multiverse
+    repository=http://archive.ubuntu.com/ubuntu
+    linux_packages=linux-image
+    linux_flavours=generic
+else
+    areas=main contrib non-free
+    repository=http://ftp.debian.org/debian
+#    linux_packages=linux-image-4.19.98-noerror
+    linux_packages=linux-image
+    linux_flavours=$(architecture)
 endif
 
 # distr - используемый дистрибутив.
 ifdef distr
-	distribution=$(distr)
+    distribution=$(distr)
 else
-	distribution=buster
+    distribution=buster
 endif
 annex_repo="deb http://localhost:8080 $(distribution) annex"
 google_repo="deb http://dl.google.com/linux/earth/deb/ stable main"
@@ -51,10 +70,10 @@ multimedia_repo="deb http://www.deb-multimedia.org $(distribution) main non-free
 
 overlay_fs=overlay
 ifeq ($(distribution), jessie)
-	overlay_fs=aufs
+    overlay_fs=aufs
 endif
 ifeq ($(distribution), wheezy)
-	overlay_fs=aufs
+    overlay_fs=aufs
 endif
 
 # updates
@@ -69,33 +88,32 @@ ifndef repo
 	repo=inet
 endif
 
-repository=$(repo)
-ifeq ($(repo), net)
-	repository="http://s75ocs01.chel.cbr.ru/debian"
-endif
-ifeq ($(repo), local)
-	repository="http://localhost:8080"
-endif
-ifeq ($(repo), inet)
-	repository="http://ftp.debian.org/debian"
-endif
+#repository=$(repo)
+#ifeq ($(repo), net)
+#	repository="http://s75ocs01.chel.cbr.ru/debian"
+#endif
+#ifeq ($(repo), local)
+#	repository="http://localhost:8080"
+#endif
+#ifeq ($(repo), inet)
+#	repository="http://ftp.debian.org/debian"
+#endif
 
 # suffix - часть имени образа.
 ifdef suffix
-	image_suffix=$(suffix)
+    image_suffix=$(suffix)
 else
-	image_suffix=$(shell date "+%Y%m%d")
+    image_suffix=$(shell date "+%Y%m%d")
 endif
 
 # linux - используемая версия ядра linux.
-linux="-4.19.98-noerror"
-ifdef linux
-    linux_packages="linux-image$(linux)"
-endif
-ifndef linux_packages
-    linux_packages="linux-image-4.19.98-noerror"
-endif
-
+#linux="-4.19.98-noerror"
+#ifdef linux
+#    linux_packages="linux-image$(linux)"
+#endif
+#ifndef linux_packages
+#    linux_packages="linux-image-4.19.98-noerror"
+#endif
 #ifeq ($(architecture), i386)
 #	linux_flavours="686-pae"
 #else
@@ -116,6 +134,7 @@ all:
 	@echo "  make xen-iso,     make xen-hdd"
 	@echo
 	@echo "Переменные:"
+	@echo "  mode   - тип дистрибутива"
 	@echo "  arch   - используемая архитектура"
 	@echo "  distr  - используемый дистрибутив"
 	@echo "  repo   - используемый репозитарий пакетов"
@@ -176,25 +195,28 @@ net: .build/binary_netboot
 	@sudo touch -m $(build_image_name)-$(image_suffix)-$(architecture).*
 
 annex:
-	@echo $(annex_repo) > config/archives/annex.list.chroot
-	@echo $(google_repo) > config/archives/google-earth.list.chroot
-	@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
+	#@echo $(annex_repo) > config/archives/annex.list.chroot
+	#@echo $(google_repo) > config/archives/google-earth.list.chroot
+	#@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot
-	lb config \
+	@lb config \
+	--mode $(mode) \
 	--binary-images $(image_type) \
 	--distribution $(distribution) \
-	--parent-distribution $(distribution) \
-	--parent-mirror-bootstrap $(repository) \
 	--updates $(updates) \
-	--linux-packages=$(linux_packages) \
 	--architecture $(architecture) \
 	--bootappend-live "$(boot_append) union=$(overlay_fs)" \
 	--bootappend-live-failsafe "$(boot_append_failsafe) union=$(overlay_fs)" \
 	--image-name "$(build_image_name)-$(image_suffix)" \
 	--iso-volume "$(live_volume)" \
-	--hdd-label "$(live_volume)"
+	--hdd-label "$(live_volume)" \
+	--linux-packages "$(linux_packages)" \
+	--linux-flavours "$(linux_flavours)" \
+	--parent-mirror-bootstrap "$(repository)" \
+	--parent-mirror-binary "$(repository)" \
+	--archive-areas "$(areas)"
 
 clean-all: clean
 	@sudo lb clean --cache

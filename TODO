@@ -5,7 +5,8 @@
   CLOSED: [2020-02-27 Чт 08:51]
 * DONE gwenview + KDE-systray - почему не даёт отключить устройство ?
   CLOSED: [2020-02-27 Чт 08:51]
-* TODO debootstrap + ubuntu
+* DONE debootstrap + ubuntu
+  CLOSED: [2020-03-03 Вт 11:19]
 * TODO использование kmail
 * TODO хранение и управление паролями.
 * TODO KDE + bluetooth + bt-модем + bt-гарнитура.

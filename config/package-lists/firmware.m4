@@ -50,4 +50,4 @@ firmware-b43-installer
 firmware-b43legacy-installer
 
 # annex
-broadcom-bt-firmware
+#broadcom-bt-firmware

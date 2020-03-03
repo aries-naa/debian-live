@@ -3,7 +3,8 @@ live-config
 
 aptitude
 acpid
-acpi-support-base
+acpi-support
+#-base
 gpm
 isc-dhcp-client
 ethtool
@@ -25,11 +26,11 @@ xserver-xorg-video-ati
 xserver-xorg-video-geode
 #endif
 
-xserver-xorg-video-glide
+#xserver-xorg-video-glide
 xserver-xorg-video-modesetting
 xserver-xorg-video-qxl
 xserver-xorg-video-intel
-xserver-xorg-video-cirrus
+#xserver-xorg-video-cirrus
 xserver-xorg-video-mach64
 xserver-xorg-video-mga
 xserver-xorg-video-openchrome

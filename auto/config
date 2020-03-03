@@ -6,7 +6,6 @@ lb config noauto \
         --clean \
         --binary-filesystem ext4 \
         --ignore-system-defaults \
-        --mode debian \
         --system live \
         --build-with-chroot true \
         --apt-secure false \
@@ -20,7 +19,6 @@ lb config noauto \
         --memtest memtest86+ \
         --debian-installer false \
         --bootloaders syslinux \
-        --archive-areas "main contrib non-free" \
         --chroot-filesystem squashfs \
         --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
         --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
