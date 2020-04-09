@@ -108,12 +108,13 @@ endif
 
 # linux - используемая версия ядра linux.
 #linux="-4.19.98-noerror"
-#ifdef linux
-#    linux_packages="linux-image$(linux)"
-#endif
-#ifndef linux_packages
-#    linux_packages="linux-image-4.19.98-noerror"
-#endif
+linux="-5.4.0-0.bpo.4"
+ifdef linux
+    linux_packages="linux-image$(linux)"
+endif
+ifndef linux_packages
+    linux_packages="linux-image-4.19.98-noerror"
+endif
 #ifeq ($(architecture), i386)
 #	linux_flavours="686-pae"
 #else
@@ -195,9 +196,9 @@ net: .build/binary_netboot
 	@sudo touch -m $(build_image_name)-$(image_suffix)-$(architecture).*
 
 annex:
-	#@echo $(annex_repo) > config/archives/annex.list.chroot
-	#@echo $(google_repo) > config/archives/google-earth.list.chroot
-	#@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
+	@echo $(annex_repo) > config/archives/annex.list.chroot
+	@echo $(google_repo) > config/archives/google-earth.list.chroot
+	@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot

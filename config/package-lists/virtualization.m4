@@ -1,6 +1,7 @@
 qemu
 qemu-kvm
 qemu-utils
+ovmf
 libvirt-clients
 
 # wine

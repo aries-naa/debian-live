@@ -18,11 +18,14 @@ lb config noauto \
         --debian-installer false \
         --memtest memtest86+ \
         --debian-installer false \
-        --bootloaders syslinux \
         --chroot-filesystem squashfs \
+        --bootloaders syslinux \
         --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
         --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
 "${@}"
+
+#--uefi-secure-boot enable \
+#--bootloaders grub-efi \
 
 ## image type
 #image_type=$(awk -F ": " '/Type:/ {print $2}' config/build)

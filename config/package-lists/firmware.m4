@@ -4,6 +4,8 @@
 #
 # firmware-ipw2x00 firmware-ivtv - установка тебует взаимодействия с пользователем.
 #
+amd64-microcode
+intel-microcode
 
 atmel-firmware
 bluez-firmware
@@ -50,4 +52,4 @@ firmware-b43-installer
 firmware-b43legacy-installer
 
 # annex
-#broadcom-bt-firmware
+broadcom-bt-firmware
