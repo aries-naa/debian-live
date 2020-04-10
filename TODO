@@ -1,16 +1,9 @@
 -*- mode: org -*-
-* DONE sony + keyboard - проверить работу.
-  CLOSED: [2020-02-27 Чт 08:51]
-* DONE suspend + persistence mount (errors=continue) - проверить работу.
-  CLOSED: [2020-02-27 Чт 08:51]
-* DONE gwenview + KDE-systray - почему не даёт отключить устройство ?
-  CLOSED: [2020-02-27 Чт 08:51]
-* DONE debootstrap + ubuntu
-  CLOSED: [2020-03-03 Вт 11:19]
+* TODO UEFI загрузка, возможно syslinux-uefi или один grub.
+* TODO chain.c32 + syslinux + загрузка Windows 10
 * TODO использование kmail
 * TODO хранение и управление паролями.
 * TODO KDE + bluetooth + bt-модем + bt-гарнитура.
-* TODO chain.c32 + syslinux + загрузка Windows 10
 * TODO exfat_dkms - проверить работу.
 * --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
