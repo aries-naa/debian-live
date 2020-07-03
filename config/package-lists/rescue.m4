@@ -3,10 +3,12 @@ dosfstools
 cifs-utils
 parted
 parted-doc
-#if DISTRIBUTION jessie stretch
+
+#if DISTRIBUTION stretch
 partimage
 partimage-doc
 #endif
+
 gddrescue
 gddrescue
 myrescue
@@ -18,6 +20,10 @@ udftools
 pciutils
 usbutils
 hwinfo
+efibootmgr
+efingerd
+efitools
+efivar
 lzma
 gzip
 bzip2
@@ -31,6 +37,7 @@ mscompress
 ncompress
 p7zip-full
 xz-utils
+sqlite3
 screen
 chntpw
 traceroute

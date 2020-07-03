@@ -10,20 +10,13 @@ intel-microcode
 atmel-firmware
 bluez-firmware
 dahdi-firmware-nonfree
-
-#if DISTRIBUTION wheezy
 firmware-adi
 firmware-ralink
-#endif
-
-#if DISTRIBUTION jessie stretch
 firmware-misc-nonfree
 firmware-amd-graphics
-firmware-crystalhd
+#firmware-crystalhd
 firmware-zd1211
 sigrok-firmware-fx2lafw
-#endif
-
 firmware-atheros
 firmware-bnx2
 firmware-bnx2x
@@ -33,7 +26,6 @@ firmware-ipw2x00
 firmware-ivtv
 firmware-iwlwifi
 firmware-libertas
-#firmware-linux
 firmware-linux-free
 firmware-linux-nonfree
 firmware-myricom

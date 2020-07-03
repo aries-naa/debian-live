@@ -4,7 +4,6 @@ live-config
 aptitude
 acpid
 acpi-support
-#-base
 gpm
 isc-dhcp-client
 ethtool
@@ -19,8 +18,9 @@ policykit-1
 
 xserver-xorg
 xserver-xorg-core
+
 xserver-xorg-video-all
-xserver-xorg-video-ati
+xserver-xorg-input-all
 
 #if ARCHITECTURES i386
 xserver-xorg-video-geode
@@ -28,33 +28,34 @@ xserver-xorg-video-geode
 
 #xserver-xorg-video-glide
 xserver-xorg-video-modesetting
+xserver-xorg-video-ati
 xserver-xorg-video-qxl
 xserver-xorg-video-intel
-#xserver-xorg-video-cirrus
-xserver-xorg-video-mach64
 xserver-xorg-video-mga
 xserver-xorg-video-openchrome
-xserver-xorg-video-r128
 xserver-xorg-video-radeon
+#if DISTRIBUTION stretch buster
+xserver-xorg-video-cirrus
 xserver-xorg-video-savage
 xserver-xorg-video-siliconmotion
 xserver-xorg-video-sisusb
 xserver-xorg-video-tdfx
 xserver-xorg-video-trident
-xserver-xorg-input-all
-
-#if DISTRIBUTION wheezy jessie
-xserver-xorg-input-vmmouse
+xserver-xorg-video-mach64
+xserver-xorg-video-r128
 #endif
 
 xserver-xorg-input-mouse
-xserver-xorg-input-aiptek
 xserver-xorg-input-evdev
 xserver-xorg-input-joystick
 xserver-xorg-input-multitouch
-xserver-xorg-input-mutouch
 xserver-xorg-input-wacom
 xserver-xorg-input-synaptics
+
+#if DISTRIBUTION stretch buster
+xserver-xorg-input-aiptek
+xserver-xorg-input-mutouch
+#endif
 
 xinit
 xfonts-base
@@ -90,7 +91,7 @@ udhcpc
 cryptmount
 cryptsetup
 
-#if DISTRIBUTION wheezy jessie stretch
+#if DISTRIBUTION stretch
 ecryptfs-utils
 #endif
 

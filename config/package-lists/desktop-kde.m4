@@ -83,6 +83,3 @@ kdevelop-pg-qt
 kdevelop-python
 kdevelop-python-l10n
 plasma-kdevelop
-
-# konqueror
-konqueror

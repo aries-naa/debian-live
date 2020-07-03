@@ -1,8 +1,4 @@
-#if DISTRIBUTION wheezy
-sysvinit
-#endif
-
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 sysvinit-core
 #endif
 

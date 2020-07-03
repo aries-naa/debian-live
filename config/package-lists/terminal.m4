@@ -1,6 +1,6 @@
 rdesktop
 
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 freerdp-x11
 #endif
 
@@ -17,5 +17,4 @@ remmina-plugin-xdmcp
 virt-viewer
 
 # annex
-
 #icaclient

@@ -1,21 +1,26 @@
 # LB_TASK="gdata"
 
-#include(`init-sysv.m4')
+##include(`init-sysv.m4')
 include(`init-systemd.m4')
 
-include(`min.m4')
+include(`base.m4')
 include(`firmware.m4')
+include(`kde-min.m4')
 
-#firefox-esr
-#firefox-esr-l10n-all
-#chromium
-#chromium-l10n
-#chromium-sandbox
+dosfstools
+libreoffice
+libreoffice-l10n-ru
+libreoffice-help-ru
+libreoffice-style-breeze
+libreoffice-kde5
 
-#flashplayer-mozilla
-#flashplayer-chromium
+emacs
+emacs-goodies-el
+org-mode
+bbdb
+hyphen-ru
+emacs-gtk
 
-#google-earth-pro-stable
-#libgl1-mesa-dri
-#xdg-utils
-
+#elpa-markdown-mode
+#elpa-markdown-toc
+#markdown

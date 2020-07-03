@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+echo "I: efi boot"
+
+umask 022
+
+. ../config/binary
+if [ -f boot/grub/efi.img ]; then
+    mcopy -i boot/grub/efi.img ::boot/grub/grub.cfg g2.cfg
+    sed -i "s/--file \/live\/vmlinuz/--label ${LB_HDD_LABEL}/g" g2.cfg
+    mcopy -o -i boot/grub/efi.img g2.cfg ::boot/grub/grub.cfg
+    rm g2.cfg
+fi
+
+if [ -f boot/grub/live-theme/theme.txt ]; then
+    if [ -f boot/extlinux/splash.png ]; then
+        sed -i 's/desktop-image:.*/desktop-image: "\/boot\/extlinux\/splash.png"/g' boot/grub/live-theme/theme.txt
+    fi
+fi
+
+exit 0

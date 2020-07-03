@@ -2,14 +2,10 @@ debootstrap
 syslinux
 syslinux-common
 extlinux
-
-#if DISTRIBUTION jessie stretch buster
 syslinux-efi
 syslinux-utils
 isolinux
 pxelinux
-#endif
-
 ipxe
 ipxe-qemu
 live-manual-html
@@ -34,3 +30,4 @@ reprepro
 devscripts
 micro-httpd
 lighttpd
+markdown

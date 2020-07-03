@@ -21,7 +21,7 @@ audacious-plugins
 audacious-plugins-data
 mpg123
 
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 cdr2odg
 #endif
 

@@ -12,13 +12,7 @@ fonts-freefont-ttf
 fonts-liberation
 ttf-mscorefonts-installer
 
-#if DISTRIBUTION wheezy jessie
-fonts-droid
-#endif
-#if DISTRIBUTION stretch
 fonts-droid-fallback
-#endif
-
 openssh-client
 openssh-server
 zsh
@@ -27,8 +21,6 @@ x11-apps
 console-terminus
 menu
 menu-l10n
-#laptop-detect
-#laptop-mode-tools
 procps
 pm-utils
 hdparm
@@ -82,7 +74,7 @@ stunnel
 socat
 netcat-openbsd
 
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 snmptrapd
 #endif
 
@@ -98,6 +90,10 @@ ddccontrol
 logrotate
 vim-nox
 vim-doc
+efibootmgr
+efingerd
+efitools
+efivar
 
 # архивация.
 gzip
@@ -109,6 +105,7 @@ mscompress
 xz-utils
 sharutils
 sharutils-doc
+sqlite3
 
 # настройка сети.
 network-manager

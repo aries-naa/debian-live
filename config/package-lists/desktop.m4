@@ -23,11 +23,7 @@ libglu1-mesa
 gnucash
 gnucash-docs
 
-#if DISTRIBUTION wheezy
-emacs23-lucid
-#endif
-
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 hyphen-ru
 emacs24-lucid
 #endif
@@ -36,8 +32,10 @@ emacs24-lucid
 hyphen-ru
 emacs-gtk
 #endif
+elpa-markdown-mode
+elpa-markdown-toc
 
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 i3blocks
 openbox-menu
 #endif
@@ -49,6 +47,8 @@ xscreensaver-gl-extra
 libreoffice
 libreoffice-l10n-ru
 libreoffice-help-ru
+libreoffice-style-breeze
+libreoffice-kde5
 haskell-mode
 ocaml-mode
 js2-mode
@@ -76,15 +76,8 @@ tcllib
 sane
 sane-utils
 
-# дополнения для f >=60 либо не готовы,
-# либо не поддерживаются.
 firefox-esr
 firefox-esr-l10n-all
-#icedtea-plugin
-#xul-ext-adblock-plus
-#xul-ext-noscript
-#xul-ext-stylish
-#drweb-esuite-plugins
 
 thunderbird
 thunderbird-l10n-all
@@ -94,14 +87,12 @@ chromium-l10n
 #if DISTRIBUTION stretch
 chromium-widevine
 #endif
+
 #if DISTRIBUTION buster
 chromium-sandbox
 #endif
 
 # annex
-
-#flash-plugin
-#flash-player-ppapi
 flashplayer-mozilla
 flashplayer-chromium
 #libgtk2.0-0

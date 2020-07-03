@@ -2,15 +2,7 @@ xdg-utils
 libgl1-mesa-dri
 libgl1-mesa-glx
 
-#if DISTRIBUTION wheezy
-prboom
-#endif
-
-#if DISTRIBUTION jessie stretch
 prboom-plus
-#prboom-plus-game-server
-#endif
-
 freedoom
 glbsp
 deutex

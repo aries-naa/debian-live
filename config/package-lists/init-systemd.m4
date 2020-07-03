@@ -1,4 +1,4 @@
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch
 systemd-sysv
 #endif
 

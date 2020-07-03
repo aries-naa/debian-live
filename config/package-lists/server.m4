@@ -26,12 +26,7 @@ syslinux
 syslinux-common
 extlinux
 
-#if DISTRIBUTION wheezy
-nagios3
-nagios3-doc
-#endif
-
-#if DISTRIBUTION jessie stretch
+#if DISTRIBUTION stretch buster
 syslinux-efi
 syslinux-utils
 isolinux
@@ -40,11 +35,7 @@ icinga
 icinga-doc
 #endif
 
-#if DISTRIBUTION wheezy jessie
-libapache2-mod-php5
-#endif
-
-#if DISTRIBUTION stretch
+#if DISTRIBUTION stretch buster
 libapache2-mod-php7.0
 #endif
 

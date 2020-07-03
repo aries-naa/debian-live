@@ -13,7 +13,7 @@ if [ -w /etc/initramfs-tools/initramfs.conf ]; then
 # не будет работать persistence.
 MODULES=netboot
 MODULES=most
-BOOT=nfs
+BOOT=local
 NFSROOT=auto
 EOF
 

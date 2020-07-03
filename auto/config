@@ -19,7 +19,7 @@ lb config noauto \
         --memtest memtest86+ \
         --debian-installer false \
         --chroot-filesystem squashfs \
-        --bootloaders syslinux \
+        --bootloaders syslinux,grub-efi \
         --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
         --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
 "${@}"

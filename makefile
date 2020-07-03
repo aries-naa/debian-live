@@ -112,13 +112,8 @@ linux="-5.4.0-0.bpo.4"
 ifdef linux
     linux_packages="linux-image$(linux)"
 endif
-ifndef linux_packages
-    linux_packages="linux-image-4.19.98-noerror"
-endif
-#ifeq ($(architecture), i386)
-#	linux_flavours="686-pae"
-#else
-#	linux_flavours="$(architecture)"
+#ifndef linux_packages
+#    linux_packages="linux-image-4.19.98-noerror"
 #endif
 
 # live_volume

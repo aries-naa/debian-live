@@ -1,6 +1,6 @@
 plasma-desktop
 kwin-x11
-kde-l10n-ru
+#kde-l10n-ru
 
 # kde - обязательный набор.
 systemsettings
