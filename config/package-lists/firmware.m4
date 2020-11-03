@@ -14,7 +14,6 @@ firmware-adi
 firmware-ralink
 firmware-misc-nonfree
 firmware-amd-graphics
-#firmware-crystalhd
 firmware-zd1211
 sigrok-firmware-fx2lafw
 firmware-atheros

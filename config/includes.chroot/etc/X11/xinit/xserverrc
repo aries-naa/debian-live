@@ -1,0 +1,4 @@
+#!/bin/sh
+
+udevadm settle
+exec /usr/bin/X -nolisten tcp "$@"

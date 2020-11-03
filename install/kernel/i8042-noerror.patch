@@ -1,0 +1,11 @@
+diff -u -r linux-4.19.98.org/drivers/input/serio/i8042.c linux-4.19.98/drivers/input/serio/i8042.c
+--- linux-4.19.98.org/drivers/input/serio/i8042.c	2020-01-23 12:21:39.000000000 +0500
++++ linux-4.19.98/drivers/input/serio/i8042.c	2020-02-26 15:46:03.873642806 +0500
+@@ -254,6 +254,7 @@
+ 		udelay(50);
+ 		i++;
+ 	}
++	return 0;
+ 	return -(i == I8042_CTL_TIMEOUT);
+ }
+ 

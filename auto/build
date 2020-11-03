@@ -3,3 +3,10 @@
 set -e
 
 lb build noauto "${@}"
+
+if [ "${IMAGETYPE}" = "hdd" ]; then
+    if [ -f binary/boot/grub/efi.img ]; then
+	cat binary/boot/grub/efi.img >> ${IMAGENAME}.img
+	echo ",,U" | sfdisk -a -N 2 ${IMAGENAME}.img
+    fi
+fi

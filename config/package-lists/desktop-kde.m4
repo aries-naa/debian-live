@@ -51,6 +51,13 @@ gwenview
 krita
 krita-l10n
 
+konsole
+konsole-kpart
+
+kate
+
+partitionmanager
+
 # kde - игры.
 klickety
 kpat

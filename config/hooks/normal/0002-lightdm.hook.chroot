@@ -18,9 +18,8 @@ if [ -w /etc/lightdm/lightdm.conf ]; then
 	sed -i 's/#xsessions-directory=.*/xsessions-directory=\/usr\/share\/xsessions/g' /etc/lightdm/lightdm.conf
 	sed -i 's/#xgreeters-directory=.*/xgreeters-directory=\/usr\/share\/xgreeters/g' /etc/lightdm/lightdm.conf
 	sed -i 's/#autologin-guest=.*/autologin-guest=false/g' /etc/lightdm/lightdm.conf
-	
     fi
-
+    sed -i 's/#xserver-command=.*/xserver-command=\/etc\/X11\/xinit\/xserverrc/g' /etc/lightdm/lightdm.conf
 fi
 
 if [ -w /etc/lightdm/lightdm-gtk-greeter.conf ]; then

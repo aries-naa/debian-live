@@ -53,7 +53,6 @@ ifeq ($(mode), ubuntu)
 else
     areas=main contrib non-free
     repository=http://ftp.debian.org/debian
-#    linux_packages=linux-image-4.19.98-noerror
     linux_packages=linux-image
     linux_flavours=$(architecture)
 endif
@@ -88,17 +87,6 @@ ifndef repo
 	repo=inet
 endif
 
-#repository=$(repo)
-#ifeq ($(repo), net)
-#	repository="http://s75ocs01.chel.cbr.ru/debian"
-#endif
-#ifeq ($(repo), local)
-#	repository="http://localhost:8080"
-#endif
-#ifeq ($(repo), inet)
-#	repository="http://ftp.debian.org/debian"
-#endif
-
 # suffix - часть имени образа.
 ifdef suffix
     image_suffix=$(suffix)
@@ -107,14 +95,13 @@ else
 endif
 
 # linux - используемая версия ядра linux.
+linux="-5.9.1-noerror"
 #linux="-4.19.98-noerror"
-linux="-5.4.0-0.bpo.4"
+#linux="-5.4.0-0.bpo.4"
+#linux="-5.8.0-3"
 ifdef linux
     linux_packages="linux-image$(linux)"
 endif
-#ifndef linux_packages
-#    linux_packages="linux-image-4.19.98-noerror"
-#endif
 
 # live_volume
 live_volume=l$(shell date "+%Y%m%d%H%S")
@@ -183,7 +170,7 @@ net: image_type=netboot
 net: .build/binary_netboot
 
 .build/binary_iso .build/binary_netboot .build/binary_hdd: .build/config
-	@sudo LB_TASK="$(LB_TASK)" lb build
+	@sudo IMAGETYPE="$(image_type)" IMAGENAME="$(build_image_name)-$(image_suffix)-$(architecture)" LB_TASK="$(LB_TASK)" lb build
 	@sudo find binary -type d -exec chmod a+rx {} \;
 	@sudo find binary -type f -exec chmod a+r {} \;
 	@sudo chmod a+r $(build_image_name)-$(image_suffix)-$(architecture).*

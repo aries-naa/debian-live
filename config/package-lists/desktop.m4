@@ -34,6 +34,7 @@ emacs-gtk
 #endif
 elpa-markdown-mode
 elpa-markdown-toc
+markdown
 
 #if DISTRIBUTION stretch
 i3blocks

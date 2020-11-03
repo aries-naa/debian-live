@@ -1,10 +1,11 @@
 -*- mode: org -*-
-* TODO UEFI загрузка, возможно syslinux-uefi или один grub.
+* DONE UEFI загрузка, возможно syslinux-uefi или один grub.
+  CLOSED: [2020-11-03 Вт 08:44]
+* TODO exfat_dkms - проверить работу.
 * TODO chain.c32 + syslinux + загрузка Windows 10
-* TODO использование kmail
 * TODO хранение и управление паролями.
 * TODO KDE + bluetooth + bt-модем + bt-гарнитура.
-* TODO exfat_dkms - проверить работу.
+* TODO использование kmail
 * --- live: новая версия образов ---
 * TODO netboot server и netboot rescue
 * TODO jenkins + дополнения
