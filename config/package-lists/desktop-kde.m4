@@ -56,6 +56,8 @@ konsole-kpart
 
 kate
 
+kdeconnect
+
 partitionmanager
 
 # kde - игры.
@@ -83,7 +85,7 @@ kwalletcli
 libpam-kwallet5
 kgpg
 
-# kdevelop
+# kdevelop.
 kdevelop
 kdevelop-l10n
 kdevelop-pg-qt

@@ -66,6 +66,8 @@ endif
 annex_repo="deb http://localhost:8080 $(distribution) annex"
 google_repo="deb http://dl.google.com/linux/earth/deb/ stable main"
 multimedia_repo="deb http://www.deb-multimedia.org $(distribution) main non-free"
+virtbox_repo="deb https://download.virtualbox.org/virtualbox/debian $(distribution) contrib"
+anydesk_repo="deb http://deb.anydesk.com/ all main"
 
 overlay_fs=overlay
 ifeq ($(distribution), jessie)
@@ -95,7 +97,7 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-linux="-5.9.1-noerror"
+linux="-5.9.11-noerror"
 #linux="-4.19.98-noerror"
 #linux="-5.4.0-0.bpo.4"
 #linux="-5.8.0-3"
@@ -181,6 +183,8 @@ annex:
 	@echo $(annex_repo) > config/archives/annex.list.chroot
 	@echo $(google_repo) > config/archives/google-earth.list.chroot
 	@echo $(multimedia_repo) > config/archives/debian-multimedia.list.chroot
+	@echo $(virtbox_repo) > config/archives/virtbox.list.chroot
+#	@echo $(anydesk_repo) > config/archives/anydesk.list.chroot
 
 .build/config: annex
 	@m4 -I config/package-lists config/package-lists/task-$(build_image_name).m4 > config/package-lists/live.list.chroot

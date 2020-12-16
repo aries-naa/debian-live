@@ -20,8 +20,8 @@ lb config noauto \
         --debian-installer false \
         --chroot-filesystem squashfs \
         --bootloaders syslinux,grub-efi \
-        --aptitude-options "-o Acquire::AllowInsecureRepositories=true -y" \
-        --apt-options "-o Acquire::AllowInsecureRepositories=true -y" \
+        --aptitude-options "-o Acquire::AllowInsecureRepositories=true -o Acquire::https::Verify-Peer=g=false -o Acquire::https::Verify-Host=false -y" \
+        --apt-options "-o Acquire::AllowInsecureRepositories=true -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false -y" \
 "${@}"
 
 #--uefi-secure-boot enable \

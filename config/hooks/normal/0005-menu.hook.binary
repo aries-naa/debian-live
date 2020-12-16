@@ -48,6 +48,10 @@ if [ -w "${adv_config}" ]; then
 
 fi
 
+if [ -w boot/grub/grub.cfg ]; then
+    sed -i '1 i set timeout=30' boot/grub/grub.cfg
+fi
+
 #if [ -f "${boot_dir}/hdt.c32" ]; then
 #
 #    if [ -f /usr/lib/syslinux/modules/bios/libmenu.c32 ]; then
