@@ -1,0 +1,1 @@
+make EXTRAVERSION=-noerror-amd64 deb-pkg

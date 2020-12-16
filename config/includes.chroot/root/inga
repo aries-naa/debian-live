@@ -1,0 +1,3 @@
+#!/bin/sh
+
+useradd -m -d /home/inga -g users -G disk,dialout,cdrom,floppy,sudo,audio,video,kvm,plugdev -s /bin/zsh -c Солнышко -u 1001 inga
