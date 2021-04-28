@@ -97,7 +97,8 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-linux="-5.9.11-noerror"
+linux="-5.10.24-noerror"
+#linux="-5.9.11-noerror"
 #linux="-4.19.98-noerror"
 #linux="-5.4.0-0.bpo.4"
 #linux="-5.8.0-3"
@@ -145,7 +146,7 @@ desktop-iso desktop-net: LB_TASK ?= gdata esk
 server-iso server-hdd: image_name=server
 server-iso server-hdd: boot_append+=persistence persistence-label=srv-persistence 2
 server-iso server-hdd: boot_append_failsafe+=persistence persistence-label=srv-persistence 2
-server-iso server-hdd: LB_TASK ?= esk
+#server-iso server-hdd: LB_TASK ?= esk
 
 xen-iso xen-hdd: image_name=xen
 xen-iso xen-hdd: boot_append+=persistence  persistence-label=srv-persistence

@@ -218,7 +218,6 @@ esac
 # to whatever partition holds the /live/vmlinuz image, and load the grub
 # config from that same partition.
 # This is what the Ubuntu livecd already does.
-set > xxx_xxx_xxx
 mkdir -p ${_CHROOT_DIR}/grub-efi-temp-cfg
 cat >${_CHROOT_DIR}/grub-efi-temp-cfg/grub.cfg <<EOF
 search --set=root --file /live/vmlinuz

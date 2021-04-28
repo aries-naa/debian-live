@@ -62,6 +62,8 @@ xfonts-base
 xterm
 lightdm
 lightdm-gtk-greeter
+#sddm
+#sddm-theme-debian-breeze
 gnome-icon-theme
 
 #if DISTRIBUTION buster

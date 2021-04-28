@@ -17,3 +17,4 @@ xdg-utils
 
 viber
 #opera-stable
+anydesk
