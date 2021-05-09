@@ -9,6 +9,7 @@ ktorrent
 knotes
 bluedevil
 kppp
+kcalc
 
 kmail
 akonadi-server
