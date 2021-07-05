@@ -57,6 +57,7 @@ xserver-xorg-input-aiptek
 xserver-xorg-input-mutouch
 #endif
 
+xvfb
 xinit
 xfonts-base
 xterm

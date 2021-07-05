@@ -97,7 +97,7 @@ else
 endif
 
 # linux - используемая версия ядра linux.
-linux="-5.10.24-noerror"
+linux="-5.10.40-noerror"
 #linux="-5.9.11-noerror"
 #linux="-4.19.98-noerror"
 #linux="-5.4.0-0.bpo.4"

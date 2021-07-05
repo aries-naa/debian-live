@@ -5,9 +5,9 @@ suckless-tools
 xtightvncviewer
 xvnc4viewer
 openbox
-i3-wm
-i3lock
-i3status
+#i3-wm
+#i3lock
+#i3status
 fetchmail
 evince
 myspell-ru
@@ -37,7 +37,7 @@ elpa-markdown-toc
 markdown
 
 #if DISTRIBUTION stretch
-i3blocks
+#i3blocks
 openbox-menu
 #endif
 
@@ -64,8 +64,8 @@ wmctrl
 tint2
 lxrandr
 lxpolkit
-awesome
-awesome-extra
+#awesome
+#awesome-extra
 fbreader
 fbautostart
 fbpager
